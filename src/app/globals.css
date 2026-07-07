@@ -141,6 +141,53 @@ body {
   background-size: var(--space-20) var(--space-20);
 }
 
+/* Paper lift effect — martinwolf/codepen/GRaWPy (dual skewed bottom shadows, hover peel) */
+.paper-lift {
+  position: relative;
+  pointer-events: auto;
+}
+
+.paper-lift::before,
+.paper-lift::after {
+  content: "";
+  position: absolute;
+  bottom: 2.86%;
+  width: 40%;
+  height: 2.86%;
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: var(--paper-lift-shadow-rest);
+  transition:
+    box-shadow var(--duration-base) var(--easing-standard),
+    left var(--duration-base) var(--easing-standard),
+    right var(--duration-base) var(--easing-standard);
+}
+
+.paper-lift::before {
+  left: var(--paper-lift-inset-rest);
+  transform: skew(-5deg) rotate(-5deg);
+}
+
+.paper-lift::after {
+  right: var(--paper-lift-inset-rest);
+  transform: skew(5deg) rotate(5deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .paper-lift:hover::before,
+  .paper-lift:hover::after {
+    box-shadow: var(--paper-lift-shadow-hover);
+  }
+
+  .paper-lift:hover::before {
+    left: var(--paper-lift-inset-hover);
+  }
+
+  .paper-lift:hover::after {
+    right: var(--paper-lift-inset-hover);
+  }
+}
+
 /* Reduced-motion support — motion tokens collapse to zero */
 @media (prefers-reduced-motion: reduce) {
   *,

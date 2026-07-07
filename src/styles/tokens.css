@@ -129,6 +129,12 @@
   /* Effects — Figma effect styles bound in the design */
   --blur-sculpture: 27px; /* "sculpture-blur" foreground blur on marble image */
 
+  /* Paper lift (CodePen GRaWPy) — skewed bottom shadows on collage scraps */
+  --paper-lift-shadow-rest: 0 5px 14px color-mix(in srgb, var(--color-zinc-950) 70%, transparent);
+  --paper-lift-shadow-hover: 0 2px 14px color-mix(in srgb, var(--color-zinc-950) 40%, transparent);
+  --paper-lift-inset-rest: 3.75%;
+  --paper-lift-inset-hover: 1.25%;
+
   /* Component dimensions — authored frame metrics (width/313_33 is a
      Figma variable; the rest are component frame dimensions from the
      1440 master, exposed here so components never hardcode them). */

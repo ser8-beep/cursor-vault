@@ -3,6 +3,10 @@
 import { motion, type MotionValue, useTransform } from "motion/react";
 import { EASE_STANDARD, mapRange, SCROLL_FOLD } from "@/lib/motion/homePrototype";
 
+/** Figma ghost-cursor display scale (13:355). */
+const CURSOR_SCALE = 0.25;
+const CURSOR_SCALE_ENTER = CURSOR_SCALE * 0.92;
+
 type GhostCursorProps = {
   scrollProgress: MotionValue<number>;
   motionEnabled: boolean;
@@ -49,10 +53,14 @@ export function GhostCursor({
       aria-hidden="true"
       data-node-id="13:355"
       data-name="ghost-cursor"
-      className="pointer-events-none absolute z-[var(--z-40)] flex flex-col items-end gap-gap-sm"
+      className="pointer-events-none absolute z-[var(--z-40)] flex origin-top-right flex-col items-end gap-gap-sm"
       style={{ opacity: motionEnabled ? opacity : entranceVisible ? 1 : 0, left, top, translateY: "-50%" }}
-      initial={motionEnabled ? { opacity: 0, scale: 0.92 } : false}
-      animate={entranceVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
+      initial={motionEnabled ? { opacity: 0, scale: CURSOR_SCALE_ENTER } : false}
+      animate={
+        entranceVisible
+          ? { opacity: 1, scale: CURSOR_SCALE }
+          : { opacity: 0, scale: CURSOR_SCALE_ENTER }
+      }
       transition={{ duration: 0.4, ease: EASE_STANDARD }}
     >
       <div className="flex size-[var(--space-20)] items-center justify-center">
