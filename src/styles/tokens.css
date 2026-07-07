@@ -1,0 +1,316 @@
+/**
+ * Design tokens — generated from Figma Variable Collections
+ * File: Portfolio | AI Handoff (VibdutrclLgS5EpFWgbJhH)
+ *
+ * Collections mapped:
+ *   - Primitives / Primitive  → space, radius, weight, motion, z-index
+ *   - Typography (modes: Mobile | Tablet | Laptop | Desktop) → responsive type ramp
+ *   - Spacing                 → semantic space / gap / padding
+ *   - Layout  (modes: Mobile | Tablet | Laptop | Desktop) → breakpoints, grid, section rhythm
+ *   - Radius                  → semantic radii
+ *   - Color tokens bound in the design → zinc/*, blue/*, stone/*, color/*
+ *
+ * Responsive strategy: variables that carry per-mode values in Figma are
+ * re-declared inside media queries generated from the Layout collection's
+ * `breakpoint/canvas-width` values (390 / 768 / 1280 / 1440). Media queries
+ * cannot consume CSS custom properties, so the breakpoint literals below are
+ * the compiled output of those tokens — they are not hand-invented values.
+ */
+
+:root {
+  /* ------------------------------------------------------------------ */
+  /* Color — primitives bound in the design (zinc / blue / stone)        */
+  /* ------------------------------------------------------------------ */
+  --color-zinc-50: #fafafa;
+  --color-zinc-100: #f4f4f5;
+  --color-zinc-400: #a1a1aa;
+  --color-zinc-500: #71717a;
+  --color-zinc-600: #52525b;
+  --color-zinc-700: #3f3f46;
+  --color-zinc-950: #09090b;
+  --color-blue-700: #1d4ed8;
+  --color-blue-900: #1e3a8a;
+  --color-stone-100: #f5f5f4;
+  --color-main: #0a0a0a;             /* color/main   */
+  --color-hover: #666666;            /* color/hover  */
+  --color-canvas: #e5e3df;           /* home-template canvas fill */
+  --color-card-border: rgba(135, 135, 135, 0.4); /* cs-card border */
+
+  /* Semantic color roles (Semantic collection, Light mode) */
+  --color-text-primary: var(--color-zinc-950);
+  --color-text-secondary: var(--color-zinc-500);
+  --color-text-muted: var(--color-hover);
+  --color-text-link: var(--color-blue-700);
+  --color-surface: var(--color-zinc-100);
+  --color-border-default: var(--color-zinc-400);
+
+  /* ------------------------------------------------------------------ */
+  /* Font — Font collection: sans/display = Eurostile LT Std             */
+  /* Licensed font: served via local() when installed; token-owned       */
+  /* fallback stack keeps geometry close.                                */
+  /* ------------------------------------------------------------------ */
+  --font-display: "Eurostile LT Std", "Eurostile", "Square721", var(--font-geist-sans), system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, sans-serif; /* Rich text/Body: Geist */
+  --font-helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif; /* font family/Font 1 */
+
+  /* Weight primitives */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* ------------------------------------------------------------------ */
+  /* Spacing primitives (Primitives collection)                          */
+  /* ------------------------------------------------------------------ */
+  --space-0: 0px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-40: 40px;
+  --space-48: 48px;
+  --space-56: 56px;
+  --space-64: 64px;
+  --space-80: 80px;
+  --space-96: 96px;
+  --space-120: 120px;
+  --space-160: 160px;
+
+  /* Semantic spacing (Spacing collection) */
+  --space-2xs: var(--space-2);
+  --space-xs: var(--space-4);
+  --space-sm: var(--space-8);
+  --space-md: var(--space-16);
+  --space-lg: var(--space-24);
+  --space-xl: var(--space-32);
+  --space-2xl: var(--space-48);
+  --space-3xl: var(--space-64);
+  --space-4xl: var(--space-96);
+
+  --gap-xs: var(--space-4);
+  --gap-sm: var(--space-8);
+  --gap-md: var(--space-16);
+  --gap-lg: var(--space-24);
+  --gap-xl: var(--space-32);
+
+  --padding-card: 24px;
+  --padding-modal: 32px;
+  --padding-button-md-x: 16px;
+  --padding-button-md-y: 12px;
+
+  /* ------------------------------------------------------------------ */
+  /* Radius (Primitives + Radius collections)                            */
+  /* ------------------------------------------------------------------ */
+  --radius-0: 0px;
+  --radius-3: 3px;   /* radius/3 — bound on nav + get-in-touch cards */
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-full: 9999px;
+  --radius-sm: var(--radius-4);
+  --radius-md: var(--radius-8);
+  --radius-lg: var(--radius-12);
+
+  /* ------------------------------------------------------------------ */
+  /* Motion (Primitive collection)                                       */
+  /* ------------------------------------------------------------------ */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Effects — Figma effect styles bound in the design */
+  --blur-sculpture: 27px; /* "sculpture-blur" foreground blur on marble image */
+
+  /* Component dimensions — authored frame metrics (width/313_33 is a
+     Figma variable; the rest are component frame dimensions from the
+     1440 master, exposed here so components never hardcode them). */
+  --width-nav-card: 470px;
+  --width-resume-card: 313.33px; /* width/313_33 */
+  --width-nav-media: 204px;
+  --width-resume-media: 135px;
+  --width-contact-card: 566px;
+  --height-cs-card: 180px;
+  --width-cs-media: 355px;
+
+  /* Z-index (Primitive collection) */
+  --z-0: 0;
+  --z-10: 10;
+  --z-20: 20;
+  --z-30: 30;
+  --z-40: 40;
+  --z-50: 50;
+
+  /* ------------------------------------------------------------------ */
+  /* Line height & tracking (Typography collection, mode-invariant)      */
+  /* ------------------------------------------------------------------ */
+  --leading-tight: 1.1;    /* line-height/tight   110% */
+  --leading-normal: 1.5;   /* line-height/normal  150% */
+  --leading-relaxed: 1.65; /* line-height/relaxed 165% */
+  --leading-3: 24px;       /* leading/3 — hero subtitle */
+  --leading-8: 48px;       /* leading/8 — hero display  */
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0px;
+  --tracking-wider: 0.8px;   /* tracking/wider — hero subtitle */
+  --tracking-caption: 0.4px; /* caption tracking on 8px labels */
+  --tracking-tag: 0.6px;     /* cs-card tag tracking */
+  --caption-6pt: 1px;        /* caption-6pt — v2026.vault micro-label */
+
+  /* ------------------------------------------------------------------ */
+  /* Typography ramp — Typography collection, Mobile mode (390)          */
+  /* ------------------------------------------------------------------ */
+  --size-display-xl: 40px;
+  --size-display-l: 32px;
+  --size-display-m: 28px;
+  --size-heading-xl: 28px;
+  --size-heading-l: 24px;
+  --size-heading-m: 20px;
+  --size-heading-s: 18px;
+  --size-title: 18px;
+  --size-body-xl: 18px;
+  --size-body-l: 16px;
+  --size-body-m: 15px;
+  --size-body-s: 14px;
+  --size-label-l: 14px;
+  --size-label-m: 12px;
+  --size-label-s: 11px;
+  --size-caption: 12px;
+  --size-overline: 11px;
+  --size-button: 14px;
+  --size-code: 13px;
+  --size-base: 16px; /* size/base — hero subtitle */
+
+  /* Hero display size (size/4xl in the design = 36 @1440; scaled down    */
+  /* through the display-m ramp on smaller modes)                         */
+  --size-hero: var(--size-display-m);
+  --leading-hero: var(--leading-tight);
+
+  /* ------------------------------------------------------------------ */
+  /* Layout — Layout collection, Mobile mode                              */
+  /* ------------------------------------------------------------------ */
+  --grid-columns: 4;
+  --grid-gutter: 16px;
+  --grid-margin: 16px;
+  --layout-content-width: 358px;
+  --padding-section: 32px;
+  --padding-container: 16px;
+  --padding-hero: 48px;
+  --section-compact: 48px;
+  --section-default: 64px;
+  --section-large: 80px;
+  --section-hero: 96px;
+
+  /* Frame padding of home-template root (20px @1440, tightened below     */
+  /* Laptop via grid/margin)                                              */
+  --padding-canvas: var(--grid-margin);
+}
+
+/* ==== Tablet — Layout.breakpoint/canvas-width: 768 ==================== */
+@media (min-width: 768px) {
+  :root {
+    --size-display-xl: 48px;
+    --size-display-l: 40px;
+    --size-display-m: 32px;
+    --size-heading-xl: 32px;
+    --size-heading-l: 28px;
+    --size-heading-m: 22px;
+    --size-body-l: 16px;
+    --grid-columns: 8;
+    --grid-gutter: 16px;
+    --grid-margin: 32px;
+    --layout-content-width: 704px;
+    --padding-section: 48px;
+    --padding-container: 32px;
+    --padding-hero: 64px;
+    --section-compact: 56px;
+    --section-default: 80px;
+    --section-large: 96px;
+    --section-hero: 120px;
+  }
+}
+
+/* ==== Laptop — Layout.breakpoint/canvas-width: 1280 =================== */
+@media (min-width: 1280px) {
+  :root {
+    --size-display-xl: 56px;
+    --size-display-l: 48px;
+    --size-display-m: 36px;
+    --size-heading-xl: 36px;
+    --size-heading-l: 32px;
+    --size-heading-m: 24px;
+    --size-heading-s: 20px;
+    --size-body-m: 16px;
+    --grid-columns: 12;
+    --grid-gutter: 24px;
+    --grid-margin: 32px;
+    --layout-content-width: 1200px;
+    --padding-section: 64px;
+    --padding-container: 32px;
+    --padding-hero: 96px;
+    --section-compact: 64px;
+    --section-default: 96px;
+    --section-large: 120px;
+    --section-hero: 140px;
+    /* Hero reaches its authored desktop metrics from Laptop up */
+    --size-hero: 36px;          /* size/4xl */
+    --leading-hero: var(--leading-8);
+  }
+}
+
+/* ==== Desktop — Layout.breakpoint/canvas-width: 1440 ================== */
+@media (min-width: 1440px) {
+  :root {
+    --size-display-xl: 64px;
+    --size-display-l: 56px;
+    --size-display-m: 40px;
+    --size-heading-xl: 40px;
+    --size-heading-l: 36px;
+    --size-heading-m: 28px;
+    --size-heading-s: 22px;
+    --size-body-xl: 20px;
+    --size-body-l: 18px;
+    --size-label-m: 13px;
+    --size-label-s: 12px;
+    --size-button: 15px;
+    --size-code: 14px;
+    --grid-gutter: 24px;
+    --grid-margin: 80px;
+    --layout-content-width: 1280px;
+    --padding-section: 80px;
+    --padding-container: 80px;
+    --padding-hero: 120px;
+    --section-hero: 160px;
+    /* Root frame padding is authored at 20px on the 1440 frame */
+    --padding-canvas: 20px;
+    --size-hero: 36px;
+    --leading-hero: var(--leading-8);
+  }
+}
+
+/* Eurostile LT Std — licensed face. local() picks it up where installed. */
+@font-face {
+  font-family: "Eurostile LT Std";
+  src: local("Eurostile LT Std"), local("EurostileLTStd");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Eurostile LT Std";
+  src: local("Eurostile LT Std Bold Extended #2"), local("EurostileLTStd-BoldEx2"), local("Eurostile LT Std Bold Extended");
+  font-weight: 700;
+  font-stretch: expanded;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Eurostile LT Std";
+  src: local("Eurostile LT Std Extended #2"), local("EurostileLTStd-Ex2"), local("Eurostile LT Std Extended");
+  font-weight: 400;
+  font-stretch: expanded;
+  font-display: swap;
+}

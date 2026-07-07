@@ -1,26 +1,156 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/**
+ * Tailwind 4 theme mapping — every utility below resolves to a Figma
+ * variable declared in tokens.css. No raw design values here.
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Breakpoints — Layout.breakpoint/canvas-width */
+  --breakpoint-tablet: 768px;
+  --breakpoint-laptop: 1280px;
+  --breakpoint-desktop: 1440px;
+
+  /* Colors */
+  --color-*: initial;
+  --color-zinc-50: var(--color-zinc-50);
+  --color-zinc-100: var(--color-zinc-100);
+  --color-zinc-400: var(--color-zinc-400);
+  --color-zinc-500: var(--color-zinc-500);
+  --color-zinc-600: var(--color-zinc-600);
+  --color-zinc-700: var(--color-zinc-700);
+  --color-zinc-950: var(--color-zinc-950);
+  --color-blue-700: var(--color-blue-700);
+  --color-blue-900: var(--color-blue-900);
+  --color-stone-100: var(--color-stone-100);
+  --color-canvas: var(--color-canvas);
+  --color-main: var(--color-main);
+  --color-hover: var(--color-hover);
+  --color-card-border: var(--color-card-border);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-link: var(--color-text-link);
+  --color-surface: var(--color-surface);
+  --color-border-default: var(--color-border-default);
+
+  /* Fonts */
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-helvetica: var(--font-helvetica);
+
+  /* Spacing scale — token-driven */
+  --spacing-*: initial;
+  --spacing-0: var(--space-0);
+  --spacing-2xs: var(--space-2xs);
+  --spacing-xs: var(--space-xs);
+  --spacing-sm: var(--space-sm);
+  --spacing-md: var(--space-md);
+  --spacing-lg: var(--space-lg);
+  --spacing-xl: var(--space-xl);
+  --spacing-2xl: var(--space-2xl);
+  --spacing-3xl: var(--space-3xl);
+  --spacing-4xl: var(--space-4xl);
+  --spacing-gap-xs: var(--gap-xs);
+  --spacing-gap-sm: var(--gap-sm);
+  --spacing-gap-md: var(--gap-md);
+  --spacing-gap-lg: var(--gap-lg);
+  --spacing-gap-xl: var(--gap-xl);
+  --spacing-canvas: var(--padding-canvas);
+  --spacing-card: var(--padding-card);
+  --spacing-section: var(--padding-section);
+  --spacing-container: var(--padding-container);
+  --spacing-hero: var(--padding-hero);
+  --spacing-section-compact: var(--section-compact);
+  --spacing-section-default: var(--section-default);
+  --spacing-section-large: var(--section-large);
+  --spacing-section-hero: var(--section-hero);
+
+  /* Radii */
+  --radius-*: initial;
+  --radius-3: var(--radius-3);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-full: var(--radius-full);
+
+  /* Type sizes — responsive via tokens.css media queries */
+  --text-*: initial;
+  --text-display-xl: var(--size-display-xl);
+  --text-display-l: var(--size-display-l);
+  --text-display-m: var(--size-display-m);
+  --text-heading-xl: var(--size-heading-xl);
+  --text-heading-l: var(--size-heading-l);
+  --text-heading-m: var(--size-heading-m);
+  --text-heading-s: var(--size-heading-s);
+  --text-title: var(--size-title);
+  --text-body-xl: var(--size-body-xl);
+  --text-body-l: var(--size-body-l);
+  --text-body-m: var(--size-body-m);
+  --text-body-s: var(--size-body-s);
+  --text-label-l: var(--size-label-l);
+  --text-label-m: var(--size-label-m);
+  --text-label-s: var(--size-label-s);
+  --text-caption: var(--size-caption);
+  --text-overline: var(--size-overline);
+  --text-button: var(--size-button);
+  --text-code: var(--size-code);
+  --text-base: var(--size-base);
+  --text-hero: var(--size-hero);
+
+  /* Tracking */
+  --tracking-*: initial;
+  --tracking-tight: var(--tracking-tight);
+  --tracking-normal: var(--tracking-normal);
+  --tracking-wider: var(--tracking-wider);
+  --tracking-caption: var(--tracking-caption);
+  --tracking-tag: var(--tracking-tag);
+  --tracking-micro: var(--caption-6pt);
+
+  /* Leading */
+  --leading-*: initial;
+  --leading-tight: var(--leading-tight);
+  --leading-normal: var(--leading-normal);
+  --leading-relaxed: var(--leading-relaxed);
+  --leading-3: var(--leading-3);
+  --leading-8: var(--leading-8);
+  --leading-hero: var(--leading-hero);
+
+  /* Motion */
+  --ease-standard: var(--easing-standard);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-canvas);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+/* Dot-grid pattern overlay — translation of the Figma PATTERN fill
+   (linear-burn, 60% opacity, ~20px rectangular tile) on the canvas frame. */
+.canvas-pattern {
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--color-zinc-400) 60%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: var(--space-20) var(--space-20);
+}
+
+/* Reduced-motion support — motion tokens collapse to zero */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
