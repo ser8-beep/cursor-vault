@@ -1,0 +1,57 @@
+{
+  "description": "Figma component → React implementation mapping for cursor-vault",
+  "components": [
+    {
+      "figma": "header-1440",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/header.tsx",
+      "tokens": ["--nav-background-default", "--nav-background-splash", "--nav-text"]
+    },
+    {
+      "figma": "cs-card-1440-v2",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/project-carousel.tsx",
+      "tokens": ["--card-background-default", "--card-background-hover", "--card-border"]
+    },
+    {
+      "figma": "psuedo-footer-1440",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/pseudo-footer.tsx",
+      "tokens": ["--footer-background", "--footer-text"]
+    },
+    {
+      "figma": "ghost-cursor",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/ghost-cursor.tsx",
+      "tokens": [],
+      "note": "Illustration — not token-bound"
+    },
+    {
+      "figma": "notes",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes-section.tsx",
+      "tokens": [],
+      "note": "Illustration collage — not token-bound"
+    },
+    {
+      "figma": "carousel-1440",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/project-carousel.tsx",
+      "tokens": [],
+      "note": "Layout frame — instances inherit cs-card tokens"
+    },
+    {
+      "figma": "maternity | erp | insurance | iot",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/constants.ts → PROJECTS",
+      "tokens": [],
+      "note": "Case study art — image assets only"
+    }
+  ],
+  "pages": {
+    "home": {
+      "figma": "08 Desktop (final screens)",
+      "react": "src/components/portfolio/home-page.tsx"
+    }
+  }
+}

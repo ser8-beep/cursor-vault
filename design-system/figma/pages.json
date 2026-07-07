@@ -1,0 +1,18 @@
+{
+  "pages": [
+    { "id": "00", "name": "Cover", "purpose": "Project metadata, version, links, roadmap" },
+    { "id": "01", "name": "Documentation", "purpose": "Product overview, IA, UX/UI principles, AI dev notes" },
+    { "id": "02", "name": "Foundations", "purpose": "Colour, typography, spacing, grid, elevation — variable-bound swatches" },
+    { "id": "03", "name": "Tokens", "purpose": "Primitive/Semantic/Component/Theme tables with CSS + Tailwind mappings" },
+    { "id": "04", "name": "Assets", "purpose": "Logos, icons, illustrations, photography metadata" },
+    { "id": "05", "name": "Components", "purpose": "Portfolio components — cs-card, header, footer, notes, ghost-cursor" },
+    { "id": "06", "name": "Patterns", "purpose": "Reusable UI patterns (hero, grids, forms, CTA)" },
+    { "id": "07", "name": "Templates", "purpose": "Page templates (home, case study, contact, 404)" },
+    { "id": "08", "name": "Desktop", "purpose": "Desktop breakpoint screens — do not mix breakpoints" },
+    { "id": "09", "name": "Tablet", "purpose": "Tablet breakpoint screens" },
+    { "id": "10", "name": "Mobile", "purpose": "Mobile breakpoint screens" },
+    { "id": "11", "name": "Prototypes", "purpose": "Flows, micro-interactions, motion docs" },
+    { "id": "12", "name": "Developer Handoff", "purpose": "Implementation notes, component mapping, a11y checklist" },
+    { "id": "13", "name": "Archive", "purpose": "Deprecated explorations — never delete" }
+  ]
+}

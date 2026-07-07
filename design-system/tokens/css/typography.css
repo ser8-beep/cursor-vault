@@ -1,0 +1,114 @@
+/* Typography — responsive font sizes */
+:root {
+  --font-size-body-l: [object Object];
+  --font-size-body-m: [object Object];
+  --font-size-body-s: [object Object];
+  --font-size-body-xl: [object Object];
+  --font-size-button: [object Object];
+  --font-size-caption: [object Object];
+  --font-size-code: [object Object];
+  --font-size-display-l: [object Object];
+  --font-size-display-m: [object Object];
+  --font-size-display-xl: [object Object];
+  --font-size-heading-l: [object Object];
+  --font-size-heading-m: [object Object];
+  --font-size-heading-s: [object Object];
+  --font-size-heading-xl: [object Object];
+  --font-size-label-l: [object Object];
+  --font-size-label-m: [object Object];
+  --font-size-label-s: [object Object];
+  --font-size-overline: [object Object];
+  --font-size-title: [object Object];
+  --line-height-normal: [object Object];
+  --line-height-relaxed: [object Object];
+  --line-height-tight: [object Object];
+  --tracking-tight: [object Object];
+  --tracking-wide: [object Object];
+}
+
+@media (min-width: 768px) {
+  :root {
+    --font-size-body-l: [object Object];
+    --font-size-body-m: [object Object];
+    --font-size-body-s: [object Object];
+    --font-size-body-xl: [object Object];
+    --font-size-button: [object Object];
+    --font-size-caption: [object Object];
+    --font-size-code: [object Object];
+    --font-size-display-l: [object Object];
+    --font-size-display-m: [object Object];
+    --font-size-display-xl: [object Object];
+    --font-size-heading-l: [object Object];
+    --font-size-heading-m: [object Object];
+    --font-size-heading-s: [object Object];
+    --font-size-heading-xl: [object Object];
+    --font-size-label-l: [object Object];
+    --font-size-label-m: [object Object];
+    --font-size-label-s: [object Object];
+    --font-size-overline: [object Object];
+    --font-size-title: [object Object];
+    --line-height-normal: [object Object];
+    --line-height-relaxed: [object Object];
+    --line-height-tight: [object Object];
+    --tracking-tight: [object Object];
+    --tracking-wide: [object Object];
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --font-size-body-l: [object Object];
+    --font-size-body-m: [object Object];
+    --font-size-body-s: [object Object];
+    --font-size-body-xl: [object Object];
+    --font-size-button: [object Object];
+    --font-size-caption: [object Object];
+    --font-size-code: [object Object];
+    --font-size-display-l: [object Object];
+    --font-size-display-m: [object Object];
+    --font-size-display-xl: [object Object];
+    --font-size-heading-l: [object Object];
+    --font-size-heading-m: [object Object];
+    --font-size-heading-s: [object Object];
+    --font-size-heading-xl: [object Object];
+    --font-size-label-l: [object Object];
+    --font-size-label-m: [object Object];
+    --font-size-label-s: [object Object];
+    --font-size-overline: [object Object];
+    --font-size-title: [object Object];
+    --line-height-normal: [object Object];
+    --line-height-relaxed: [object Object];
+    --line-height-tight: [object Object];
+    --tracking-tight: [object Object];
+    --tracking-wide: [object Object];
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --font-size-body-l: [object Object];
+    --font-size-body-m: [object Object];
+    --font-size-body-s: [object Object];
+    --font-size-body-xl: [object Object];
+    --font-size-button: [object Object];
+    --font-size-caption: [object Object];
+    --font-size-code: [object Object];
+    --font-size-display-l: [object Object];
+    --font-size-display-m: [object Object];
+    --font-size-display-xl: [object Object];
+    --font-size-heading-l: [object Object];
+    --font-size-heading-m: [object Object];
+    --font-size-heading-s: [object Object];
+    --font-size-heading-xl: [object Object];
+    --font-size-label-l: [object Object];
+    --font-size-label-m: [object Object];
+    --font-size-label-s: [object Object];
+    --font-size-overline: [object Object];
+    --font-size-title: [object Object];
+    --line-height-normal: [object Object];
+    --line-height-relaxed: [object Object];
+    --line-height-tight: [object Object];
+    --tracking-tight: [object Object];
+    --tracking-wide: [object Object];
+  }
+}

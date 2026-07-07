@@ -1,0 +1,82 @@
+/* Layout — responsive grid & spacing */
+:root {
+  --breakpoint-canvas-width: [object Object];
+  --grid-columns: [object Object];
+  --grid-container-width: [object Object];
+  --grid-gutter: [object Object];
+  --grid-margin: [object Object];
+  --grid-max-width: [object Object];
+  --layout-content-width: [object Object];
+  --layout-section-width: [object Object];
+  --layout-sidebar-width: [object Object];
+  --padding-container: [object Object];
+  --padding-hero: [object Object];
+  --padding-section: [object Object];
+  --section-compact: [object Object];
+  --section-default: [object Object];
+  --section-hero: [object Object];
+  --section-large: [object Object];
+}
+
+@media (min-width: 768px) {
+  :root {
+    --breakpoint-canvas-width: [object Object];
+    --grid-columns: [object Object];
+    --grid-container-width: [object Object];
+    --grid-gutter: [object Object];
+    --grid-margin: [object Object];
+    --grid-max-width: [object Object];
+    --layout-content-width: [object Object];
+    --layout-section-width: [object Object];
+    --layout-sidebar-width: [object Object];
+    --padding-container: [object Object];
+    --padding-hero: [object Object];
+    --padding-section: [object Object];
+    --section-compact: [object Object];
+    --section-default: [object Object];
+    --section-hero: [object Object];
+    --section-large: [object Object];
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --breakpoint-canvas-width: [object Object];
+    --grid-columns: [object Object];
+    --grid-container-width: [object Object];
+    --grid-gutter: [object Object];
+    --grid-margin: [object Object];
+    --grid-max-width: [object Object];
+    --layout-content-width: [object Object];
+    --layout-section-width: [object Object];
+    --layout-sidebar-width: [object Object];
+    --padding-container: [object Object];
+    --padding-hero: [object Object];
+    --padding-section: [object Object];
+    --section-compact: [object Object];
+    --section-default: [object Object];
+    --section-hero: [object Object];
+    --section-large: [object Object];
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --breakpoint-canvas-width: [object Object];
+    --grid-columns: [object Object];
+    --grid-container-width: [object Object];
+    --grid-gutter: [object Object];
+    --grid-margin: [object Object];
+    --grid-max-width: [object Object];
+    --layout-content-width: [object Object];
+    --layout-section-width: [object Object];
+    --layout-sidebar-width: [object Object];
+    --padding-container: [object Object];
+    --padding-hero: [object Object];
+    --padding-section: [object Object];
+    --section-compact: [object Object];
+    --section-default: [object Object];
+    --section-hero: [object Object];
+    --section-large: [object Object];
+  }
+}

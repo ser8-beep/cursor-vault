@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "tokens:generate": "node design-system/tokens/scripts/generate.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.42.2",

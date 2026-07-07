@@ -1,0 +1,18 @@
+/* Theme presentation tokens */
+:root {
+  --theme-surface-page: #ffffff;
+  --theme-surface-elevated: #f8fafc;
+  --theme-brand-primary: #4f46e5;
+  --theme-brand-primary-foreground: #ffffff;
+  --theme-interactive-focus-ring: #6366f1;
+  --theme-interactive-link: #4f46e5;
+}
+
+[data-theme="dark"], .dark {
+  --theme-surface-page: #ffffff;
+  --theme-surface-elevated: #f8fafc;
+  --theme-brand-primary: #4f46e5;
+  --theme-brand-primary-foreground: #ffffff;
+  --theme-interactive-focus-ring: #6366f1;
+  --theme-interactive-link: #4f46e5;
+}

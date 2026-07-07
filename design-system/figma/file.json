@@ -1,0 +1,45 @@
+{
+  "fileKey": "VibdutrclLgS5EpFWgbJhH",
+  "fileName": "Portfolio | AI Handoff",
+  "figmaUrl": "https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH",
+  "publicAccess": "view-only on web",
+  "planNote": "Pro plan — variables publish to Community only, not team library. Code handoff uses exported tokens in design-system/tokens/.",
+  "collections": {
+    "Primitive": {
+      "modes": ["Default"],
+      "count": 71,
+      "purpose": "Raw values — do not use directly in UI",
+      "codeExport": "design-system/tokens/css/primitive.css"
+    },
+    "Semantic": {
+      "modes": ["Light", "Dark"],
+      "count": 34,
+      "purpose": "Meaning-based tokens (background, text, border, action, status)",
+      "codeExport": "design-system/tokens/css/semantic.css"
+    },
+    "Component": {
+      "modes": ["Default"],
+      "count": 25,
+      "purpose": "Component-specific tokens (button, card, nav, footer, input)",
+      "codeExport": "design-system/tokens/css/component.css"
+    },
+    "Theme": {
+      "modes": ["Light", "Dark"],
+      "count": 6,
+      "purpose": "Brand and surface presentation",
+      "codeExport": "design-system/tokens/css/theme.css"
+    }
+  },
+  "legacyCollections": {
+    "Typography": { "modes": ["Mobile", "Tablet", "Laptop", "Desktop"], "count": 24 },
+    "Layout": { "modes": ["Mobile", "Tablet", "Laptop", "Desktop"], "count": 16 },
+    "Spacing": { "modes": ["Value"], "count": 31 },
+    "Radius": { "modes": ["Value"], "count": 6 },
+    "Font": { "modes": ["Value"], "count": 2 },
+    "Primitives": { "modes": ["Value"], "count": 29, "note": "Legacy — superseded by Primitive collection" }
+  },
+  "workflows": {
+    "reExportTokens": "Figma MCP use_figma → update design-system/tokens/tokens.json → npm run tokens:generate",
+    "codeConnect": "Requires Org/Enterprise + published team library — not available on current Pro plan"
+  }
+}
