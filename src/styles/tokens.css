@@ -31,6 +31,7 @@
   --color-blue-700: #1d4ed8;
   --color-blue-900: #1e3a8a;
   --color-stone-100: #f5f5f4;
+  --color-stone-200: #e7e5e4;
   --color-main: #0a0a0a;             /* color/main   */
   --color-hover: #666666;            /* color/hover  */
   --color-canvas: #e5e3df;           /* home-template canvas fill */
@@ -138,6 +139,9 @@
   --width-contact-card: 566px;
   --height-cs-card: 180px;
   --width-cs-media: 355px;
+  --height-notes-stage: 850px; /* notes frame @1440 */
+  --width-notes-stage: 1440px;
+  --font-notes: var(--font-geist-mono), "Source Code Pro", ui-monospace, monospace;
 
   /* Z-index (Primitive collection) */
   --z-0: 0;

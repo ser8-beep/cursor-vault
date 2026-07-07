@@ -1,8 +1,8 @@
 export const FIGMA_FILE = {
-  key: "VibdutrclLgS5EpFWgbJhH",
-  name: "Portfolio | AI Handoff",
-  url: "https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff",
-  desktopPageNodeId: "2:9",
+  key: "IQl6MQ8tghphWHPfZpwiNE",
+  name: "Shivani UI/UX Portfolio",
+  url: "https://www.figma.com/design/IQl6MQ8tghphWHPfZpwiNE/Shivani-UI-UX-Portfolio",
+  desktopPageNodeId: "2034:15701",
 } as const;
 
 export type HandoffStatus = "implemented" | "stub" | "pending";
@@ -59,9 +59,9 @@ export const COMPONENT_HANDOFFS: ComponentHandoff[] = [
   },
   {
     figmaName: "notes (data stories)",
-    figmaNodeId: "13:385",
+    figmaNodeId: "2034:15700",
     codePath: "src/components/DataStoriesSection.tsx",
-    status: "stub",
+    status: "implemented",
     localhostPath: "/#data-stories",
   },
   {
@@ -91,4 +91,12 @@ export const ASSET_MANIFEST = [
   "/figma/cs-insurance.png",
   "/figma/cs-maternity.png",
   "/figma/cs-erp.png",
+  "/figma/notes/botanical.png",
+  "/figma/notes/discourse-tape.png",
+  "/figma/notes/paperclip.png",
+  "/figma/notes/peace-paper.png",
+  "/figma/notes/polaroid-base.png",
+  "/figma/notes/polaroid-photo.png",
+  "/figma/notes/portrait-frame.png",
+  "/figma/notes/sculpture-figure.png",
 ] as const;
