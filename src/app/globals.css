@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #e5e3df;
+  --foreground: #09090b;
+  --accent: #1d4ed8;
+  --accent-bright: #003dff;
+  --surface: #f4f4f5;
+  --muted: #71717a;
+  --border: #a1a1aa;
+  --space-fluid: clamp(1rem, 3vw, 1.5rem);
+  --text-hero: clamp(1.75rem, 6vw, 2.5rem);
+  --text-display: clamp(2rem, 7vw, 2.5rem);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent: var(--accent);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-mono), "Helvetica Neue", monospace;
+}
+
+.font-display {
+  font-family: var(--font-display), "Chakra Petch", sans-serif;
+  font-stretch: expanded;
+}
+
+.font-mono {
+  font-family: var(--font-mono), "IBM Plex Mono", monospace;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 24%, white);
+  color: var(--foreground);
 }

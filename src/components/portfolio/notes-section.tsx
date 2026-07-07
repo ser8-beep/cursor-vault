@@ -49,32 +49,30 @@ export function NotesSection() {
           </div>
         </div>
 
-        {/* Polaroid — center */}
-        <div className="absolute left-[347px] top-[357px]">
-          <div className="absolute left-1/2 top-1/2 h-[492px] w-[351px] -translate-x-1/2 -translate-y-1/2">
-            <Image
-              src={ASSETS.notePolaroidBase}
-              alt=""
-              fill
-              unoptimized
-              className="object-cover"
-            />
-          </div>
-          <div className="absolute left-[358px] top-[381px] size-[324px]">
-            <Image
-              src={ASSETS.notePolaroidPhoto}
-              alt=""
-              fill
-              unoptimized
-              className="object-cover"
-            />
-          </div>
-          <p className="absolute left-[calc(50%-36px)] top-[calc(50%+318px)] w-[338px] -translate-x-full text-right font-mono text-[17px] font-extralight lowercase tracking-[1.5px] text-[#1d4ed8]">
-            Aging like a fine meme.
-            <br />
-            Happy birthday, Tyler!
-          </p>
+        {/* Polaroid — positioned on notes canvas (Figma coords) */}
+        <div className="absolute left-[calc(50%-197.62px)] top-[calc(50%+177.91px)] h-[492px] w-[351px] -translate-x-1/2 -translate-y-1/2">
+          <Image
+            src={ASSETS.notePolaroidBase}
+            alt=""
+            fill
+            unoptimized
+            className="object-cover"
+          />
         </div>
+        <div className="absolute left-[358px] top-[381px] size-[325px]">
+          <Image
+            src={ASSETS.notePolaroidPhoto}
+            alt=""
+            fill
+            unoptimized
+            className="object-cover"
+          />
+        </div>
+        <p className="absolute left-[calc(50%-36px)] top-[calc(50%+318px)] w-[338px] -translate-x-full text-right font-mono text-[17px] font-extralight lowercase tracking-[1.5px] text-[#1d4ed8]">
+          Aging like a fine meme.
+          <br />
+          Happy birthday, Tyler!
+        </p>
 
         {/* Peace of mind note — right */}
         <div className="absolute left-[calc(50%+272px)] top-[382px] h-[337px] w-[460px] -translate-x-1/2 max-lg:left-[calc(50%+120px)] max-md:hidden">
