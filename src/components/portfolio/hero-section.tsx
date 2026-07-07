@@ -139,7 +139,7 @@ export function HeroSection({
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
                 <p className="font-display text-[clamp(1.75rem,5vw,2.25rem)] uppercase leading-none text-[#1d4ed8]">
-                  {phraseIndex === 0 ? "-|" : CYCLING_PHRASES[phraseIndex]}
+                  {CYCLING_PHRASES[phraseIndex]}
                 </p>
               </motion.div>
             )}
