@@ -4,3 +4,5 @@ export { ContactBar } from "./ContactBar";
 export { CaseStudyCarousel } from "./CaseStudyCarousel";
 export { CaseStudyCard } from "./CaseStudyCard";
 export { DataStoriesSection } from "./DataStoriesSection";
+export { GhostCursor } from "./GhostCursor";
+export { HomeScrollExperience } from "./HomeScrollExperience";

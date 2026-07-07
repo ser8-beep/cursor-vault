@@ -1,19 +1,13 @@
-import { SiteHeader, Hero, ContactBar, CaseStudyCarousel, DataStoriesSection } from "@/components";
+import { HomeScrollExperience } from "@/components";
 
 /**
- * home-template — first fold (header / splash / pseudo-footer fills the
- * viewport) followed by the case-study carousel.
+ * home-template — first fold entrance + scroll-linked second fold
+ * (Figma frames 13:32063 → 13:32102).
  */
 export default function Home() {
   return (
-    <div className="canvas-pattern flex min-h-screen flex-col gap-gap-md p-canvas overflow-x-clip">
-      <div className="flex min-h-[calc(100svh-var(--padding-canvas)*2)] flex-col justify-between gap-gap-lg">
-        <SiteHeader />
-        <Hero />
-        <ContactBar />
-      </div>
-      <CaseStudyCarousel />
-      <DataStoriesSection />
+    <div className="canvas-pattern min-h-screen overflow-x-clip">
+      <HomeScrollExperience />
     </div>
   );
 }

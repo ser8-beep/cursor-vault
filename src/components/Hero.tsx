@@ -1,28 +1,91 @@
+"use client";
+
 import Image from "next/image";
+import { motion, type MotionValue, useMotionTemplate, useTransform } from "motion/react";
+import { ENTRANCE, EASE_STANDARD, mapRange, SCROLL_FOLD } from "@/lib/motion/homePrototype";
+
+type HeroProps = {
+  scrollProgress: MotionValue<number>;
+  motionEnabled: boolean;
+  entranceSculptureSharp: boolean;
+};
+
+const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur effect */
 
 /**
- * splash-organism — hero display line split around a blurred marble
- * sculpture.
- *
- * Desktop/Laptop: single row — "BUILDING SYSTEMS" left, "THAT MAKE SENSE"
- * right, sculpture centered behind, subtitle under the left segment.
- * Tablet/Mobile: the two display segments stack (left-aligned, then
- * right-aligned) so the line keeps its reading order and asymmetry
- * instead of shrinking; sculpture sits behind at reduced scale.
+ * splash-organism — Figma 13:509. Motion frames 13:32063, 13:32094, 13:32102.
+ * TODO: 13:32059 splash typewriter (.....| / PR / -|) — prototype starts at footer-enter; skipped.
  */
-export function Hero() {
+export function Hero({ scrollProgress, motionEnabled, entranceSculptureSharp }: HeroProps) {
+  const textOpacity = useTransform(scrollProgress, (p) => {
+    if (!motionEnabled) return 1;
+    if (p < SCROLL_FOLD.textHideStart) return 1;
+    if (p < SCROLL_FOLD.textHideEnd) {
+      return 1 - mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.textHideEnd);
+    }
+    if (p < SCROLL_FOLD.textReturnStart) return 0;
+    if (p < SCROLL_FOLD.textReturnEnd) {
+      return mapRange(p, SCROLL_FOLD.textReturnStart, SCROLL_FOLD.textReturnEnd);
+    }
+    return 1;
+  });
+
+  const sculptureBlurPx = useTransform(() => {
+    if (!entranceSculptureSharp) return SCULPTURE_BLUR_PX;
+    const p = scrollProgress.get();
+    if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return 0;
+    return SCULPTURE_BLUR_PX;
+  });
+
+  const sculptureFilter = useMotionTemplate`blur(${sculptureBlurPx}px)`;
+
+  const sculptureLeft = useTransform(scrollProgress, (p) => {
+    if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return "52%";
+    return `${mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.sculptureMorphEnd, 52, 68)}%`;
+  });
+
+  const sculptureTranslateY = useTransform(scrollProgress, (p) => {
+    if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return "-46%";
+    return `${mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.sculptureMorphEnd, -46, -38)}%`;
+  });
+
+  const sculptureScale = useTransform(scrollProgress, (p) => {
+    if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return 1;
+    return mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.sculptureMorphEnd, 1, 1.14);
+  });
+
+  const restingBlur = entranceSculptureSharp ? "blur(0px)" : `blur(${SCULPTURE_BLUR_PX}px)`;
+
   return (
     <section
       aria-label="Introduction"
+      data-node-id="13:509"
+      data-name="splash-organism"
       className="relative flex flex-1 w-full min-h-[calc(var(--section-hero)*3)] items-center overflow-visible"
     >
-      {/* sculpture-position — crop geometry mirrors the Figma frame
-          (366×782 window, image at 180.67%/113.3%, offset -70.44%/-13.25%).
-          The 27px "sculpture-blur" effect belongs to the splash-enter
-          animation keyframe, so the resting state renders sharp. */}
-      <div
+      <motion.div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 laptop:left-[52%] top-1/2 z-0 laptop:z-20 -translate-x-1/2 -translate-y-[46%] h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)] aspect-[366/782] overflow-hidden"
+        className="pointer-events-none absolute top-1/2 z-0 laptop:z-20 aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
+        style={
+          motionEnabled
+            ? {
+                filter: sculptureFilter,
+                left: sculptureLeft,
+                translateY: sculptureTranslateY,
+                scale: sculptureScale,
+              }
+            : { filter: restingBlur, left: "52%", translateY: "-46%" }
+        }
+        data-name="sculpture-position-blur"
+        initial={false}
+        animate={
+          motionEnabled
+            ? entranceSculptureSharp
+              ? { filter: "blur(0px)" }
+              : { filter: `blur(${SCULPTURE_BLUR_PX}px)` }
+            : undefined
+        }
+        transition={{ duration: ENTRANCE.sculptureBlur.duration, ease: EASE_STANDARD }}
       >
         <Image
           src="/figma/sculpture.png"
@@ -32,11 +95,15 @@ export function Hero() {
           priority
           sizes="(min-width: 1280px) 662px, 55vw"
           className="absolute max-w-none w-[180.67%] h-[113.3%] left-[-70.44%] top-[-13.25%] object-cover"
+          data-name="marble-designing-systems"
         />
-      </div>
+      </motion.div>
 
-      {/* text-animation-molecule */}
-      <div className="relative z-10 laptop:z-0 flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between">
+      <motion.div
+        className="relative z-10 laptop:z-0 flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between"
+        style={{ opacity: motionEnabled ? textOpacity : 1 }}
+        data-name="text-animation-molecule"
+      >
         <div className="flex flex-col gap-gap-sm laptop:gap-[var(--space-12)]">
           <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-[var(--leading-hero)] tracking-normal text-text-primary laptop:whitespace-nowrap">
             Building <span className="text-text-link">systems</span>
@@ -51,9 +118,8 @@ export function Hero() {
         >
           That make sense
         </p>
-        {/* Full sentence for assistive tech; visual line is split above */}
         <span className="sr-only">Building systems that make sense</span>
-      </div>
+      </motion.div>
     </section>
   );
 }

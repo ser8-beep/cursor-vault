@@ -67,8 +67,9 @@ export const COMPONENT_HANDOFFS: ComponentHandoff[] = [
   {
     figmaName: "ghost-cursor",
     figmaNodeId: "13:355",
-    codePath: "—",
-    status: "pending",
+    codePath: "src/components/GhostCursor.tsx",
+    status: "implemented",
+    localhostPath: "/",
   },
   {
     figmaName: "smart-home",

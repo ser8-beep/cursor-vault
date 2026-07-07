@@ -1,4 +1,13 @@
+"use client";
+
+import { motion } from "motion/react";
 import { CaseStudyCard, type CaseStudy } from "./CaseStudyCard";
+import {
+  carouselCardVariants,
+  carouselCardsContainerVariants,
+  carouselRevealVariants,
+  SCROLL_TRIGGER,
+} from "@/lib/motion/home-scroll";
 
 const CASE_STUDIES: CaseStudy[] = [
   { title: "Smart Home", tags: ["IOT", "Mobile"], image: "/figma/cs-smart-home.png", href: "/case-studies/smart-home" },
@@ -7,30 +16,48 @@ const CASE_STUDIES: CaseStudy[] = [
   { title: "ERP", tags: ["Admin", "Web app"], image: "/figma/cs-erp.png", href: "/case-studies/erp" },
 ];
 
-/**
- * carousel-1440 — section label + case-study cards.
- * Grid: 12-col desktop (4-up) → 8-col tablet (2-up) → 4-col mobile (1-up),
- * per the Layout collection's grid/columns modes.
- */
-export function CaseStudyCarousel() {
+type CaseStudyCarouselProps = {
+  motionEnabled: boolean;
+  entranceActive?: boolean;
+};
+
+/** carousel-1440 — cs-carousel-enter scroll reveal (13:32074 / 13:32080). */
+export function CaseStudyCarousel({ motionEnabled }: CaseStudyCarouselProps) {
   return (
-    <section
+    <motion.section
       id="case-studies"
       aria-label="Case studies"
-      className="flex w-full flex-col gap-2xl pb-[var(--space-48)] scroll-mt-[var(--space-48)]"
+      data-node-id="13:360"
+      data-name="carousel-1440"
+      className="flex w-full flex-col gap-2xl pb-[var(--space-48)] scroll-mt-[var(--space-48)] -mt-[var(--space-48)] laptop:-mt-[302px] relative z-[var(--z-10)]"
+      initial={motionEnabled ? "hidden" : false}
+      whileInView={motionEnabled ? "visible" : undefined}
+      viewport={SCROLL_TRIGGER}
+      variants={carouselRevealVariants}
     >
       <p className="font-display uppercase text-label-s leading-normal tracking-[var(--tracking-caption)] text-text-muted whitespace-pre-wrap">
         <span className="text-main">PRODUCT_DESIGN</span>
         {" //  01_SYSTEMS_FOR_USERS\n"}
         {"                               02_SYSTEMS FOR_TEAMS"}
       </p>
-      <ul className="grid w-full grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-4 gap-gap-md laptop:gap-[var(--space-20)] list-none">
+      <motion.ul
+        className="grid w-full grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-4 gap-gap-md laptop:gap-[var(--space-20)] list-none"
+        initial={motionEnabled ? "hidden" : false}
+        whileInView={motionEnabled ? "visible" : undefined}
+        viewport={SCROLL_TRIGGER}
+        variants={carouselCardsContainerVariants}
+      >
         {CASE_STUDIES.map((study) => (
-          <li key={study.title} className="contents">
-            <CaseStudyCard study={study} />
+          <li key={study.title}>
+            <motion.div
+              className="h-full"
+              variants={motionEnabled ? carouselCardVariants : undefined}
+            >
+              <CaseStudyCard study={study} />
+            </motion.div>
           </li>
         ))}
-      </ul>
-    </section>
+      </motion.ul>
+    </motion.section>
   );
 }

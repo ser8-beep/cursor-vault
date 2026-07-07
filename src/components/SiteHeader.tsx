@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
+import { ENTRANCE, EASE_STANDARD } from "@/lib/motion/homePrototype";
 
 const NAV_ITEMS = [
   { label: "CASE STUDIES_PRO", count: "04", href: "#case-studies" },
@@ -27,18 +31,50 @@ function ResumeText() {
   );
 }
 
+type SiteHeaderProps = {
+  motionEnabled: boolean;
+  entranceActive: boolean;
+};
+
 /**
- * header-1440 — brand nav card (left) + resume card (right).
- * Tablet: resume photo strip hides. Mobile: the resume link folds into the
- * brand card's top row, next to "SHIVANI K.".
+ * header-1440 — Figma 13:450. Motion: header-enter (13:32068).
  */
-export function SiteHeader() {
+export function SiteHeader({ motionEnabled, entranceActive }: SiteHeaderProps) {
+  const shellProps = motionEnabled
+    ? {
+        initial: { opacity: 0, y: -8 },
+        animate: entranceActive ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 },
+        transition: {
+          delay: ENTRANCE.headerShell.delay,
+          duration: ENTRANCE.headerShell.duration,
+          ease: EASE_STANDARD,
+        },
+      }
+    : {};
+
+  const navProps = motionEnabled
+    ? {
+        initial: { opacity: 0, height: 0 },
+        animate: entranceActive ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 },
+        transition: {
+          delay: ENTRANCE.headerNav.delay,
+          duration: ENTRANCE.headerNav.duration,
+          ease: EASE_STANDARD,
+        },
+      }
+    : {};
+
   return (
-    <header className="flex flex-col gap-gap-sm tablet:flex-row tablet:items-start tablet:justify-between tablet:gap-gap-md w-full">
-      {/* nav card */}
-      <nav
+    <header
+      data-node-id="13:450"
+      data-name="header-1440"
+      className="flex flex-col gap-gap-sm tablet:flex-row tablet:items-start tablet:justify-between tablet:gap-gap-md w-full"
+    >
+      <motion.nav
         aria-label="Primary"
-        className="flex flex-col w-full tablet:w-auto tablet:flex-1 tablet:max-w-[var(--width-nav-card)] laptop:min-w-[var(--width-nav-card)] bg-surface border border-border-default rounded-3"
+        data-name="nav"
+        className="flex flex-col w-full tablet:w-auto tablet:flex-1 tablet:max-w-[var(--width-nav-card)] laptop:min-w-[var(--width-nav-card)] bg-surface border border-border-default rounded-3 overflow-hidden"
+        {...shellProps}
       >
         <div className="flex items-stretch justify-between border-b border-border-default py-2xs pl-sm pr-xs">
           <Link
@@ -53,7 +89,6 @@ export function SiteHeader() {
               v2026.vault
             </span>
           </Link>
-          {/* mobile: resume link lives inside the brand card */}
           <Link
             href="/resume"
             className="group flex tablet:hidden items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
@@ -61,8 +96,17 @@ export function SiteHeader() {
           >
             <ResumeText />
           </Link>
-          {/* nav-gif media slot */}
-          <div className="hidden laptop:block relative w-[var(--width-nav-media)] overflow-hidden rounded-3 mix-blend-luminosity">
+          <motion.div
+            className="hidden laptop:block relative w-[var(--width-nav-media)] overflow-hidden rounded-3 mix-blend-luminosity"
+            initial={motionEnabled ? { opacity: 0 } : false}
+            animate={entranceActive ? { opacity: 1 } : { opacity: 0 }}
+            transition={{
+              delay: ENTRANCE.headerNav.delay,
+              duration: ENTRANCE.headerNav.duration,
+              ease: EASE_STANDARD,
+            }}
+            data-name="nav-gif"
+          >
             <Image
               src="/figma/nav-media-poster.png"
               alt=""
@@ -70,9 +114,12 @@ export function SiteHeader() {
               sizes="200px"
               className="object-cover opacity-60"
             />
-          </div>
+          </motion.div>
         </div>
-        <ul className="flex flex-wrap items-center gap-x-gap-lg gap-y-0 px-sm py-sm uppercase">
+        <motion.ul
+          className="flex flex-wrap items-center gap-x-gap-lg gap-y-0 px-sm py-sm uppercase overflow-hidden"
+          {...navProps}
+        >
           {NAV_ITEMS.map((item) => (
             <li key={item.label}>
               <Link
@@ -86,14 +133,15 @@ export function SiteHeader() {
               </Link>
             </li>
           ))}
-        </ul>
-      </nav>
+        </motion.ul>
+      </motion.nav>
 
-      {/* tablet+: standalone resume card on the right */}
+      {/* tablet+: resume card — static layout wrapper; motion via entranceActive on tablet+ only when motionEnabled */}
       <Link
         href="/resume"
         className="group hidden tablet:flex items-center justify-between gap-gap-md tablet:w-auto tablet:shrink-0 tablet:min-w-[var(--width-resume-card)] border border-border-default rounded-3 p-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
         aria-label="Product experience 4+ years — view my resume"
+        data-name="resume"
       >
         <ResumeText />
         <span className="hidden laptop:block relative self-stretch w-[var(--width-resume-media)] overflow-hidden rounded-3 mix-blend-luminosity">

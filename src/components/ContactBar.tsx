@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "motion/react";
+import { ENTRANCE, EASE_STANDARD } from "@/lib/motion/homePrototype";
 
 const CONTACTS = [
   { label: "+91 7977071976", href: "tel:+917977071976" },
@@ -7,15 +11,32 @@ const CONTACTS = [
   { label: "LinkedIn @shivani kher", href: "https://linkedin.com/in/shivani-kher", external: true },
 ];
 
-/**
- * psuedo-footer-1440 — get-in-touch card (left) + location-time (right).
- * Tablet/Mobile: contact links wrap; location block stays right-aligned
- * below the card.
- */
-export function ContactBar() {
+type ContactBarProps = {
+  motionEnabled: boolean;
+  entranceActive: boolean;
+};
+
+/** psuedo-footer-1440 — Figma 13:367. Motion: footer-enter (13:32063). */
+export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
+  const motionProps = motionEnabled
+    ? {
+        initial: { opacity: 0, y: 16 },
+        animate: entranceActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
+        transition: {
+          delay: ENTRANCE.contact.delay,
+          duration: ENTRANCE.contact.duration,
+          ease: EASE_STANDARD,
+        },
+      }
+    : {};
+
   return (
-    <div className="relative z-10 flex w-full flex-col gap-gap-md tablet:flex-row tablet:items-end tablet:justify-between">
-      {/* get-in-touch */}
+    <motion.div
+      className="relative z-10 flex w-full flex-col gap-gap-md tablet:flex-row tablet:items-end tablet:justify-between"
+      data-node-id="13:367"
+      data-name="psuedo-footer-1440"
+      {...motionProps}
+    >
       <div className="flex w-full tablet:w-auto laptop:min-w-[var(--width-contact-card)] items-center justify-between gap-gap-lg bg-surface border border-border-default rounded-3 p-[var(--space-12)]">
         <ul className="flex flex-wrap items-center gap-x-gap-lg gap-y-gap-sm">
           {CONTACTS.map((c) => (
@@ -32,12 +53,11 @@ export function ContactBar() {
           ))}
         </ul>
         <span className="hidden tablet:block font-helvetica uppercase text-label-s leading-tight text-text-muted whitespace-nowrap">
-          Let’s connect
+          Let&apos;s connect
         </span>
       </div>
 
-      {/* location-time */}
-      <div className="flex items-center gap-2xs self-end">
+      <div className="flex items-center gap-2xs self-end" data-name="location-time">
         <p className="font-display uppercase text-label-s tracking-caption leading-normal text-text-primary text-right">
           LOC: Mumbai, IN
           <br />
@@ -51,6 +71,6 @@ export function ContactBar() {
           className="size-xl shrink-0"
         />
       </div>
-    </div>
+    </motion.div>
   );
 }
