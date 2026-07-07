@@ -1,10 +1,10 @@
 import { CaseStudyCard, type CaseStudy } from "./CaseStudyCard";
 
 const CASE_STUDIES: CaseStudy[] = [
-  { title: "Smart Home", tags: ["IOT", "Mobile"], image: "/figma/cs-smart-home.png", href: "#smart-home" },
-  { title: "Insurance", tags: ["Travel", "Mobile"], image: "/figma/cs-insurance.png", href: "#insurance" },
-  { title: "Maternity", tags: ["Wellness", "Mobile"], image: "/figma/cs-maternity.png", href: "#maternity" },
-  { title: "ERP", tags: ["Admin", "Web app"], image: "/figma/cs-erp.png", href: "#erp" },
+  { title: "Smart Home", tags: ["IOT", "Mobile"], image: "/figma/cs-smart-home.png", href: "/case-studies/smart-home" },
+  { title: "Insurance", tags: ["Travel", "Mobile"], image: "/figma/cs-insurance.png", href: "/case-studies/insurance" },
+  { title: "Maternity", tags: ["Wellness", "Mobile"], image: "/figma/cs-maternity.png", href: "/case-studies/maternity" },
+  { title: "ERP", tags: ["Admin", "Web app"], image: "/figma/cs-erp.png", href: "/case-studies/erp" },
 ];
 
 /**
