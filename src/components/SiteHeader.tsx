@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { label: "WORK_EXPERIENCE", count: "04 yrs", href: "#work-experience" },
 ];
 
-function ResumeText() {
+function ResumeText({ variant }: { variant: "mobile" | "desktop" }) {
   return (
     <span className="flex items-center gap-gap-sm py-sm">
       <Image
@@ -22,7 +22,15 @@ function ResumeText() {
         className="size-xl shrink-0"
       />
       <span className="flex flex-col gap-2xs uppercase font-display text-label-s tracking-caption whitespace-nowrap">
-        <span className="text-text-primary">Product EX: 4 yrs+</span>
+        <span
+          className={
+            variant === "mobile"
+              ? "text-text-primary normal-case"
+              : "text-text-primary"
+          }
+        >
+          {variant === "mobile" ? "4 yrs work ex" : "Product EX: 4 yrs+"}
+        </span>
         <span className="text-text-link underline [text-underline-position:from-font] group-hover:text-blue-900 transition-colors duration-[var(--duration-base)] ease-standard">
           My resume
         </span>
@@ -94,7 +102,7 @@ export function SiteHeader({ motionEnabled, entranceActive }: SiteHeaderProps) {
             className="group flex tablet:hidden items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
             aria-label="Product experience 4+ years — view my resume"
           >
-            <ResumeText />
+            <ResumeText variant="mobile" />
           </Link>
           <motion.div
             className="hidden laptop:block relative w-[var(--width-nav-media)] overflow-hidden rounded-3 mix-blend-luminosity"
@@ -143,7 +151,7 @@ export function SiteHeader({ motionEnabled, entranceActive }: SiteHeaderProps) {
         aria-label="Product experience 4+ years — view my resume"
         data-name="resume"
       >
-        <ResumeText />
+        <ResumeText variant="desktop" />
         <span className="hidden laptop:block relative self-stretch w-[var(--width-resume-media)] overflow-hidden rounded-3 mix-blend-luminosity">
           <Image
             src="/figma/work-ex-photo.png"
