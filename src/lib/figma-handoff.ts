@@ -89,6 +89,7 @@ export const TOKEN_SOURCE = "src/styles/tokens.css";
 export const SVG_ASSETS = [
   "/figma/work-ex-icon.svg",
   "/figma/location-icon.svg",
+  "/figma/get-in-touch-icon.svg",
 ] as const;
 
 export const ASSET_MANIFEST = [...ASSET_PATHS, ...SVG_ASSETS] as const;

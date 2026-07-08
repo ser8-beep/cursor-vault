@@ -107,6 +107,7 @@
   --text-code: var(--size-code);
   --text-base: var(--size-base);
   --text-hero: var(--size-hero);
+  --text-contact-loc: var(--size-contact-loc);
 
   /* Tracking */
   --tracking-*: initial;
@@ -114,6 +115,7 @@
   --tracking-normal: var(--tracking-normal);
   --tracking-wider: var(--tracking-wider);
   --tracking-caption: var(--tracking-caption);
+  --tracking-overline: var(--tracking-overline);
   --tracking-tag: var(--tracking-tag);
   --tracking-micro: var(--caption-6pt);
   --tracking-notes-label: var(--tracking-notes-label);
@@ -216,6 +218,32 @@ body {
 @keyframes montage-embed {
   to {
     background-position: 0 100%;
+  }
+}
+
+/* cs-card — touch pressed state mirrors Figma hover on mobile + tablet (< laptop).
+   Laptop+ keeps Tailwind laptop:hover / laptop:group-hover on the component. */
+@media (max-width: 1279px) {
+  .cs-card:active {
+    border-width: 1.5px;
+    border-color: var(--color-blue-700);
+    background-color: var(--color-zinc-50);
+    box-shadow: var(--shadow-cs-hover);
+  }
+
+  .cs-card:active .cs-card__wash {
+    opacity: 0;
+  }
+
+  .cs-card:active .cs-card__content {
+    padding-top: var(--padding-cs-content-top-active);
+    padding-left: var(--padding-cs-inline-active);
+    color: var(--color-zinc-950);
+  }
+
+  .cs-card:active .cs-card__title,
+  .cs-card:active .cs-card__tags {
+    color: var(--color-zinc-950);
   }
 }
 

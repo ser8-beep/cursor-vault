@@ -1,4 +1,4 @@
-// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=13-420
+// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=99-2367
 // source=src/components/CaseStudyCard.tsx
 // component=CaseStudyCard
 import figma from "figma";

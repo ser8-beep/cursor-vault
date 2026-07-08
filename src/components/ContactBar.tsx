@@ -5,18 +5,94 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ENTRANCE, EASE_STANDARD } from "@/lib/motion/homePrototype";
 
-const CONTACTS = [
+type ContactLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+};
+
+/** Tablet+ order — Figma psuedo-footer-768+ */
+const CONTACTS_TABLET: ContactLink[] = [
   { label: "+91 7977071976", href: "tel:+917977071976" },
   { label: "shivanimkher@gmail.com", href: "mailto:shivanimkher@gmail.com" },
-  { label: "LinkedIn @shivani kher", href: "https://linkedin.com/in/shivani-kher", external: true },
+  {
+    label: "linkedin @shivani kher",
+    href: "https://linkedin.com/in/shivani-kher",
+    external: true,
+  },
 ];
+
+/** Mobile order + abbreviated labels — Figma psuedo-footer-360 */
+const CONTACTS_MOBILE: ContactLink[] = [
+  { label: "gmail.com", href: "mailto:shivanimkher@gmail.com" },
+  { label: "linkedin", href: "https://linkedin.com/in/shivani-kher", external: true },
+  { label: "+91 7977071976", href: "tel:+917977071976" },
+];
+
+const CONTACT_LINK_CLASS =
+  "inline-flex items-center whitespace-nowrap font-display uppercase text-overline tracking-overline text-text-primary transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link";
 
 type ContactBarProps = {
   motionEnabled: boolean;
   entranceActive: boolean;
 };
 
-/** psuedo-footer-1440 — Figma 13:367. Motion: footer-enter (13:32063). */
+function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
+  return (
+    <ul className="flex items-center gap-gap-md">
+      {contacts.map((c) => (
+        <li key={c.href} className="shrink-0">
+          <Link
+            href={c.href}
+            target={c.external ? "_blank" : undefined}
+            rel={c.external ? "noopener noreferrer" : undefined}
+            className={CONTACT_LINK_CLASS}
+          >
+            {c.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function LocationTime({ iconFirst = false }: { iconFirst?: boolean }) {
+  const text = (
+    <p className="font-display uppercase text-contact-loc tracking-caption leading-normal text-text-primary text-right">
+      LOC: MUMBAI, IN
+      <br />
+      UTC+5:30
+    </p>
+  );
+
+  const icon = (
+    <Image
+      src="/figma/location-icon.svg"
+      alt=""
+      width={32}
+      height={32}
+      className="size-lg shrink-0 tablet:size-xl"
+    />
+  );
+
+  return (
+    <div className="flex shrink-0 items-center gap-2xs" data-name="location-time">
+      {iconFirst ? (
+        <>
+          {icon}
+          {text}
+        </>
+      ) : (
+        <>
+          {text}
+          {icon}
+        </>
+      )}
+    </div>
+  );
+}
+
+/** contact-strip-sticky — Figma 101:1714 (360 / 768 / 1366+). Motion: footer-enter (13:32063). */
 export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
   const motionProps = motionEnabled
     ? {
@@ -32,44 +108,47 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
 
   return (
     <motion.div
-      className="relative z-[var(--z-50)] flex w-full shrink-0 flex-row items-center justify-between gap-gap-md"
-      data-node-id="13:367"
-      data-name="psuedo-footer-1440"
+      className="relative z-[var(--z-50)] flex w-full shrink-0 flex-col items-end gap-gap-sm tablet:flex-row tablet:items-end tablet:justify-between tablet:pb-[var(--space-20)]"
+      data-node-id="101:1714"
+      data-name="contact-strip-sticky"
       {...motionProps}
     >
-      <div className="relative flex min-w-0 flex-1 items-center justify-start gap-gap-lg bg-surface border border-border-default rounded-3 p-sm">
-        <ul className="flex min-w-0 flex-1 flex-nowrap items-center justify-between gap-x-gap-lg overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          {CONTACTS.map((c) => (
-            <li key={c.href} className="shrink-0">
-              <Link
-                href={c.href}
-                target={c.external ? "_blank" : undefined}
-                rel={c.external ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center whitespace-nowrap py-sm font-display uppercase text-label-s tracking-caption text-text-primary transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
-              >
-                {c.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <span className="hidden tablet:block font-helvetica uppercase text-label-s leading-tight text-text-muted whitespace-nowrap">
+      <div className="tablet:hidden">
+        <LocationTime iconFirst />
+      </div>
+
+      <div
+        className="relative flex w-full shrink-0 items-center justify-between overflow-clip bg-surface border border-border-default rounded-3 p-sm tablet:w-auto tablet:justify-start tablet:gap-gap-xl tablet:px-[var(--padding-button-md-x)] tablet:py-[var(--padding-button-md-y)]"
+        data-name="get-in-touch"
+      >
+        <div className="tablet:hidden">
+          <ContactLinks contacts={CONTACTS_MOBILE} />
+        </div>
+        <div className="hidden tablet:block">
+          <ContactLinks contacts={CONTACTS_TABLET} />
+        </div>
+
+        <Link
+          href="mailto:shivanimkher@gmail.com"
+          className="tablet:hidden shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
+          aria-label="Let's connect"
+        >
+          <Image
+            src="/figma/get-in-touch-icon.svg"
+            alt=""
+            width={24}
+            height={24}
+            className="size-lg"
+          />
+        </Link>
+
+        <span className="hidden tablet:block font-helvetica uppercase text-overline tracking-overline leading-normal text-text-muted whitespace-nowrap">
           Let&apos;s connect
         </span>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2xs" data-name="location-time">
-        <p className="font-display uppercase text-label-s tracking-caption leading-normal text-text-primary text-right">
-          LOC: Mumbai, IN
-          <br />
-          UTC+5:30
-        </p>
-        <Image
-          src="/figma/location-icon.svg"
-          alt=""
-          width={32}
-          height={32}
-          className="size-xl shrink-0"
-        />
+      <div className="hidden tablet:block">
+        <LocationTime />
       </div>
     </motion.div>
   );

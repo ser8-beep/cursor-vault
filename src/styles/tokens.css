@@ -143,10 +143,24 @@
   --width-resume-card: 313.33px; /* width/313_33 */
   --width-nav-media: 204px;
   --width-resume-media: 135px;
+  --width-resume-media-mobile: 33px; /* header-360 work-ex-gif */
+  --width-resume-card-tablet: 242px; /* header-768 resume card */
   --height-resume-media: 48px; /* montage frame height (135×48) */
   --width-contact-card: 566px;
-  --height-cs-card: 180px;
-  --width-cs-media: 355px;
+  /* cs-card — Figma case-study-card-360 default metrics */
+  --height-cs-card: 120px;
+  --padding-cs-top: var(--space-12);
+  --padding-cs-inline: 9px; /* Figma 360 content inset; no primitive match */
+  --padding-cs-content-top: var(--space-2);
+  --padding-cs-block-end: var(--space-0);
+  --padding-cs-content-end: var(--space-0);
+  --size-cs-title: var(--size-title);
+  --size-cs-tag: var(--size-label-m);
+  --tracking-cs-tag: var(--tracking-tag);
+  --shadow-cs-hover: 8px 11px 22px 0px rgba(0, 0, 0, 0.15);
+  /* cs-card hover/pressed content inset — Figma 360 hover (pl 9→15, pt 2→8) */
+  --padding-cs-inline-active: 15px;
+  --padding-cs-content-top-active: var(--space-sm);
   --height-notes-stage: 850px; /* notes frame @1440 */
   --width-notes-stage: 1440px;
   /* Mobile notes stage — Figma bleed ratio (1210/1440), not the old 1.45vw fudge */
@@ -177,6 +191,8 @@
   --tracking-caption: 0.4px; /* caption tracking on 8px labels */
   --tracking-tag: 0.6px;     /* cs-card tag tracking */
   --caption-6pt: 1px;        /* caption-6pt — v2026.vault micro-label */
+  --tracking-overline: 0.55px; /* contact-strip link + let's-connect tracking */
+  --size-contact-loc: 8px;   /* contact-strip location-time label @all breakpoints */
   --tracking-notes-label: 1.15px;    /* notes/discourse tape label */
   --tracking-notes-body: 1.5px;      /* notes/polaroid + peace-of-mind body */
   --tracking-notes-caption: 1.17px;  /* notes/peace-of-mind caption scrap */
@@ -252,6 +268,15 @@
     --section-default: 80px;
     --section-large: 96px;
     --section-hero: 120px;
+    /* cs-card — Figma case-study-card-768 */
+    --height-cs-card: 152px;
+    --padding-cs-inline: var(--space-12);
+    --padding-cs-content-top: var(--space-0);
+    --padding-cs-block-end: 28px; /* Figma content pb; between space-24 and space-32 */
+    --padding-cs-content-end: 28px;
+    --gap-cs-grid-x: 10px; /* Figma 768 list horizontal gutter */
+    /* cs-card hover/pressed — Figma 768 keeps pl 12, pt 0→8 */
+    --padding-cs-inline-active: var(--space-12);
   }
 }
 
@@ -288,9 +313,30 @@
     --padding-canvas: 20px;
     --size-hero: 36px;          /* size/4xl */
     --leading-hero: var(--leading-8);
-    /* cs-card — authored cs-card-1440-v2 frame metrics */
+    /* cs-card — Figma case-study-card-1366 */
     --height-cs-card: 180px;
-    --width-cs-media: 355px;
+    --size-cs-title: 20px; /* Figma font-size/title @1366; size/title stays 18 */
+    --size-cs-tag: 12px; /* Figma 1366 tags stay 12px until 1600 frame */
+    --gap-cs-grid-x: var(--space-20);
+  }
+}
+
+/* cs-card — Figma case-study-card-1600 */
+@media (min-width: 1600px) {
+  :root {
+    --height-cs-card: 220px;
+    --size-cs-tag: 16px;
+    --tracking-cs-tag: 1.28px;
+  }
+}
+
+/* cs-card — Figma case-study-card-1920 */
+@media (min-width: 1920px) {
+  :root {
+    --height-cs-card: 240px;
+    --size-cs-title: var(--size-heading-m);
+    --size-cs-tag: var(--size-body-l);
+    --tracking-cs-tag: 1.44px;
   }
 }
 

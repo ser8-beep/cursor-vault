@@ -19,13 +19,18 @@ const CASE_STUDIES: CaseStudy[] = [
 type CaseStudyCarouselProps = {
   motionEnabled: boolean;
   entranceActive?: boolean;
+  /** Omit on duplicate mobile instance; laptop anchor keeps default. */
+  anchorId?: string | false;
 };
 
 /** carousel-1440 — cs-carousel-enter scroll reveal (13:32074 / 13:32080). */
-export function CaseStudyCarousel({ motionEnabled }: CaseStudyCarouselProps) {
+export function CaseStudyCarousel({
+  motionEnabled,
+  anchorId = "case-studies",
+}: CaseStudyCarouselProps) {
   return (
     <motion.section
-      id="case-studies"
+      id={anchorId === false ? undefined : anchorId}
       aria-label="Case studies"
       data-node-id="13:360"
       data-name="carousel-1440"
@@ -41,7 +46,7 @@ export function CaseStudyCarousel({ motionEnabled }: CaseStudyCarouselProps) {
         {"                               02_SYSTEMS FOR_TEAMS"}
       </p>
       <motion.ul
-        className="grid w-full grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-4 gap-gap-md laptop:gap-[var(--space-20)] list-none"
+        className="grid w-full grid-cols-1 gap-[var(--space-12)] tablet:grid-cols-2 tablet:gap-x-[var(--gap-cs-grid-x,10px)] tablet:gap-y-[var(--space-12)] laptop:grid-cols-4 laptop:gap-[var(--gap-cs-grid-x,var(--space-20))] list-none"
         initial={motionEnabled ? "hidden" : false}
         whileInView={motionEnabled ? "visible" : undefined}
         viewport={SCROLL_TRIGGER}

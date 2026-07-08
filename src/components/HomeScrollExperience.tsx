@@ -168,11 +168,22 @@ export function HomeScrollExperience() {
           splashPhase={splashPhase}
           showHeadline={showHeadline}
         />
-        {showContact ? (
-          <ContactBar motionEnabled={motionEnabled} entranceActive={entranceActive} />
-        ) : (
-          <div className="min-h-[var(--space-80)]" aria-hidden="true" />
-        )}
+        <div className="flex min-h-0 shrink flex-col gap-gap-lg laptop:contents">
+          <div className="order-1 min-h-0 shrink laptop:hidden [&_[data-name=carousel-1440]]:!mt-0">
+            <CaseStudyCarousel
+              motionEnabled={scrollChoreographyEnabled}
+              entranceActive={entranceActive}
+              anchorId={desktopSculptureMotion ? false : "case-studies"}
+            />
+          </div>
+          <div className="order-2 shrink-0">
+            {showContact ? (
+              <ContactBar motionEnabled={motionEnabled} entranceActive={entranceActive} />
+            ) : (
+              <div className="min-h-[var(--space-80)]" aria-hidden="true" />
+            )}
+          </div>
+        </div>
       </div>
 
       <FirstFoldMotionVideo
@@ -183,10 +194,13 @@ export function HomeScrollExperience() {
 
       {/* Act 2+ — natural document scroll (case studies → data stories → footer) */}
       <div ref={scrollTrackRef} className="flex flex-col gap-gap-md">
-        <CaseStudyCarousel
-          motionEnabled={scrollChoreographyEnabled}
-          entranceActive={entranceActive}
-        />
+        <div className="hidden laptop:block">
+          <CaseStudyCarousel
+            motionEnabled={scrollChoreographyEnabled}
+            entranceActive={entranceActive}
+            anchorId={desktopSculptureMotion ? "case-studies" : false}
+          />
+        </div>
         <DataStoriesSection
           ref={dataStoriesRef}
           sectionProgress={notesSectionProgress}

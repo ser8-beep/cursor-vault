@@ -10,24 +10,25 @@ export interface CaseStudy {
 }
 
 /**
- * cs-card-1440-v2 — bordered card, color-burn stone wash, title + tags
- * bottom-left, artwork bleeding off the right edge.
+ * case-study-card atomic component — Figma 99:2367
+ * Bordered card, color-burn stone wash, title + tags bottom-left,
+ * artwork bleeding off the right edge. Metrics via tokens.css per breakpoint.
  */
 export function CaseStudyCard({ study }: { study: CaseStudy }) {
   return (
     <Link
       href={study.href}
-      className="group relative flex h-[var(--height-cs-card)] items-end justify-between overflow-hidden border-2 border-card-border transition-colors duration-[var(--duration-base)] ease-standard hover:border-border-default focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
+      className="cs-card group relative flex h-[var(--height-cs-card)] touch-manipulation items-end justify-between overflow-hidden border-2 border-card-border pt-[var(--padding-cs-top)] [-webkit-tap-highlight-color:transparent] transition-[border-color,background-color,box-shadow] duration-[var(--duration-base)] ease-standard laptop:hover:border-[1.5px] laptop:hover:border-blue-700 laptop:hover:bg-zinc-50 laptop:hover:shadow-[var(--shadow-cs-hover)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
     >
       {/* stone wash overlay (color-burn, backdrop blur) */}
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-stone-100 mix-blend-color-burn backdrop-blur-[var(--radius-sm)]"
+        className="cs-card__wash pointer-events-none absolute inset-0 z-0 bg-stone-100 mix-blend-color-burn backdrop-blur-[var(--radius-sm)] transition-opacity duration-[var(--duration-base)] laptop:group-hover:opacity-0"
       />
-      {/* artwork — Figma mr-[-355px] flex child; bleeds off right under overflow-clip */}
+      {/* artwork — full-width flex child; bleeds off right under overflow-clip */}
       <span
         aria-hidden="true"
-        className="pointer-events-none relative z-0 shrink-0 -mr-[var(--width-cs-media)] h-[calc(var(--height-cs-card)*1.75)] w-[var(--width-cs-media)] overflow-hidden"
+        className="pointer-events-none relative z-0 h-full w-full shrink-0 overflow-hidden -mr-[calc(100%-var(--padding-cs-inline))]"
       >
         <FigmaImage
           asset={study.asset}
@@ -36,11 +37,11 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
           className="object-cover object-bottom"
         />
       </span>
-      <span className="relative z-[var(--z-10)] flex shrink-0 flex-col gap-xs p-card pt-0 pb-card">
-        <span className="font-display font-bold [font-stretch:expanded] uppercase text-heading-m leading-tight text-zinc-700">
+      <span className="cs-card__content relative z-[var(--z-10)] flex shrink-0 flex-col gap-xs pt-[var(--padding-cs-content-top)] pb-[var(--padding-cs-block-end)] pl-[var(--padding-cs-inline)] pr-[var(--padding-cs-content-end)] transition-[padding,color] duration-[var(--duration-base)] laptop:group-hover:pt-sm laptop:group-hover:text-zinc-950">
+        <span className="cs-card__title font-display [font-stretch:expanded] uppercase text-[length:var(--size-cs-title)] leading-normal text-zinc-700 transition-colors duration-[var(--duration-base)] laptop:group-hover:text-zinc-950">
           {study.title}
         </span>
-        <span className="flex gap-[var(--space-12)] font-display uppercase text-label-m tracking-tag text-zinc-600">
+        <span className="cs-card__tags flex gap-[var(--space-12)] font-display uppercase text-[length:var(--size-cs-tag)] tracking-[length:var(--tracking-cs-tag)] text-zinc-600 transition-colors duration-[var(--duration-base)] laptop:group-hover:text-zinc-950">
           {study.tags.map((tag) => (
             <span key={tag}>{tag}</span>
           ))}
