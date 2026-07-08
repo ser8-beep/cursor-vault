@@ -28,11 +28,17 @@
       "count": 6,
       "purpose": "Brand and surface presentation",
       "codeExport": "design-system/tokens/css/theme.css"
+    },
+    "Fluid": {
+      "modes": ["Value"],
+      "count": 129,
+      "purpose": "Fluid min/max tokens for mobile (360–768) and desktop (1366–1920) clamp() interpolation",
+      "codeExport": "design-system/tokens/css/fluid-mobile.css, fluid-desktop.css"
     }
   },
   "legacyCollections": {
-    "Typography": { "modes": ["Mobile", "Tablet", "Laptop", "Desktop"], "count": 24 },
-    "Layout": { "modes": ["Mobile", "Tablet", "Laptop", "Desktop"], "count": 16 },
+    "Typography": { "modes": ["Mobile", "Tablet", "Laptop", "Desktop"], "count": 25 },
+    "Layout": { "modes": ["Mobile", "Tablet", "Laptop", "Desktop"], "count": 54 },
     "Spacing": { "modes": ["Value"], "count": 31 },
     "Radius": { "modes": ["Value"], "count": 6 },
     "Font": { "modes": ["Value"], "count": 2 },

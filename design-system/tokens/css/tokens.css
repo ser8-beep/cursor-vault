@@ -1,7 +1,7 @@
 /**
  * Portfolio Design Tokens
  * Source: Figma file VibdutrclLgS5EpFWgbJhH
- * Generated: 2026-07-07T19:19:55.154Z
+ * Generated: 2026-07-08T10:24:33.005Z
  *
  * Usage:
  *   @import './design-tokens/css/tokens.css';
@@ -14,4 +14,6 @@
 @import './theme.css';
 @import './typography.css';
 @import './layout.css';
+@import './fluid-mobile.css';
+@import './fluid-desktop.css';
 

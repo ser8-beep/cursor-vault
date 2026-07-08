@@ -14,13 +14,13 @@ const tokens = JSON.parse(readFileSync(join(ROOT, 'tokens.json'), 'utf8'));
 mkdirSync(join(ROOT, 'css'), { recursive: true });
 mkdirSync(join(ROOT, 'tailwind'), { recursive: true });
 
-function formatCSSValue(type, value) {
+function formatCSSValue(type, value, tokenName = '') {
   if (value === null || value === undefined) return null;
   if (type === 'COLOR') return value;
   if (type === 'FLOAT') {
     if (typeof value === 'number') {
-      // line-height/tracking stored as percentages in Figma
-      if (value > 10 && value <= 200) return `${value}%`;
+      if (tokenName.startsWith('line-height/')) return `${value}%`;
+      if (tokenName.startsWith('tracking/')) return value === 0 ? '0' : `${value}px`;
       return `${value}px`;
     }
   }
@@ -34,7 +34,7 @@ function cssBlock(selector, collection, mode) {
     const modeData = token.modes[mode];
     if (!modeData) continue;
     const val = modeData.value ?? modeData;
-    const formatted = formatCSSValue(token.type, val);
+    const formatted = formatCSSValue(token.type, val, token.name);
     if (formatted === null) continue;
     lines.push(`  ${token.cssVar}: ${formatted};`);
   }
@@ -43,6 +43,79 @@ function cssBlock(selector, collection, mode) {
 
 function writeCSS(filename, content) {
   writeFileSync(join(ROOT, 'css', filename), content + '\n', 'utf8');
+}
+
+function modeValue(token, mode) {
+  const data = token.modes[mode];
+  if (data === null || data === undefined) return null;
+  return data.value ?? data;
+}
+
+function fluidClamp(minVar, maxVar, vminVar, vmaxVar) {
+  return `clamp(var(${minVar}), calc(var(${minVar}) + (var(${maxVar}) - var(${minVar})) * ((100vw - var(${vminVar})) / (var(${vmaxVar}) - var(${vminVar})))), var(${maxVar}))`;
+}
+
+function buildFluidCSS({ prefix, excludePrefix, includeNames = [], viewportMinName, viewportMaxName, mediaMin, mediaMax, label }) {
+  const fluid = tokens.Fluid.tokens;
+  const vmin = fluid.find((t) => t.name === viewportMinName);
+  const vmax = fluid.find((t) => t.name === viewportMaxName);
+  const vminVar = vmin?.cssVar ?? '--fluid-viewport-min';
+  const vmaxVar = vmax?.cssVar ?? '--fluid-viewport-max';
+
+  const rootLines = [`/* Fluid ${label} — raw min/max tokens */`, ':root {'];
+  const clampLines = [];
+
+  const pairs = new Map();
+  for (const token of fluid) {
+    const isIncluded = includeNames.includes(token.name);
+    if (!isIncluded) {
+      if (!token.name.startsWith(prefix)) continue;
+      if (excludePrefix && token.name.startsWith(excludePrefix)) continue;
+    }
+
+    if (token.name.endsWith('/min')) {
+      const base = token.name.slice(0, -4);
+      pairs.set(base, { ...(pairs.get(base) ?? {}), min: token });
+    } else if (token.name.endsWith('/max')) {
+      const base = token.name.slice(0, -4);
+      pairs.set(base, { ...(pairs.get(base) ?? {}), max: token });
+    } else if (isIncluded) {
+      const val = modeValue(token, 'Value');
+      const formatted = formatCSSValue(token.type, val, token.name);
+      if (formatted) rootLines.push(`  ${token.cssVar}: ${formatted};`);
+    }
+  }
+
+  for (const [base, { min, max }] of [...pairs.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    if (!min || !max) continue;
+    if (base.endsWith('/viewport') || base.includes('/breakpoint/')) continue;
+    const minVal = modeValue(min, 'Value');
+    const maxVal = modeValue(max, 'Value');
+    const minFormatted = formatCSSValue(min.type, minVal, min.name);
+    const maxFormatted = formatCSSValue(max.type, maxVal, max.name);
+    if (!minFormatted || !maxFormatted) continue;
+
+    rootLines.push(`  ${min.cssVar}: ${minFormatted};`);
+    rootLines.push(`  ${max.cssVar}: ${maxFormatted};`);
+
+    const outputVar = '--' + base.replace(/^fluid\/mobile\//, '').replace(/^fluid\//, '').replace(/\//g, '-');
+    clampLines.push(
+      `  ${outputVar}: ${fluidClamp(min.cssVar, max.cssVar, vminVar, vmaxVar)};`
+    );
+  }
+
+  rootLines.push('}');
+
+  const mediaBlock = [
+    `\n/* Fluid ${label} — clamp() overrides (${mediaMin}px–${mediaMax}px) */`,
+    `@media (min-width: ${mediaMin}px) and (max-width: ${mediaMax}px) {`,
+    '  :root {',
+    ...clampLines,
+    '  }',
+    '}',
+  ];
+
+  return [...rootLines, ...mediaBlock].join('\n');
 }
 
 // --- Primitive (single mode) ---
@@ -66,9 +139,9 @@ writeCSS(
 // --- Responsive Typography ---
 const typoLines = ['/* Typography — responsive font sizes */', ':root {'];
 for (const token of tokens.Typography.tokens) {
-  const mobile = token.modes.Mobile;
-  if (mobile === null || mobile === undefined) continue;
-  const formatted = formatCSSValue(token.type, mobile);
+  const val = modeValue(token, 'Mobile');
+  if (val === null || val === undefined) continue;
+  const formatted = formatCSSValue(token.type, val, token.name);
   if (formatted) typoLines.push(`  ${token.cssVar}: ${formatted};`);
 }
 typoLines.push('}');
@@ -81,9 +154,9 @@ const breakpoints = [
 for (const bp of breakpoints) {
   typoLines.push(`\n@media (min-width: ${bp.query}) {`, '  :root {');
   for (const token of tokens.Typography.tokens) {
-    const val = token.modes[bp.name];
+    const val = modeValue(token, bp.name);
     if (val === null || val === undefined) continue;
-    const formatted = formatCSSValue(token.type, val);
+    const formatted = formatCSSValue(token.type, val, token.name);
     if (formatted) typoLines.push(`    ${token.cssVar}: ${formatted};`);
   }
   typoLines.push('  }', '}');
@@ -93,23 +166,69 @@ writeCSS('typography.css', typoLines.join('\n'));
 // --- Responsive Layout ---
 const layoutLines = ['/* Layout — responsive grid & spacing */', ':root {'];
 for (const token of tokens.Layout.tokens) {
-  const mobile = token.modes.Mobile;
-  if (mobile === null || mobile === undefined) continue;
-  const formatted = formatCSSValue(token.type, mobile);
+  const val = modeValue(token, 'Mobile');
+  if (val === null || val === undefined) continue;
+  const formatted = formatCSSValue(token.type, val, token.name);
   if (formatted) layoutLines.push(`  ${token.cssVar}: ${formatted};`);
 }
 layoutLines.push('}');
 for (const bp of breakpoints) {
   layoutLines.push(`\n@media (min-width: ${bp.query}) {`, '  :root {');
   for (const token of tokens.Layout.tokens) {
-    const val = token.modes[bp.name];
+    const val = modeValue(token, bp.name);
     if (val === null || val === undefined) continue;
-    const formatted = formatCSSValue(token.type, val);
+    const formatted = formatCSSValue(token.type, val, token.name);
     if (formatted) layoutLines.push(`    ${token.cssVar}: ${formatted};`);
   }
   layoutLines.push('  }', '}');
 }
 writeCSS('layout.css', layoutLines.join('\n'));
+
+// --- Fluid tokens (mobile 360–768, desktop 1366–1920) ---
+if (tokens.Fluid) {
+  const mobileMin = modeValue(tokens.Fluid.tokens.find((t) => t.name === 'fluid/breakpoint/mobile'), 'Value') ?? 360;
+  const mobileMax = modeValue(tokens.Fluid.tokens.find((t) => t.name === 'fluid/breakpoint/tablet'), 'Value') ?? 768;
+  const desktopMin = modeValue(tokens.Fluid.tokens.find((t) => t.name === 'fluid/breakpoint/laptop-lg'), 'Value') ?? 1366;
+  const desktopMax = modeValue(tokens.Fluid.tokens.find((t) => t.name === 'fluid/breakpoint/desktop-xl'), 'Value') ?? 1920;
+
+  writeCSS(
+    'fluid-mobile.css',
+    buildFluidCSS({
+      prefix: 'fluid/mobile/',
+      includeNames: [
+        'fluid/viewport/mobile-min',
+        'fluid/viewport/tablet-max',
+        'fluid/breakpoint/mobile',
+        'fluid/breakpoint/tablet',
+      ],
+      viewportMinName: 'fluid/viewport/mobile-min',
+      viewportMaxName: 'fluid/viewport/tablet-max',
+      mediaMin: mobileMin,
+      mediaMax: mobileMax,
+      label: 'mobile (360–768)',
+    })
+  );
+
+  writeCSS(
+    'fluid-desktop.css',
+    buildFluidCSS({
+      prefix: 'fluid/',
+      excludePrefix: 'fluid/mobile/',
+      includeNames: [
+        'fluid/viewport/min',
+        'fluid/viewport/max',
+        'fluid/breakpoint/laptop-lg',
+        'fluid/breakpoint/desktop-lg',
+        'fluid/breakpoint/desktop-xl',
+      ],
+      viewportMinName: 'fluid/viewport/min',
+      viewportMaxName: 'fluid/viewport/max',
+      mediaMin: desktopMin,
+      mediaMax: desktopMax,
+      label: 'desktop (1366–1920)',
+    })
+  );
+}
 
 // --- Master import ---
 writeCSS(
@@ -130,6 +249,8 @@ writeCSS(
 @import './theme.css';
 @import './typography.css';
 @import './layout.css';
+@import './fluid-mobile.css';
+@import './fluid-desktop.css';
 `
 );
 
@@ -235,5 +356,5 @@ writeFileSync(join(ROOT, 'tailwind', 'theme.ts'), tailwindTheme, 'utf8');
 
 console.log('Generated:');
 console.log('  css/primitive.css, semantic.css, component.css, theme.css');
-console.log('  css/typography.css, layout.css, tokens.css');
+console.log('  css/typography.css, layout.css, fluid-mobile.css, fluid-desktop.css, tokens.css');
 console.log('  tailwind/theme.ts');

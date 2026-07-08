@@ -9,10 +9,10 @@
 }
 
 [data-theme="dark"], .dark {
-  --theme-surface-page: #ffffff;
-  --theme-surface-elevated: #f8fafc;
-  --theme-brand-primary: #4f46e5;
+  --theme-surface-page: #020617;
+  --theme-surface-elevated: #0f172a;
+  --theme-brand-primary: #6366f1;
   --theme-brand-primary-foreground: #ffffff;
   --theme-interactive-focus-ring: #6366f1;
-  --theme-interactive-link: #4f46e5;
+  --theme-interactive-link: #818cf8;
 }

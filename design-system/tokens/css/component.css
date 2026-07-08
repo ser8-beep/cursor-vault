@@ -11,18 +11,18 @@
   --input-text: #0f172a;
   --input-placeholder: #94a3b8;
   --card-background: #ffffff;
-  --card-background-default: #f5f5f4;
-  --card-background-hover: #fafafa;
   --card-border: #f1f5f9;
-  --card-radius: 12%;
+  --card-radius: 12px;
   --nav-background: #ffffff;
-  --nav-background-default: #f4f4f5;
-  --nav-background-splash: #ededed;
   --nav-text: #0f172a;
-  --footer-background: #f4f4f5;
-  --footer-text: #09090b;
   --badge-success-background: #ecfdf5;
   --badge-success-text: #047857;
   --tooltip-background: #0f172a;
   --tooltip-text: #ffffff;
+  --card-background-default: #f5f5f4;
+  --card-background-hover: #fafafa;
+  --nav-background-default: #f4f4f5;
+  --nav-background-splash: #ededed;
+  --footer-background: #f4f4f5;
+  --footer-text: #09090b;
 }

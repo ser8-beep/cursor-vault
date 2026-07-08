@@ -1,0 +1,96 @@
+/* Fluid desktop (1366–1920) — raw min/max tokens */
+:root {
+  --fluid-breakpoint-laptop-lg: 1366px;
+  --fluid-breakpoint-desktop-lg: 1600px;
+  --fluid-breakpoint-desktop-xl: 1920px;
+  --fluid-font-size-body-l-min: 17px;
+  --fluid-font-size-body-l-max: 19px;
+  --fluid-font-size-body-m-min: 16px;
+  --fluid-font-size-body-m-max: 17px;
+  --fluid-font-size-body-s-min: 14px;
+  --fluid-font-size-body-s-max: 14px;
+  --fluid-font-size-body-xl-min: 19px;
+  --fluid-font-size-body-xl-max: 21px;
+  --fluid-font-size-button-min: 14px;
+  --fluid-font-size-button-max: 16px;
+  --fluid-font-size-caption-min: 12px;
+  --fluid-font-size-caption-max: 12px;
+  --fluid-font-size-display-l-min: 52px;
+  --fluid-font-size-display-l-max: 64px;
+  --fluid-font-size-display-m-min: 38px;
+  --fluid-font-size-display-m-max: 44px;
+  --fluid-font-size-display-xl-min: 60px;
+  --fluid-font-size-display-xl-max: 72px;
+  --fluid-font-size-heading-l-min: 34px;
+  --fluid-font-size-heading-l-max: 40px;
+  --fluid-font-size-heading-m-min: 26px;
+  --fluid-font-size-heading-m-max: 30px;
+  --fluid-font-size-heading-s-min: 21px;
+  --fluid-font-size-heading-s-max: 24px;
+  --fluid-font-size-heading-xl-min: 38px;
+  --fluid-font-size-heading-xl-max: 44px;
+  --fluid-font-size-label-l-min: 14px;
+  --fluid-font-size-label-l-max: 14px;
+  --fluid-font-size-label-m-min: 13px;
+  --fluid-font-size-label-m-max: 13px;
+  --fluid-font-size-title-min: 20px;
+  --fluid-font-size-title-max: 22px;
+  --fluid-grid-container-width-min: 1250px;
+  --fluid-grid-container-width-max: 1440px;
+  --fluid-grid-gutter-min: 24px;
+  --fluid-grid-gutter-max: 24px;
+  --fluid-grid-margin-min: 58px;
+  --fluid-grid-margin-max: 80px;
+  --fluid-grid-max-width-min: 1243px;
+  --fluid-grid-max-width-max: 1440px;
+  --fluid-layout-content-width-min: 1200px;
+  --fluid-layout-content-width-max: 1440px;
+  --fluid-layout-section-width-min: 1250px;
+  --fluid-layout-section-width-max: 1440px;
+  --fluid-padding-container-min: 58px;
+  --fluid-padding-container-max: 80px;
+  --fluid-padding-hero-min: 120px;
+  --fluid-padding-hero-max: 160px;
+  --fluid-padding-section-min: 72px;
+  --fluid-padding-section-max: 96px;
+  --fluid-section-default-min: 96px;
+  --fluid-section-default-max: 120px;
+  --fluid-section-hero-min: 140px;
+  --fluid-section-hero-max: 176px;
+  --fluid-section-large-min: 120px;
+  --fluid-section-large-max: 144px;
+}
+
+/* Fluid desktop (1366–1920) — clamp() overrides (1366px–1920px) */
+@media (min-width: 1366px) and (max-width: 1920px) {
+  :root {
+  --font-size-body-l: clamp(var(--fluid-font-size-body-l-min), calc(var(--fluid-font-size-body-l-min) + (var(--fluid-font-size-body-l-max) - var(--fluid-font-size-body-l-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-body-l-max));
+  --font-size-body-m: clamp(var(--fluid-font-size-body-m-min), calc(var(--fluid-font-size-body-m-min) + (var(--fluid-font-size-body-m-max) - var(--fluid-font-size-body-m-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-body-m-max));
+  --font-size-body-s: clamp(var(--fluid-font-size-body-s-min), calc(var(--fluid-font-size-body-s-min) + (var(--fluid-font-size-body-s-max) - var(--fluid-font-size-body-s-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-body-s-max));
+  --font-size-body-xl: clamp(var(--fluid-font-size-body-xl-min), calc(var(--fluid-font-size-body-xl-min) + (var(--fluid-font-size-body-xl-max) - var(--fluid-font-size-body-xl-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-body-xl-max));
+  --font-size-button: clamp(var(--fluid-font-size-button-min), calc(var(--fluid-font-size-button-min) + (var(--fluid-font-size-button-max) - var(--fluid-font-size-button-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-button-max));
+  --font-size-caption: clamp(var(--fluid-font-size-caption-min), calc(var(--fluid-font-size-caption-min) + (var(--fluid-font-size-caption-max) - var(--fluid-font-size-caption-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-caption-max));
+  --font-size-display-l: clamp(var(--fluid-font-size-display-l-min), calc(var(--fluid-font-size-display-l-min) + (var(--fluid-font-size-display-l-max) - var(--fluid-font-size-display-l-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-display-l-max));
+  --font-size-display-m: clamp(var(--fluid-font-size-display-m-min), calc(var(--fluid-font-size-display-m-min) + (var(--fluid-font-size-display-m-max) - var(--fluid-font-size-display-m-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-display-m-max));
+  --font-size-display-xl: clamp(var(--fluid-font-size-display-xl-min), calc(var(--fluid-font-size-display-xl-min) + (var(--fluid-font-size-display-xl-max) - var(--fluid-font-size-display-xl-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-display-xl-max));
+  --font-size-heading-l: clamp(var(--fluid-font-size-heading-l-min), calc(var(--fluid-font-size-heading-l-min) + (var(--fluid-font-size-heading-l-max) - var(--fluid-font-size-heading-l-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-heading-l-max));
+  --font-size-heading-m: clamp(var(--fluid-font-size-heading-m-min), calc(var(--fluid-font-size-heading-m-min) + (var(--fluid-font-size-heading-m-max) - var(--fluid-font-size-heading-m-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-heading-m-max));
+  --font-size-heading-s: clamp(var(--fluid-font-size-heading-s-min), calc(var(--fluid-font-size-heading-s-min) + (var(--fluid-font-size-heading-s-max) - var(--fluid-font-size-heading-s-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-heading-s-max));
+  --font-size-heading-xl: clamp(var(--fluid-font-size-heading-xl-min), calc(var(--fluid-font-size-heading-xl-min) + (var(--fluid-font-size-heading-xl-max) - var(--fluid-font-size-heading-xl-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-heading-xl-max));
+  --font-size-label-l: clamp(var(--fluid-font-size-label-l-min), calc(var(--fluid-font-size-label-l-min) + (var(--fluid-font-size-label-l-max) - var(--fluid-font-size-label-l-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-label-l-max));
+  --font-size-label-m: clamp(var(--fluid-font-size-label-m-min), calc(var(--fluid-font-size-label-m-min) + (var(--fluid-font-size-label-m-max) - var(--fluid-font-size-label-m-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-label-m-max));
+  --font-size-title: clamp(var(--fluid-font-size-title-min), calc(var(--fluid-font-size-title-min) + (var(--fluid-font-size-title-max) - var(--fluid-font-size-title-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-font-size-title-max));
+  --grid-container-width: clamp(var(--fluid-grid-container-width-min), calc(var(--fluid-grid-container-width-min) + (var(--fluid-grid-container-width-max) - var(--fluid-grid-container-width-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-grid-container-width-max));
+  --grid-gutter: clamp(var(--fluid-grid-gutter-min), calc(var(--fluid-grid-gutter-min) + (var(--fluid-grid-gutter-max) - var(--fluid-grid-gutter-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-grid-gutter-max));
+  --grid-margin: clamp(var(--fluid-grid-margin-min), calc(var(--fluid-grid-margin-min) + (var(--fluid-grid-margin-max) - var(--fluid-grid-margin-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-grid-margin-max));
+  --grid-max-width: clamp(var(--fluid-grid-max-width-min), calc(var(--fluid-grid-max-width-min) + (var(--fluid-grid-max-width-max) - var(--fluid-grid-max-width-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-grid-max-width-max));
+  --layout-content-width: clamp(var(--fluid-layout-content-width-min), calc(var(--fluid-layout-content-width-min) + (var(--fluid-layout-content-width-max) - var(--fluid-layout-content-width-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-layout-content-width-max));
+  --layout-section-width: clamp(var(--fluid-layout-section-width-min), calc(var(--fluid-layout-section-width-min) + (var(--fluid-layout-section-width-max) - var(--fluid-layout-section-width-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-layout-section-width-max));
+  --padding-container: clamp(var(--fluid-padding-container-min), calc(var(--fluid-padding-container-min) + (var(--fluid-padding-container-max) - var(--fluid-padding-container-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-padding-container-max));
+  --padding-hero: clamp(var(--fluid-padding-hero-min), calc(var(--fluid-padding-hero-min) + (var(--fluid-padding-hero-max) - var(--fluid-padding-hero-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-padding-hero-max));
+  --padding-section: clamp(var(--fluid-padding-section-min), calc(var(--fluid-padding-section-min) + (var(--fluid-padding-section-max) - var(--fluid-padding-section-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-padding-section-max));
+  --section-default: clamp(var(--fluid-section-default-min), calc(var(--fluid-section-default-min) + (var(--fluid-section-default-max) - var(--fluid-section-default-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-section-default-max));
+  --section-hero: clamp(var(--fluid-section-hero-min), calc(var(--fluid-section-hero-min) + (var(--fluid-section-hero-max) - var(--fluid-section-hero-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-section-hero-max));
+  --section-large: clamp(var(--fluid-section-large-min), calc(var(--fluid-section-large-min) + (var(--fluid-section-large-max) - var(--fluid-section-large-min)) * ((100vw - var(--fluid-viewport-min)) / (var(--fluid-viewport-max) - var(--fluid-viewport-min)))), var(--fluid-section-large-max));
+  }
+}
