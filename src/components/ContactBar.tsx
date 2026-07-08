@@ -32,20 +32,20 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
 
   return (
     <motion.div
-      className="relative z-[var(--z-50)] flex w-full shrink-0 flex-col gap-gap-md tablet:flex-row tablet:items-end tablet:justify-between"
+      className="relative z-[var(--z-50)] flex w-full shrink-0 flex-row items-center justify-between gap-gap-md"
       data-node-id="13:367"
       data-name="psuedo-footer-1440"
       {...motionProps}
     >
-      <div className="relative flex w-fit shrink-0 items-center justify-start gap-gap-lg bg-surface border border-border-default rounded-3 p-sm">
-        <ul className="flex flex-wrap items-center gap-x-gap-lg gap-y-gap-sm">
+      <div className="relative flex min-w-0 flex-1 items-center justify-start gap-gap-lg bg-surface border border-border-default rounded-3 p-sm">
+        <ul className="flex min-w-0 flex-1 flex-nowrap items-center justify-between gap-x-gap-lg overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           {CONTACTS.map((c) => (
-            <li key={c.href}>
+            <li key={c.href} className="shrink-0">
               <Link
                 href={c.href}
                 target={c.external ? "_blank" : undefined}
                 rel={c.external ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center py-sm font-display uppercase text-label-s tracking-caption text-text-primary transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
+                className="inline-flex items-center whitespace-nowrap py-sm font-display uppercase text-label-s tracking-caption text-text-primary transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
               >
                 {c.label}
               </Link>
@@ -57,7 +57,7 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
         </span>
       </div>
 
-      <div className="flex shrink-0 items-center gap-2xs self-end" data-name="location-time">
+      <div className="flex shrink-0 items-center gap-2xs" data-name="location-time">
         <p className="font-display uppercase text-label-s tracking-caption leading-normal text-text-primary text-right">
           LOC: Mumbai, IN
           <br />

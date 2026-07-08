@@ -20,6 +20,10 @@ type HeroProps = {
   showHeadline: boolean;
 };
 
+const HERO_TAGLINE = "That make sense";
+const HERO_MARQUEE_REPEAT = 6;
+const HERO_MARQUEE_TEXT = Array(HERO_MARQUEE_REPEAT).fill(HERO_TAGLINE).join(" · ");
+
 const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur effect */
 
 /**
@@ -150,18 +154,21 @@ export function Hero({
             {...headlineMotionProps}
           >
             <div className="relative z-[var(--z-30)] flex flex-col gap-gap-sm laptop:contents">
-              <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-1 laptop:row-start-1 laptop:whitespace-nowrap">
+              <h1 className="text-center font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-1 laptop:row-start-1 laptop:text-left laptop:whitespace-nowrap">
                 Building <span className="text-text-link">systems</span>
               </h1>
-              <p className="font-display uppercase text-base leading-3 tracking-wider text-text-secondary max-w-[var(--width-nav-card)] laptop:col-start-1 laptop:row-start-2">
-                Product_designer //AI native_lean UX_systems_workflows
-              </p>
             </div>
             <p
-              className="relative z-[var(--z-10)] self-end text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:justify-self-end laptop:self-auto laptop:whitespace-nowrap"
+              className="relative z-[var(--z-10)] w-full self-end overflow-hidden text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:w-auto laptop:justify-self-end laptop:self-auto laptop:overflow-visible laptop:whitespace-nowrap"
               aria-hidden="true"
             >
-              That make sense
+              <span className="hero-marquee inline-flex w-max laptop:hidden">
+                <span className="hero-marquee__segment">{HERO_MARQUEE_TEXT}</span>
+                <span className="hero-marquee__segment" aria-hidden="true">
+                  {HERO_MARQUEE_TEXT}
+                </span>
+              </span>
+              <span className="hidden laptop:inline">{HERO_TAGLINE}</span>
             </p>
             <span className="sr-only">Building systems that make sense</span>
           </motion.div>

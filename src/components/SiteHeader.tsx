@@ -94,12 +94,12 @@ export function SiteHeader({
     <header
       data-node-id="13:450"
       data-name="header-1440"
-      className="flex flex-col gap-gap-sm tablet:flex-row tablet:items-start tablet:justify-between tablet:gap-gap-md w-full"
+      className="flex w-full min-w-0 flex-col gap-gap-sm tablet:flex-row tablet:items-start tablet:justify-between tablet:gap-gap-md"
     >
       <motion.nav
         aria-label="Primary"
         data-name="nav"
-        className="inline-grid w-max max-w-full tablet:shrink-0 bg-surface border border-border-default rounded-3"
+        className="grid w-full min-w-0 flex-1 bg-surface border border-border-default rounded-3"
         {...shellProps}
       >
         <div className="flex w-full min-w-0 items-stretch justify-between border-b border-border-default py-2xs pl-sm pr-xs">
@@ -151,7 +151,7 @@ export function SiteHeader({
         </div>
         {!brandOnly ? (
           <motion.ul
-            className="flex w-max min-w-0 max-w-full flex-nowrap items-center justify-start gap-x-gap-sm tablet:gap-x-gap-md laptop:gap-x-gap-lg gap-y-0 pl-sm pr-sm laptop:pr-xl py-sm uppercase overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full min-w-0 flex-nowrap items-center justify-between gap-x-gap-sm tablet:gap-x-gap-md laptop:gap-x-gap-lg gap-y-0 pl-sm pr-sm laptop:pr-xl py-sm uppercase overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             {...navProps}
           >
             {NAV_ITEMS.map((item) => (
