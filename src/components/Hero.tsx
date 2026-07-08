@@ -3,30 +3,36 @@
 import Image from "next/image";
 import { motion, type MotionValue, useMotionTemplate, useTransform } from "motion/react";
 import { ENTRANCE, EASE_STANDARD, mapRange, SCROLL_FOLD } from "@/lib/motion/homePrototype";
+import type { SplashPhase } from "@/lib/motion/splashPhase";
 import {
   SCULPTURE_HERO_REST,
   sculptureMorphLeft,
   sculptureMorphTranslateX,
 } from "@/lib/motion/sculptureParallax";
+import { SplashTypewriter } from "./SplashTypewriter";
 
 type HeroProps = {
   scrollProgress: MotionValue<number>;
   motionEnabled: boolean;
   desktopSculptureMotion: boolean;
   entranceSculptureSharp: boolean;
+  splashPhase: SplashPhase;
+  showHeadline: boolean;
 };
 
 const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur effect */
 
 /**
- * splash-organism — Figma 13:509. Motion frames 13:32063, 13:32094, 13:32102.
- * TODO: 13:32059 splash typewriter (.....| / PR / -|) — prototype starts at footer-enter; skipped.
+ * splash-organism — Figma 13:509 / 54:1126.
+ * Splash: typewriter molecule (13:521). Footer-enter: full headline (13:32063).
  */
 export function Hero({
   scrollProgress,
   motionEnabled,
   desktopSculptureMotion,
   entranceSculptureSharp,
+  splashPhase,
+  showHeadline,
 }: HeroProps) {
   const textOpacity = useTransform(scrollProgress, (p) => {
     if (!motionEnabled) return 1;
@@ -72,6 +78,18 @@ export function Hero({
 
   const restingBlur = entranceSculptureSharp ? "blur(0px)" : `blur(${SCULPTURE_BLUR_PX}px)`;
   const showInlineSculpture = !desktopSculptureMotion;
+  const showTypewriter = splashPhase === "splash";
+
+  const headlineMotionProps = motionEnabled
+    ? {
+        initial: { opacity: 0, y: 8 },
+        animate: showHeadline ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 },
+        transition: {
+          duration: ENTRANCE.headline.duration,
+          ease: EASE_STANDARD,
+        },
+      }
+    : {};
 
   return (
     <section
@@ -83,7 +101,7 @@ export function Hero({
       {showInlineSculpture ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 z-0 laptop:z-20 aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
+          className="pointer-events-none absolute top-1/2 z-20 aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
           style={
             motionEnabled
               ? {
@@ -124,27 +142,36 @@ export function Hero({
         </motion.div>
       ) : null}
 
-      <motion.div
-        className="relative z-10 laptop:z-0 flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between"
-        style={{ opacity: motionEnabled ? textOpacity : 1 }}
+      <div
+        className="relative z-0 flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between"
         data-name="text-animation-molecule"
       >
-        <div className="flex flex-col gap-gap-sm laptop:gap-[var(--space-12)]">
-          <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap">
-            Building <span className="text-text-link">systems</span>
-          </h1>
-          <p className="font-display uppercase text-base leading-3 tracking-wider text-text-secondary max-w-[var(--width-nav-card)]">
-            Product_designer //AI native_lean UX_systems_workflows
-          </p>
-        </div>
-        <p
-          className="self-end laptop:self-auto text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap"
-          aria-hidden="true"
-        >
-          That make sense
-        </p>
-        <span className="sr-only">Building systems that make sense</span>
-      </motion.div>
+        {showTypewriter ? (
+          <SplashTypewriter motionEnabled={motionEnabled} visible />
+        ) : (
+          <motion.div
+            className="flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between"
+            style={{ opacity: motionEnabled ? textOpacity : 1 }}
+            {...headlineMotionProps}
+          >
+            <div className="flex flex-col gap-gap-sm laptop:gap-[var(--space-12)]">
+              <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap">
+                Building <span className="text-text-link">systems</span>
+              </h1>
+              <p className="font-display uppercase text-base leading-3 tracking-wider text-text-secondary max-w-[var(--width-nav-card)]">
+                Product_designer //AI native_lean UX_systems_workflows
+              </p>
+            </div>
+            <p
+              className="self-end laptop:self-auto text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap"
+              aria-hidden="true"
+            >
+              That make sense
+            </p>
+            <span className="sr-only">Building systems that make sense</span>
+          </motion.div>
+        )}
+      </div>
     </section>
   );
 }

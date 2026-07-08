@@ -42,35 +42,39 @@ function ResumeText({ variant }: { variant: "mobile" | "desktop" }) {
 type SiteHeaderProps = {
   motionEnabled: boolean;
   entranceActive: boolean;
+  /** Splash/header-enter: brand row only until full chrome (Figma 54:1126). */
+  brandOnly?: boolean;
 };
 
 /**
  * header-1440 — Figma 13:450. Motion: header-enter (13:32068).
  */
-export function SiteHeader({ motionEnabled, entranceActive }: SiteHeaderProps) {
-  const shellProps = motionEnabled
-    ? {
-        initial: { opacity: 0, y: -8 },
-        animate: entranceActive ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 },
-        transition: {
-          delay: ENTRANCE.headerShell.delay,
-          duration: ENTRANCE.headerShell.duration,
-          ease: EASE_STANDARD,
-        },
-      }
-    : {};
+export function SiteHeader({ motionEnabled, entranceActive, brandOnly = false }: SiteHeaderProps) {
+  const shellProps =
+    motionEnabled && !brandOnly
+      ? {
+          initial: { opacity: 0, y: -8 },
+          animate: entranceActive ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 },
+          transition: {
+            delay: ENTRANCE.headerShell.delay,
+            duration: ENTRANCE.headerShell.duration,
+            ease: EASE_STANDARD,
+          },
+        }
+      : {};
 
-  const navProps = motionEnabled
-    ? {
-        initial: { opacity: 0, height: 0 },
-        animate: entranceActive ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 },
-        transition: {
-          delay: ENTRANCE.headerNav.delay,
-          duration: ENTRANCE.headerNav.duration,
-          ease: EASE_STANDARD,
-        },
-      }
-    : {};
+  const navProps =
+    motionEnabled && !brandOnly
+      ? {
+          initial: { opacity: 0, height: 0 },
+          animate: entranceActive ? { opacity: 1, height: "auto" } : { opacity: 0, height: 0 },
+          transition: {
+            delay: ENTRANCE.headerNav.delay,
+            duration: ENTRANCE.headerNav.duration,
+            ease: EASE_STANDARD,
+          },
+        }
+      : {};
 
   return (
     <header
@@ -99,55 +103,63 @@ export function SiteHeader({ motionEnabled, entranceActive }: SiteHeaderProps) {
           </Link>
           <Link
             href="/resume"
-            className="group flex tablet:hidden items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
+            className={`group flex tablet:hidden items-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link ${
+              brandOnly ? "hidden" : ""
+            }`}
             aria-label="Product experience 4+ years — view my resume"
           >
             <ResumeText variant="mobile" />
           </Link>
-          <motion.div
-            className="hidden laptop:block relative w-[var(--width-nav-media)] overflow-hidden rounded-3 mix-blend-luminosity"
-            initial={motionEnabled ? { opacity: 0 } : false}
-            animate={entranceActive ? { opacity: 1 } : { opacity: 0 }}
-            transition={{
-              delay: ENTRANCE.headerNav.delay,
-              duration: ENTRANCE.headerNav.duration,
-              ease: EASE_STANDARD,
-            }}
-            data-name="nav-gif"
-          >
-            <Image
-              src="/figma/nav-media-poster.png"
-              alt=""
-              fill
-              sizes="200px"
-              className="object-cover opacity-60"
-            />
-          </motion.div>
+          {!brandOnly ? (
+            <motion.div
+              className="hidden laptop:block relative w-[var(--width-nav-media)] overflow-hidden rounded-3 mix-blend-luminosity"
+              initial={motionEnabled ? { opacity: 0 } : false}
+              animate={entranceActive ? { opacity: 1 } : { opacity: 0 }}
+              transition={{
+                delay: ENTRANCE.headerNav.delay,
+                duration: ENTRANCE.headerNav.duration,
+                ease: EASE_STANDARD,
+              }}
+              data-name="nav-gif"
+            >
+              <Image
+                src="/figma/nav-media-poster.png"
+                alt=""
+                fill
+                sizes="200px"
+                className="object-cover opacity-60"
+              />
+            </motion.div>
+          ) : null}
         </div>
-        <motion.ul
-          className="flex flex-wrap items-center gap-x-gap-lg gap-y-0 px-sm py-sm uppercase overflow-hidden"
-          {...navProps}
-        >
-          {NAV_ITEMS.map((item) => (
-            <li key={item.label}>
-              <Link
-                href={item.href}
-                className="inline-flex items-center gap-gap-sm py-sm font-display text-label-s tracking-caption text-text-primary transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
-              >
-                {item.label}
-                <span className="font-helvetica text-text-muted" aria-hidden="true">
-                  {item.count}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </motion.ul>
+        {!brandOnly ? (
+          <motion.ul
+            className="flex flex-wrap items-center gap-x-gap-lg gap-y-0 px-sm py-sm uppercase overflow-hidden"
+            {...navProps}
+          >
+            {NAV_ITEMS.map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.href}
+                  className="inline-flex items-center gap-gap-sm py-sm font-display text-label-s tracking-caption text-text-primary transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
+                >
+                  {item.label}
+                  <span className="font-helvetica text-text-muted" aria-hidden="true">
+                    {item.count}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </motion.ul>
+        ) : null}
       </motion.nav>
 
-      {/* tablet+: resume card — static layout wrapper; motion via entranceActive on tablet+ only when motionEnabled */}
+      {/* tablet+: resume card — hidden during splash brand-only (54:1126) */}
       <Link
         href="/resume"
-        className="group hidden tablet:flex items-center justify-between gap-gap-md tablet:w-auto tablet:shrink-0 tablet:min-w-[var(--width-resume-card)] border border-border-default rounded-3 p-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
+        className={`group hidden tablet:flex items-center justify-between gap-gap-md tablet:w-auto tablet:shrink-0 tablet:min-w-[var(--width-resume-card)] border border-border-default rounded-3 p-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link ${
+          brandOnly ? "!hidden" : ""
+        }`}
         aria-label="Product experience 4+ years — view my resume"
         data-name="resume"
       >

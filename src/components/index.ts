@@ -1,3 +1,4 @@
+export { SplashTypewriter } from "./SplashTypewriter";
 export { SiteHeader } from "./SiteHeader";
 export { Hero } from "./Hero";
 export { ContactBar } from "./ContactBar";

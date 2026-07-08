@@ -13,14 +13,14 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useDesktopSculptureMotion } from "@/lib/motion/useDesktopSculptureMotion";
 import { useMobileMotion } from "@/lib/motion/useMobileMotion";
 import { ENTRANCE } from "@/lib/motion/homePrototype";
+import { SPLASH_PHASE_MS, type SplashPhase } from "@/lib/motion/splashPhase";
 
 /** Scroll distance for header-enter on mobile (13:32068). */
 const HEADER_ENTER_SCROLL_PX = 48;
 
 /**
- * Orchestrates mobile scroll-linked home motion from Figma prototype frames
- * 13:32063 (footer-enter) through 13:32102 (notes-enter).
- * Desktop sculpture sticky parallax is laptop+; other mobile scroll motion stays <768px.
+ * Orchestrates splash → footer-enter → header-enter, then scroll-linked second fold
+ * (Figma 54:1126 / 13:32063 → 13:32102).
  */
 export function HomeScrollExperience() {
   const reducedMotion = usePrefersReducedMotion();
@@ -31,7 +31,9 @@ export function HomeScrollExperience() {
 
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const dataStoriesRef = useRef<HTMLElement>(null);
-  const [headerEntered, setHeaderEntered] = useState(!motionEnabled);
+  const [splashPhase, setSplashPhase] = useState<SplashPhase>(
+    motionEnabled ? "splash" : "header",
+  );
   const [entranceActive, setEntranceActive] = useState(!motionEnabled);
   const [sculptureSharp, setSculptureSharp] = useState(!motionEnabled);
   const [cursorVisible, setCursorVisible] = useState(!motionEnabled);
@@ -46,22 +48,53 @@ export function HomeScrollExperience() {
     offset: ["start end", "end start"],
   });
 
-  /* footer-enter: contact bar visible at start; header-enter on first scroll */
+  /* splash → footer → header phase timers (54:1126 → 13:32068) */
   useEffect(() => {
     if (!motionEnabled) {
-      setHeaderEntered(true);
+      setSplashPhase("header");
       setEntranceActive(true);
       return;
     }
-    setEntranceActive(true);
+
+    setSplashPhase("splash");
+    const footerTimer = window.setTimeout(
+      () => setSplashPhase("footer"),
+      SPLASH_PHASE_MS.splash,
+    );
+    const headerTimer = window.setTimeout(
+      () => setSplashPhase("header"),
+      SPLASH_PHASE_MS.splash + SPLASH_PHASE_MS.footer,
+    );
+
+    return () => {
+      window.clearTimeout(footerTimer);
+      window.clearTimeout(headerTimer);
+    };
+  }, [motionEnabled]);
+
+  /* Mobile: header-enter on first scroll (can skip ahead of timer) */
+  useEffect(() => {
+    if (!motionEnabled) return;
 
     const onScroll = () => {
-      if (window.scrollY >= HEADER_ENTER_SCROLL_PX) setHeaderEntered(true);
+      if (window.scrollY >= HEADER_ENTER_SCROLL_PX) {
+        setSplashPhase("header");
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [motionEnabled]);
+
+  /* footer-enter: enable carousel/contact choreography once past splash */
+  useEffect(() => {
+    if (!motionEnabled) {
+      setEntranceActive(true);
+      return;
+    }
+    if (splashPhase === "splash") return;
+    setEntranceActive(true);
+  }, [motionEnabled, splashPhase]);
 
   /* sculpture blur clear + cursor-enter timers (13:32063 → 13:32087) */
   useEffect(() => {
@@ -86,20 +119,31 @@ export function HomeScrollExperience() {
     };
   }, [motionEnabled]);
 
+  const showFullHeader = splashPhase === "header";
+  const showContact = splashPhase !== "splash";
+  const showHeadline = splashPhase !== "splash";
+
   return (
     <div className="canvas-pattern flex min-h-screen flex-col gap-gap-md p-canvas overflow-x-clip">
       <div className="relative flex min-h-[calc(100svh-var(--padding-canvas)*2)] flex-col justify-between gap-gap-lg">
         <SiteHeader
           motionEnabled={motionEnabled}
-          entranceActive={headerEntered}
+          entranceActive={showFullHeader}
+          brandOnly={!showFullHeader}
         />
         <Hero
           scrollProgress={scrollYProgress}
           motionEnabled={motionEnabled}
           desktopSculptureMotion={sculptureMotionEnabled}
           entranceSculptureSharp={sculptureSharp}
+          splashPhase={splashPhase}
+          showHeadline={showHeadline}
         />
-        <ContactBar motionEnabled={motionEnabled} entranceActive={entranceActive} />
+        {showContact ? (
+          <ContactBar motionEnabled={motionEnabled} entranceActive={entranceActive} />
+        ) : (
+          <div className="min-h-[var(--space-80)]" aria-hidden="true" />
+        )}
         <GhostCursor
           scrollProgress={scrollYProgress}
           motionEnabled={motionEnabled}

@@ -16,6 +16,7 @@ export const EASE_STANDARD = [0.4, 0, 0.2, 1] as const;
 
 export const ENTRANCE = {
   contact: { delay: 0, duration: 0.4 },
+  headline: { delay: 0, duration: 0.45 },
   headerShell: { delay: 0.12, duration: 0.45 },
   headerNav: { delay: 0.28, duration: 0.35 },
   resume: { delay: 0.22, duration: 0.4 },
