@@ -6,12 +6,16 @@ import {
   useMotionTemplate,
   useTransform,
 } from "motion/react";
+import { useSmoothedMotionValue } from "@/hooks/useSmoothedMotionValue";
 import {
+  isSculptureNotesStickyPhase,
   isSculptureStickyPhase,
+  notesParallaxScaleDelta,
   notesParallaxY,
   SCULPTURE_NOTES_REST,
   sculptureBlurPx,
   sculptureImageBlend,
+  sculptureImageBlendFromSection,
   sculptureLayerOpacity,
   sculptureMorphLeft,
   sculptureMorphScale,
@@ -29,6 +33,8 @@ type SculptureStickyParallaxProps = {
   notesSectionProgress: MotionValue<number>;
   entranceSharp: boolean;
   motionEnabled: boolean;
+  /** Hide only while motion video scrubs (act 1), not act 2 bridge. */
+  suppressDuringHandoff?: boolean;
 };
 
 /**
@@ -40,7 +46,10 @@ export function SculptureStickyParallax({
   notesSectionProgress,
   entranceSharp,
   motionEnabled,
+  suppressDuringHandoff = false,
 }: SculptureStickyParallaxProps) {
+  const smoothedSectionProgress = useSmoothedMotionValue(notesSectionProgress, 0.12);
+
   const layerOpacity = useTransform(scrollProgress, (p) =>
     motionEnabled ? sculptureLayerOpacity(p) : 0,
   );
@@ -49,71 +58,137 @@ export function SculptureStickyParallax({
     motionEnabled ? `${sculptureMorphLeft(p)}%` : `${SCULPTURE_NOTES_REST.leftPct}%`,
   );
 
-  const top = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled) return `${SCULPTURE_NOTES_REST.topPct}%`;
-    return isSculptureStickyPhase(p) ? `${SCULPTURE_NOTES_REST.topPct}%` : "50%";
+  const top = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return `${SCULPTURE_NOTES_REST.topPct}%`;
+      if (
+        isSculptureStickyPhase(p as number) ||
+        isSculptureNotesStickyPhase(sectionP as number)
+      ) {
+        return `${SCULPTURE_NOTES_REST.topPct}%`;
+      }
+      return "50%";
+    },
+  );
+
+  const translateX = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return "0%";
+      if (
+        isSculptureStickyPhase(p as number) ||
+        isSculptureNotesStickyPhase(sectionP as number)
+      ) {
+        return "0%";
+      }
+      return `${sculptureMorphTranslateX(p as number)}%`;
+    },
+  );
+
+  const translateY = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return "0%";
+      if (
+        isSculptureStickyPhase(p as number) ||
+        isSculptureNotesStickyPhase(sectionP as number)
+      ) {
+        return "0%";
+      }
+      return `${sculptureMorphTranslateY(p as number)}%`;
+    },
+  );
+
+  const parallaxY = useTransform(smoothedSectionProgress, (sectionP) => {
+    if (!motionEnabled || !isSculptureNotesStickyPhase(sectionP)) return 0;
+    return notesParallaxY(sectionP);
   });
 
-  const translateX = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled) return "0%";
-    if (isSculptureStickyPhase(p)) return "0%";
-    return `${sculptureMorphTranslateX(p)}%`;
-  });
+  const scale = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return SCULPTURE_NOTES_REST.scale;
+      const sticky =
+        isSculptureStickyPhase(p as number) ||
+        isSculptureNotesStickyPhase(sectionP as number);
+      if (!sticky) return sculptureMorphScale(p as number);
+      const base = sculptureMorphScale(p as number);
+      return base + notesParallaxScaleDelta(sectionP as number);
+    },
+  );
 
-  const translateY = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled) return "0%";
-    if (isSculptureStickyPhase(p)) return "0%";
-    return `${sculptureMorphTranslateY(p)}%`;
-  });
-
-  const parallaxY = useTransform([scrollProgress, notesSectionProgress], ([p, sectionP]) => {
-    if (!motionEnabled || !isSculptureStickyPhase(p as number)) return 0;
-    return notesParallaxY(sectionP as number);
-  });
-
-  const scale = useTransform([scrollProgress, notesSectionProgress], ([p, sectionP]) => {
-    if (!motionEnabled) return SCULPTURE_NOTES_REST.scale;
-    if (!isSculptureStickyPhase(p as number)) {
-      return sculptureMorphScale(p as number);
-    }
-    const base = sculptureMorphScale(p as number);
-    return base + notesParallaxY(sectionP as number) * 0.0004;
-  });
-
-  const blurPx = useTransform(scrollProgress, (p) =>
-    motionEnabled ? sculptureBlurPx(p, entranceSharp) : 0,
+  const blurPx = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return 0;
+      if (isSculptureNotesStickyPhase(sectionP as number)) return 0;
+      return sculptureBlurPx(p as number, entranceSharp);
+    },
   );
   const filter = useMotionTemplate`blur(${blurPx}px)`;
 
-  const heroImageOpacity = useTransform(scrollProgress, (p) =>
-    motionEnabled ? 1 - sculptureImageBlend(p) : 0,
+  const heroImageOpacity = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return 0;
+      if (isSculptureNotesStickyPhase(sectionP as number)) {
+        return 1 - sculptureImageBlendFromSection(sectionP as number);
+      }
+      return 1 - sculptureImageBlend(p as number);
+    },
   );
-  const notesImageOpacity = useTransform(scrollProgress, (p) =>
-    motionEnabled ? sculptureImageBlend(p) : 1,
-  );
-
-  const width = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled) return "min(var(--width-notes-sculpture), 47.39vw)";
-    if (isSculptureStickyPhase(p)) return "min(var(--width-notes-sculpture), 47.39vw)";
-    const t = mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.notesStart, 0, 1);
-    const heroHeightExpr = "calc(100svh - var(--section-hero) * 1.15)";
-    const heroWidth = `calc(${heroHeightExpr} * ${HERO_ASPECT})`;
-    if (p < SCROLL_FOLD.textHideStart) return heroWidth;
-    const notesWidth = "min(var(--width-notes-sculpture), 47.39vw)";
-    return t < 1 ? heroWidth : notesWidth;
-  });
-
-  const height = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled) return "auto";
-    if (isSculptureStickyPhase(p)) return "auto";
-    return "calc(100svh - var(--section-hero) * 1.15)";
-  });
-
-  const aspectRatio = useTransform(scrollProgress, (p) =>
-    isSculptureStickyPhase(p) ? "628 / 1024" : `${366} / ${782}`,
+  const notesImageOpacity = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return 1;
+      if (isSculptureNotesStickyPhase(sectionP as number)) {
+        return sculptureImageBlendFromSection(sectionP as number);
+      }
+      return sculptureImageBlend(p as number);
+    },
   );
 
-  if (!motionEnabled) return null;
+  const width = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return "min(var(--width-notes-sculpture), 47.39vw)";
+      const sticky =
+        isSculptureStickyPhase(p as number) ||
+        isSculptureNotesStickyPhase(sectionP as number);
+      if (sticky) return "min(var(--width-notes-sculpture), 47.39vw)";
+      const t = mapRange(p as number, SCROLL_FOLD.sculptureMorphEnd, SCROLL_FOLD.notesStart, 0, 1);
+      const heroHeightExpr = "calc(100svh - var(--section-hero) * 1.15)";
+      const heroWidth = `calc(${heroHeightExpr} * ${HERO_ASPECT})`;
+      if ((p as number) < SCROLL_FOLD.sculptureMorphEnd) return heroWidth;
+      const notesWidth = "min(var(--width-notes-sculpture), 47.39vw)";
+      return t < 1 ? heroWidth : notesWidth;
+    },
+  );
+
+  const height = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      if (!motionEnabled) return "auto";
+      const sticky =
+        isSculptureStickyPhase(p as number) ||
+        isSculptureNotesStickyPhase(sectionP as number);
+      if (sticky) return "auto";
+      return "calc(100svh - var(--section-hero) * 1.15)";
+    },
+  );
+
+  const aspectRatio = useTransform(
+    [scrollProgress, smoothedSectionProgress],
+    ([p, sectionP]) => {
+      const sticky =
+        isSculptureStickyPhase(p as number) ||
+        isSculptureNotesStickyPhase(sectionP as number);
+      return sticky ? "628 / 1024" : `${366} / ${782}`;
+    },
+  );
+
+  if (!motionEnabled || suppressDuringHandoff) return null;
 
   return (
     <motion.div

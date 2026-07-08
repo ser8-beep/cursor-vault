@@ -7,7 +7,6 @@
  *   13:32063 footer-enter
  *   13:32068 header-enter
  *   13:32074 cs-carousel-enter
- *   13:32087 cursor-enter
  *   13:32094 second-fold-text-image-change (scroll)
  *   13:32102 second-fold-notes-enter (scroll)
  */
@@ -22,19 +21,19 @@ export const ENTRANCE = {
   resume: { delay: 0.22, duration: 0.4 },
   sculptureBlur: { delay: 0.35, duration: 0.7 },
   carousel: { delay: 0.55, duration: 0.5 },
-  cursor: { delay: 0.75, duration: 0.4 },
 } as const;
 
-/** Scroll progress breakpoints for second-fold (0 = carousel in view, 1 = notes settled). */
+/** Scroll progress breakpoints for second-fold (0 = carousel in view, 1 = notes settled).
+ *  Calibrated from scroll-timing.mov @ 1440×850 (~49s–62s scroll window). */
 export const SCROLL_FOLD = {
-  textHideStart: 0.08,
-  textHideEnd: 0.28,
-  sculptureMorphEnd: 0.42,
-  notesStart: 0.32,
-  notesEnd: 0.72,
-  textReturnStart: 0.55,
-  textReturnEnd: 0.78,
-  cursorMoveEnd: 0.85,
+  textHideStart: 0.06,
+  textHideEnd: 0.22,
+  sculptureMorphStart: 0.2,
+  sculptureMorphEnd: 0.36,
+  notesStart: 0.58,
+  notesEnd: 0.82,
+  textReturnStart: 0.48,
+  textReturnEnd: 0.68,
 } as const;
 
 export function clamp01(value: number): number {

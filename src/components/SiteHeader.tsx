@@ -5,24 +5,30 @@ import Link from "next/link";
 import { motion } from "motion/react";
 import { ENTRANCE, EASE_STANDARD } from "@/lib/motion/homePrototype";
 import { FigmaImage } from "./FigmaImage";
+import { MontageEmbed, NavMontage } from "./NavMontage";
 
 const NAV_ITEMS = [
-  { label: "CASE STUDIES_PRO", count: "04", href: "#case-studies" },
-  { label: "DATA STORIES_OOO", count: "03", href: "#data-stories" },
-  { label: "WORK_EXPERIENCE", count: "04 yrs", href: "#work-experience" },
+  { label: "CASE_STUDIES", count: "04", href: "#case-studies" },
+  { label: "DATA_STORIES", count: "03", href: "#data-stories" },
+  { label: "ABOUT_ME", count: "3+ yrs", href: "#about" },
 ];
 
 function ResumeText({ variant }: { variant: "mobile" | "desktop" }) {
   return (
-    <span className="flex items-center gap-gap-sm py-sm">
-      <Image
-        src="/figma/work-ex-icon.svg"
-        alt=""
-        width={32}
-        height={32}
-        className="size-xl shrink-0"
-      />
-      <span className="flex flex-col gap-2xs uppercase font-display text-label-s tracking-caption whitespace-nowrap">
+    <span className="inline-flex w-max max-w-max shrink-0 items-center gap-gap-sm self-start py-sm">
+      <span
+        aria-hidden="true"
+        className="flex size-xl shrink-0 items-center justify-center"
+      >
+        <Image
+          src="/figma/work-ex-icon.svg"
+          alt=""
+          width={32}
+          height={32}
+          className="size-full object-contain"
+        />
+      </span>
+      <span className="flex w-max max-w-max shrink-0 flex-col gap-2xs uppercase font-display text-label-s tracking-caption whitespace-nowrap">
         <span
           className={
             variant === "mobile"
@@ -45,12 +51,19 @@ type SiteHeaderProps = {
   entranceActive: boolean;
   /** Splash/header-enter: brand row only until full chrome (Figma 54:1126). */
   brandOnly?: boolean;
+  /** Show static nav poster instead of animated montage. */
+  reducedMotion?: boolean;
 };
 
 /**
  * header-1440 — Figma 13:450. Motion: header-enter (13:32068).
  */
-export function SiteHeader({ motionEnabled, entranceActive, brandOnly = false }: SiteHeaderProps) {
+export function SiteHeader({
+  motionEnabled,
+  entranceActive,
+  brandOnly = false,
+  reducedMotion = false,
+}: SiteHeaderProps) {
   const shellProps =
     motionEnabled && !brandOnly
       ? {
@@ -86,10 +99,10 @@ export function SiteHeader({ motionEnabled, entranceActive, brandOnly = false }:
       <motion.nav
         aria-label="Primary"
         data-name="nav"
-        className="flex flex-col w-full tablet:w-auto tablet:flex-1 tablet:max-w-[var(--width-nav-card)] laptop:min-w-[var(--width-nav-card)] bg-surface border border-border-default rounded-3 overflow-hidden"
+        className="inline-grid w-max max-w-full tablet:shrink-0 bg-surface border border-border-default rounded-3"
         {...shellProps}
       >
-        <div className="flex items-stretch justify-between border-b border-border-default py-2xs pl-sm pr-xs">
+        <div className="flex w-full min-w-0 items-stretch justify-between border-b border-border-default py-2xs pl-sm pr-xs">
           <Link
             href="/"
             className="flex flex-col justify-center uppercase py-2xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
@@ -123,25 +136,29 @@ export function SiteHeader({ motionEnabled, entranceActive, brandOnly = false }:
               }}
               data-name="nav-gif"
             >
-              <FigmaImage
-                asset="navMediaPoster"
-                alt=""
-                fill
-                className="object-cover opacity-60"
-              />
+              {reducedMotion ? (
+                <FigmaImage
+                  asset="navMediaPoster"
+                  alt=""
+                  fill
+                  className="object-cover opacity-60"
+                />
+              ) : (
+                <NavMontage />
+              )}
             </motion.div>
           ) : null}
         </div>
         {!brandOnly ? (
           <motion.ul
-            className="flex flex-wrap items-center gap-x-gap-lg gap-y-0 px-sm py-sm uppercase overflow-hidden"
+            className="flex w-max min-w-0 max-w-full flex-nowrap items-center justify-start gap-x-gap-sm tablet:gap-x-gap-md laptop:gap-x-gap-lg gap-y-0 pl-sm pr-sm laptop:pr-xl py-sm uppercase overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             {...navProps}
           >
             {NAV_ITEMS.map((item) => (
-              <li key={item.label}>
+              <li key={item.label} className="shrink-0">
                 <Link
                   href={item.href}
-                  className="inline-flex items-center gap-gap-sm py-sm font-display text-label-s tracking-caption text-text-primary transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-muted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
+                  className="inline-flex shrink-0 items-center gap-2xs tablet:gap-gap-sm py-2xs tablet:py-sm font-display text-label-s tracking-caption text-text-primary whitespace-nowrap transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
                 >
                   {item.label}
                   <span className="font-helvetica text-text-muted" aria-hidden="true">
@@ -157,20 +174,24 @@ export function SiteHeader({ motionEnabled, entranceActive, brandOnly = false }:
       {/* tablet+: resume card — hidden during splash brand-only (54:1126) */}
       <Link
         href="/resume"
-        className={`group hidden tablet:flex items-center justify-between gap-gap-md tablet:w-auto tablet:shrink-0 tablet:min-w-[var(--width-resume-card)] border border-border-default rounded-3 p-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link ${
+        className={`group hidden tablet:inline-flex h-fit w-max max-w-max flex-none shrink-0 items-center gap-0 border border-border-default rounded-3 p-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link laptop:gap-gap-md ${
           brandOnly ? "!hidden" : ""
         }`}
         aria-label="Product experience 4+ years — view my resume"
         data-name="resume"
       >
         <ResumeText variant="desktop" />
-        <span className="hidden laptop:block relative self-stretch w-[var(--width-resume-media)] overflow-hidden rounded-3 mix-blend-luminosity">
-          <FigmaImage
-            asset="workExPhoto"
-            alt=""
-            fill
-            className="object-cover object-top"
-          />
+        <span className="relative hidden shrink-0 self-center overflow-hidden rounded-3 mix-blend-luminosity laptop:block laptop:h-[var(--height-resume-media)] laptop:w-[var(--width-resume-media)]">
+          {reducedMotion ? (
+            <FigmaImage
+              asset="workExPhoto"
+              alt=""
+              fill
+              className="object-cover object-top"
+            />
+          ) : (
+            <MontageEmbed />
+          )}
         </span>
       </Link>
     </header>

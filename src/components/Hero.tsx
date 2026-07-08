@@ -67,13 +67,13 @@ export function Hero({
   });
 
   const sculptureTranslateY = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return "-46%";
-    return `${mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.sculptureMorphEnd, -46, -38)}%`;
+    if (!motionEnabled || p < SCROLL_FOLD.sculptureMorphStart) return "-46%";
+    return `${mapRange(p, SCROLL_FOLD.sculptureMorphStart, SCROLL_FOLD.sculptureMorphEnd, -46, -38)}%`;
   });
 
   const sculptureScale = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return 1;
-    return mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.sculptureMorphEnd, 1, 1.14);
+    if (!motionEnabled || p < SCROLL_FOLD.sculptureMorphStart) return 1;
+    return mapRange(p, SCROLL_FOLD.sculptureMorphStart, SCROLL_FOLD.sculptureMorphEnd, 1, 1.14);
   });
 
   const restingBlur = entranceSculptureSharp ? "blur(0px)" : `blur(${SCULPTURE_BLUR_PX}px)`;
@@ -96,12 +96,12 @@ export function Hero({
       aria-label="Introduction"
       data-node-id="13:509"
       data-name="splash-organism"
-      className="relative flex flex-1 w-full min-h-[calc(var(--section-hero)*3)] items-center overflow-visible"
+      className="relative flex min-h-0 flex-1 w-full items-center overflow-visible"
     >
       {showInlineSculpture ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 z-20 aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
+          className="pointer-events-none absolute top-1/2 z-[var(--z-20)] aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
           style={
             motionEnabled
               ? {
@@ -140,28 +140,25 @@ export function Hero({
         </motion.div>
       ) : null}
 
-      <div
-        className="relative z-0 flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between"
-        data-name="text-animation-molecule"
-      >
+      <div className="relative w-full" data-name="text-animation-molecule">
         {showTypewriter ? (
           <SplashTypewriter motionEnabled={motionEnabled} visible />
         ) : (
           <motion.div
-            className="flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between"
+            className="flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:grid laptop:grid-cols-[1fr_auto] laptop:grid-rows-[auto_auto] laptop:justify-between laptop:gap-x-gap-lg laptop:gap-y-[var(--space-12)]"
             style={{ opacity: motionEnabled ? textOpacity : 1 }}
             {...headlineMotionProps}
           >
-            <div className="flex flex-col gap-gap-sm laptop:gap-[var(--space-12)]">
-              <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap">
+            <div className="relative z-[var(--z-30)] flex flex-col gap-gap-sm laptop:contents">
+              <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-1 laptop:row-start-1 laptop:whitespace-nowrap">
                 Building <span className="text-text-link">systems</span>
               </h1>
-              <p className="font-display uppercase text-base leading-3 tracking-wider text-text-secondary max-w-[var(--width-nav-card)]">
+              <p className="font-display uppercase text-base leading-3 tracking-wider text-text-secondary max-w-[var(--width-nav-card)] laptop:col-start-1 laptop:row-start-2">
                 Product_designer //AI native_lean UX_systems_workflows
               </p>
             </div>
             <p
-              className="self-end laptop:self-auto text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap"
+              className="relative z-[var(--z-10)] self-end text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:justify-self-end laptop:self-auto laptop:whitespace-nowrap"
               aria-hidden="true"
             >
               That make sense

@@ -201,6 +201,24 @@ body {
   }
 }
 
+/* CSS sprite montage — 7-frame vertical loop (embed-snippet.html, 135×48/frame) */
+.montage-embed {
+  background: url("/figma/nav-media/montage-pixel-sheet.png") 0 0 / 100% 700% no-repeat;
+  image-rendering: pixelated;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .montage-embed {
+    animation: montage-embed 5.6s steps(7) infinite;
+  }
+}
+
+@keyframes montage-embed {
+  to {
+    background-position: 0 100%;
+  }
+}
+
 /* Reduced-motion support — motion tokens collapse to zero */
 @media (prefers-reduced-motion: reduce) {
   *,

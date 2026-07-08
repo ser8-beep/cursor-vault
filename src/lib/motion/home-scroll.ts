@@ -8,7 +8,6 @@
  *  13:32063 footer-enter        — mount resting state (sculpture blur, minimal header)
  *  13:32068 header-enter        — first scroll: nav/resume fade-in
  *  13:32074 cs-carousel-enter   — carousel slides up into second fold
- *  13:32087 cursor-enter        — ghost-cursor bubble appears
  *  13:32094 text-image-change   — hero text exits, sculpture repositions
  *  13:32102 notes-enter         — data-stories collage entrance
  */
@@ -123,17 +122,6 @@ export const carouselCardVariants: Variants = {
     opacity: 1,
     y: 0,
     transition: MOTION_TRANSITION,
-  },
-};
-
-/** ghost-cursor — cursor-enter bubble */
-export const ghostCursorVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.92, y: "var(--space-sm)" },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { ...MOTION_TRANSITION, delay: 0.15 },
   },
 };
 

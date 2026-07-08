@@ -67,17 +67,18 @@ export const COMPONENT_HANDOFFS: ComponentHandoff[] = [
     localhostPath: "/#data-stories",
   },
   {
-    figmaName: "ghost-cursor",
-    figmaNodeId: "13:355",
-    codePath: "src/components/GhostCursor.tsx",
+    figmaName: "about-footer",
+    figmaNodeId: "pending",
+    codePath: "src/components/SiteFooter.tsx",
     status: "implemented",
-    localhostPath: "/",
+    localhostPath: "/#about",
   },
   {
     figmaName: "smart-home",
     figmaNodeId: "13:16849",
     codePath: "src/app/case-studies/[slug]/page.tsx",
-    status: "stub",
+    codeConnectPath: "src/figma/CaseStudyPage.figma.ts",
+    status: "implemented",
     localhostPath: "/case-studies/smart-home",
   },
 ];

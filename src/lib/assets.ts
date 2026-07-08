@@ -87,6 +87,14 @@ export const ASSETS = {
     sizes: "(min-width: 768px) 355px, 80vw",
     outputDir: variantDir("cs-smart-home"),
   },
+  csSmartHomeHero: {
+    tier: "standard",
+    src: "/figma/case-study/smart-home-hero.png",
+    width: 938,
+    height: 960,
+    sizes: "100vw",
+    outputDir: variantDir("case-study/smart-home-hero"),
+  },
   csInsurance: {
     tier: "standard",
     src: "/figma/cs-insurance.png",
@@ -116,7 +124,7 @@ export const ASSETS = {
     src: "/figma/notes/botanical.png",
     width: 737,
     height: 558,
-    sizes: "(min-width: 1440px) 179px, 17vw",
+    sizes: "(min-width: 1280px) 179px, 17vw",
     outputDir: variantDir("notes/botanical"),
   },
   notesDiscourseTape: {
@@ -140,7 +148,7 @@ export const ASSETS = {
     src: "/figma/notes/peace-paper.png",
     width: 1414,
     height: 2000,
-    sizes: "(min-width: 1440px) 460px, 44vw",
+    sizes: "(min-width: 1280px) 460px, 44vw",
     outputDir: variantDir("notes/peace-paper"),
   },
   notesPolaroidBase: {
@@ -148,7 +156,7 @@ export const ASSETS = {
     src: "/figma/notes/polaroid-base.png",
     width: 820,
     height: 1024,
-    sizes: "(min-width: 1440px) 351px, 34vw",
+    sizes: "(min-width: 1280px) 351px, 34vw",
     outputDir: variantDir("notes/polaroid-base"),
   },
   notesPolaroidPhoto: {
@@ -156,7 +164,7 @@ export const ASSETS = {
     src: "/figma/notes/polaroid-photo.png",
     width: 1752,
     height: 1752,
-    sizes: "(min-width: 1440px) 324px, 31vw",
+    sizes: "(min-width: 1280px) 324px, 31vw",
     outputDir: variantDir("notes/polaroid-photo"),
   },
   notesPortraitFrame: {
@@ -164,7 +172,7 @@ export const ASSETS = {
     src: "/figma/notes/portrait-frame.png",
     width: 938,
     height: 960,
-    sizes: "(min-width: 1440px) 203px, 20vw",
+    sizes: "(min-width: 1280px) 203px, 20vw",
     outputDir: variantDir("notes/portrait-frame"),
   },
   notesSculptureFigure: {
@@ -172,7 +180,7 @@ export const ASSETS = {
     src: "/figma/notes/sculpture-figure.png",
     width: 628,
     height: 1024,
-    sizes: "(min-width: 1440px) 682px, 52vw",
+    sizes: "(min-width: 1280px) 682px, 52vw",
     outputDir: variantDir("notes/sculpture-figure"),
   },
 } as const satisfies Record<string, AssetDefinition>;

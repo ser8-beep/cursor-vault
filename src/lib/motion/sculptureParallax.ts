@@ -6,6 +6,7 @@
 
 import type { MotionValue } from "motion/react";
 import { mapRange, SCROLL_FOLD } from "./homePrototype";
+import { BRIDGE_END, NOTES_STICKY_ENTER } from "./scrollTimeline";
 
 /** Hero resting pose — splash-organism sculpture-position-blur @ footer-enter */
 export const SCULPTURE_HERO_REST = {
@@ -23,26 +24,28 @@ export const SCULPTURE_MORPH_PEAK = {
   scale: 1.14,
 } as const;
 
-/** Notes collage pose — Figma 2034:14169 @ 1440×850 */
+/** Notes collage pose — Figma 2034:14169 @ 1440×850 (top = 96px / 850) */
 export const SCULPTURE_NOTES_REST = {
   leftPct: 47.55,
-  topPct: 4,
+  topPct: 11.29,
   widthPct: 47.39,
   scale: 1.02,
 } as const;
 
 /** Subtle drift while scrolling through #data-stories (prototype sticky + parallax feel) */
 export const SCULPTURE_NOTES_PARALLAX = {
-  yPx: [-20, 32] as const,
-  scaleDelta: [-0.03, 0.02] as const,
+  yPx: [-24, 36] as const,
+  scaleDelta: [-0.035, 0.025] as const,
 } as const;
 
+const MORPH_START = SCROLL_FOLD.sculptureMorphStart;
+
 export function sculptureMorphLeft(progress: number): number {
-  if (progress < SCROLL_FOLD.textHideStart) return SCULPTURE_HERO_REST.leftPct;
+  if (progress < MORPH_START) return SCULPTURE_HERO_REST.leftPct;
   if (progress < SCROLL_FOLD.sculptureMorphEnd) {
     return mapRange(
       progress,
-      SCROLL_FOLD.textHideStart,
+      MORPH_START,
       SCROLL_FOLD.sculptureMorphEnd,
       SCULPTURE_HERO_REST.leftPct,
       SCULPTURE_MORPH_PEAK.leftPct,
@@ -61,11 +64,11 @@ export function sculptureMorphLeft(progress: number): number {
 }
 
 export function sculptureMorphTranslateX(progress: number): number {
-  if (progress < SCROLL_FOLD.textHideStart) return SCULPTURE_HERO_REST.translateXPct;
+  if (progress < MORPH_START) return SCULPTURE_HERO_REST.translateXPct;
   if (progress < SCROLL_FOLD.sculptureMorphEnd) {
     return mapRange(
       progress,
-      SCROLL_FOLD.textHideStart,
+      MORPH_START,
       SCROLL_FOLD.sculptureMorphEnd,
       SCULPTURE_HERO_REST.translateXPct,
       SCULPTURE_MORPH_PEAK.translateXPct,
@@ -75,11 +78,11 @@ export function sculptureMorphTranslateX(progress: number): number {
 }
 
 export function sculptureMorphTranslateY(progress: number): number {
-  if (progress < SCROLL_FOLD.textHideStart) return SCULPTURE_HERO_REST.translateYPct;
+  if (progress < MORPH_START) return SCULPTURE_HERO_REST.translateYPct;
   if (progress < SCROLL_FOLD.sculptureMorphEnd) {
     return mapRange(
       progress,
-      SCROLL_FOLD.textHideStart,
+      MORPH_START,
       SCROLL_FOLD.sculptureMorphEnd,
       SCULPTURE_HERO_REST.translateYPct,
       SCULPTURE_MORPH_PEAK.translateYPct,
@@ -98,11 +101,11 @@ export function sculptureMorphTranslateY(progress: number): number {
 }
 
 export function sculptureMorphScale(progress: number): number {
-  if (progress < SCROLL_FOLD.textHideStart) return SCULPTURE_HERO_REST.scale;
+  if (progress < MORPH_START) return SCULPTURE_HERO_REST.scale;
   if (progress < SCROLL_FOLD.sculptureMorphEnd) {
     return mapRange(
       progress,
-      SCROLL_FOLD.textHideStart,
+      MORPH_START,
       SCROLL_FOLD.sculptureMorphEnd,
       SCULPTURE_HERO_REST.scale,
       SCULPTURE_MORPH_PEAK.scale,
@@ -120,16 +123,21 @@ export function sculptureMorphScale(progress: number): number {
   return SCULPTURE_NOTES_REST.scale;
 }
 
-/** 0 = hero image, 1 = notes collage image — crossfade during notes entry */
+/** 0 = hero image, 1 = notes collage image — crossfade during notes entry (global axis) */
 export function sculptureImageBlend(progress: number): number {
   if (progress < SCROLL_FOLD.sculptureMorphEnd) return 0;
   return mapRange(
     progress,
     SCROLL_FOLD.sculptureMorphEnd,
-    SCROLL_FOLD.notesStart + 0.08,
+    SCROLL_FOLD.notesStart + 0.04,
     0,
     1,
   );
+}
+
+/** Crossfade driven by Data Stories section progress (act 3). */
+export function sculptureImageBlendFromSection(sectionProgress: number): number {
+  return mapRange(sectionProgress, NOTES_STICKY_ENTER, 0.35, 0, 1);
 }
 
 export function sculptureBlurPx(progress: number, entranceSharp: boolean): number {
@@ -165,7 +173,12 @@ export function notesParallaxScaleDelta(sectionProgress: number): number {
 }
 
 export function isSculptureStickyPhase(progress: number): boolean {
-  return progress >= SCROLL_FOLD.notesStart;
+  return progress >= BRIDGE_END;
+}
+
+/** Sticky notes pose when #data-stories enters the viewport (act 3). */
+export function isSculptureNotesStickyPhase(sectionProgress: number): boolean {
+  return sectionProgress >= NOTES_STICKY_ENTER;
 }
 
 /** Combine global morph scale with section parallax delta during notes sticky phase */

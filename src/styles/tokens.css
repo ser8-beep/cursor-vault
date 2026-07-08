@@ -143,6 +143,7 @@
   --width-resume-card: 313.33px; /* width/313_33 */
   --width-nav-media: 204px;
   --width-resume-media: 135px;
+  --height-resume-media: 48px; /* montage frame height (135×48) */
   --width-contact-card: 566px;
   --height-cs-card: 180px;
   --width-cs-media: 355px;
@@ -151,6 +152,7 @@
   /* Mobile notes stage — Figma bleed ratio (1210/1440), not the old 1.45vw fudge */
   --height-notes-stage-mobile: calc(100vw * 1210 / 1440);
   --width-notes-sculpture: 682px; /* Figma 2034:14169 sculpture bleed width @1440 */
+  --height-scroll-bridge-spacer: 0px; /* removed — content defines act 2 height */
   --font-notes: var(--font-geist-mono), "Source Code Pro", ui-monospace, monospace;
 
   /* Z-index (Primitive collection) */
@@ -173,7 +175,7 @@
   --tracking-normal: 0px;
   --tracking-wider: 0.8px;   /* tracking/wider — hero subtitle */
   --tracking-caption: 0.4px; /* caption tracking on 8px labels */
-  --tracking-tag: 0.6px;     /* cs-card tag + ghost-cursor label tracking */
+  --tracking-tag: 0.6px;     /* cs-card tag tracking */
   --caption-6pt: 1px;        /* caption-6pt — v2026.vault micro-label */
   --tracking-notes-label: 1.15px;    /* notes/discourse tape label */
   --tracking-notes-body: 1.5px;      /* notes/polaroid + peace-of-mind body */
@@ -224,8 +226,8 @@
   --section-large: 80px;
   --section-hero: 96px;
 
-  /* Frame padding of home-template root (20px @1440, tightened below     */
-  /* Laptop via grid/margin)                                              */
+  /* Frame padding of home-template root (20px @1440; below 1280 follows   */
+  /* grid/margin per breakpoint)                                           */
   --padding-canvas: var(--grid-margin);
 }
 
@@ -253,36 +255,10 @@
   }
 }
 
-/* ==== Laptop — Layout.breakpoint/canvas-width: 1280 =================== */
+/* ==== Laptop+ — Layout.breakpoint/canvas-width: 1280 / 1440 ===========
+   From 1280px upward, tokens match the 1440 desktop frame so layout,
+   overlap, and motion choreography are identical at every wide viewport. */
 @media (min-width: 1280px) {
-  :root {
-    --size-display-xl: 56px;
-    --size-display-l: 48px;
-    --size-display-m: 36px;
-    --size-heading-xl: 36px;
-    --size-heading-l: 32px;
-    --size-heading-m: 24px;
-    --size-heading-s: 20px;
-    --size-body-m: 16px;
-    --grid-columns: 12;
-    --grid-gutter: 24px;
-    --grid-margin: 32px;
-    --layout-content-width: 1200px;
-    --padding-section: 64px;
-    --padding-container: 32px;
-    --padding-hero: 96px;
-    --section-compact: 64px;
-    --section-default: 96px;
-    --section-large: 120px;
-    --section-hero: 140px;
-    /* Hero reaches its authored desktop metrics from Laptop up */
-    --size-hero: 36px;          /* size/4xl */
-    --leading-hero: var(--leading-8);
-  }
-}
-
-/* ==== Desktop — Layout.breakpoint/canvas-width: 1440 ================== */
-@media (min-width: 1440px) {
   :root {
     --size-display-xl: 64px;
     --size-display-l: 56px;
@@ -297,17 +273,24 @@
     --size-label-s: 12px;
     --size-button: 15px;
     --size-code: 14px;
+    --grid-columns: 12;
     --grid-gutter: 24px;
     --grid-margin: 80px;
     --layout-content-width: 1280px;
     --padding-section: 80px;
     --padding-container: 80px;
     --padding-hero: 120px;
+    --section-compact: 64px;
+    --section-default: 96px;
+    --section-large: 120px;
     --section-hero: 160px;
     /* Root frame padding is authored at 20px on the 1440 frame */
     --padding-canvas: 20px;
-    --size-hero: 36px;
+    --size-hero: 36px;          /* size/4xl */
     --leading-hero: var(--leading-8);
+    /* cs-card — authored cs-card-1440-v2 frame metrics */
+    --height-cs-card: 180px;
+    --width-cs-media: 355px;
   }
 }
 
