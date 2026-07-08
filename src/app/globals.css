@@ -39,6 +39,15 @@
   --font-display: var(--font-display);
   --font-body: var(--font-body);
   --font-helvetica: var(--font-helvetica);
+  --font-notes: var(--font-notes);
+
+  /* Font weights — Primitives / weight collection */
+  --font-weight-extralight: var(--weight-extralight);
+  --font-weight-light: var(--weight-light);
+  --font-weight-regular: var(--weight-regular);
+  --font-weight-medium: var(--weight-medium);
+  --font-weight-semibold: var(--weight-semibold);
+  --font-weight-bold: var(--weight-bold);
 
   /* Spacing scale — token-driven */
   --spacing-*: initial;
@@ -107,6 +116,10 @@
   --tracking-caption: var(--tracking-caption);
   --tracking-tag: var(--tracking-tag);
   --tracking-micro: var(--caption-6pt);
+  --tracking-notes-label: var(--tracking-notes-label);
+  --tracking-notes-body: var(--tracking-notes-body);
+  --tracking-notes-caption: var(--tracking-notes-caption);
+  --tracking-notes-overline: var(--tracking-notes-overline);
 
   /* Leading */
   --leading-*: initial;

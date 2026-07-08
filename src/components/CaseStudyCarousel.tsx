@@ -35,7 +35,7 @@ export function CaseStudyCarousel({ motionEnabled }: CaseStudyCarouselProps) {
       viewport={SCROLL_TRIGGER}
       variants={carouselRevealVariants}
     >
-      <p className="font-display uppercase text-label-s leading-normal tracking-[var(--tracking-caption)] text-text-muted whitespace-pre-wrap">
+      <p className="font-display uppercase text-label-s leading-normal tracking-caption text-text-muted whitespace-pre-wrap">
         <span className="text-main">PRODUCT_DESIGN</span>
         {" //  01_SYSTEMS_FOR_USERS\n"}
         {"                               02_SYSTEMS FOR_TEAMS"}

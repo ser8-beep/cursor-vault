@@ -130,15 +130,15 @@ export function Hero({
         data-name="text-animation-molecule"
       >
         <div className="flex flex-col gap-gap-sm laptop:gap-[var(--space-12)]">
-          <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-[var(--leading-hero)] tracking-normal text-text-primary laptop:whitespace-nowrap">
+          <h1 className="font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap">
             Building <span className="text-text-link">systems</span>
           </h1>
-          <p className="font-display uppercase text-base leading-[var(--leading-3)] tracking-wider text-text-secondary max-w-[var(--width-nav-card)]">
+          <p className="font-display uppercase text-base leading-3 tracking-wider text-text-secondary max-w-[var(--width-nav-card)]">
             Product_designer //AI native_lean UX_systems_workflows
           </p>
         </div>
         <p
-          className="self-end laptop:self-auto text-right font-display [font-stretch:expanded] uppercase text-hero leading-[var(--leading-hero)] tracking-normal text-text-primary laptop:whitespace-nowrap"
+          className="self-end laptop:self-auto text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:whitespace-nowrap"
           aria-hidden="true"
         >
           That make sense

@@ -80,7 +80,7 @@ export function GhostCursor({
       </div>
       <div className="flex flex-col items-end pr-[var(--space-32)]">
         <div className="flex max-w-[300px] items-center justify-end rounded-bl-[var(--space-24)] rounded-br-[var(--space-24)] rounded-tl-[var(--space-24)] border-[3px] border-blue-700 bg-blue-700 px-[var(--space-16)] py-[var(--space-12)] backdrop-blur-[2px] shadow-[0_4px_12px_rgba(0,51,218,0.3)]">
-          <p className="font-display text-label-s uppercase tracking-[0.56px] text-zinc-50">
+          <p className="font-display text-label-s uppercase tracking-tag text-zinc-50">
             Scroll to see my OOO experiments
           </p>
         </div>

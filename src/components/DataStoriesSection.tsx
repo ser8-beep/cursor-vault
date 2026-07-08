@@ -75,7 +75,7 @@ function DiscoursePaper({
       <span className="relative block aspect-[1015/346] w-[65.5%] mx-auto -mt-[8%]">
         <Image src={`${NOTES}/discourse-tape.png`} alt="" fill sizes="120px" className="object-contain" />
       </span>
-      <p className="mt-[8%] text-center font-[family-name:var(--font-notes)] text-[length:var(--size-label-m)] font-extralight uppercase tracking-[1.15px] text-text-link">
+      <p className="mt-[8%] text-center font-notes text-label-m font-extralight uppercase tracking-notes-label text-text-link">
         Discourse
       </p>
     </PaperLift>
@@ -104,7 +104,7 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
         className="relative w-full scroll-mt-[var(--space-48)] pb-[var(--space-32)] tablet:pb-[var(--space-48)] z-[var(--z-20)]"
         style={{ opacity: motionEnabled ? sectionOpacity : 1 }}
       >
-        <p className="mb-gap-md font-display uppercase text-label-m leading-normal tracking-[var(--tracking-caption)] text-text-muted whitespace-pre-wrap">
+        <p className="mb-gap-md font-display uppercase text-label-m leading-normal tracking-caption text-text-muted whitespace-pre-wrap">
           <span className="text-main">DATA_STORIES</span>
           {" //  OOO\n"}
           {"                               01_EXPLORATIONS\n"}
@@ -167,7 +167,7 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
                   className="object-contain"
                 />
               </div>
-              <p className="absolute bottom-[0.5%] left-[10%] right-[4%] text-right font-[family-name:var(--font-notes)] text-[length:var(--size-body-s)] font-extralight lowercase tracking-[1.5px] text-text-link">
+              <p className="absolute bottom-[0.5%] left-[10%] right-[4%] text-right font-notes text-body-s font-extralight lowercase tracking-notes-body text-text-link">
                 Aging like a fine meme.
                 <br />
                 Happy birthday, Tyler!
@@ -196,10 +196,10 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
               <div className="absolute left-[4.73%] top-[10%] w-[18.08%] aspect-[240/758] -scale-y-100 rotate-180">
                 <Image src={`${NOTES}/paperclip.png`} alt="" fill sizes="80px" className="object-contain" />
               </div>
-              <p className="absolute left-[22.76%] right-[44.85%] top-[13.67%] text-right font-[family-name:var(--font-notes)] text-[length:var(--size-body-s)] font-extralight uppercase tracking-[1.5px] text-text-link whitespace-nowrap">
+              <p className="absolute left-[22.76%] right-[44.85%] top-[13.67%] text-right font-notes text-body-s font-extralight uppercase tracking-notes-body text-text-link whitespace-nowrap">
                 Peace of mind
               </p>
-              <p className="absolute right-[-4.5%] top-[-12.4%] w-[26.6%] -rotate-[29.42deg] text-right font-[family-name:var(--font-notes)] text-[length:var(--size-label-s)] font-extralight lowercase tracking-[1.17px] text-zinc-500 line-through">
+              <p className="absolute right-[-4.5%] top-[-12.4%] w-[26.6%] -rotate-[29.42deg] text-right font-notes text-label-s font-extralight lowercase tracking-notes-caption text-zinc-500 line-through">
                 press the frame you
               </p>
             </div>
@@ -233,7 +233,7 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
             end={SCROLL_FOLD.notesEnd}
             motionEnabled={motionEnabled}
           >
-            <p className="text-right font-[family-name:var(--font-notes)] text-[length:var(--size-overline)] font-extralight lowercase tracking-[0.97px] text-zinc-700 opacity-40">
+            <p className="text-right font-notes text-overline font-extralight lowercase tracking-notes-overline text-zinc-700 opacity-40">
               Aging like a fine meme.
               <br />
               Happy birthday, Tyler!

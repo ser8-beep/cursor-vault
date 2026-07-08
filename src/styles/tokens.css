@@ -55,6 +55,7 @@
   --font-helvetica: "Helvetica Neue", Helvetica, Arial, sans-serif; /* font family/Font 1 */
 
   /* Weight primitives */
+  --weight-extralight: 200;
   --weight-light: 300;
   --weight-regular: 400;
   --weight-medium: 500;
@@ -172,8 +173,12 @@
   --tracking-normal: 0px;
   --tracking-wider: 0.8px;   /* tracking/wider — hero subtitle */
   --tracking-caption: 0.4px; /* caption tracking on 8px labels */
-  --tracking-tag: 0.6px;     /* cs-card tag tracking */
+  --tracking-tag: 0.6px;     /* cs-card tag + ghost-cursor label tracking */
   --caption-6pt: 1px;        /* caption-6pt — v2026.vault micro-label */
+  --tracking-notes-label: 1.15px;    /* notes/discourse tape label */
+  --tracking-notes-body: 1.5px;      /* notes/polaroid + peace-of-mind body */
+  --tracking-notes-caption: 1.17px;  /* notes/peace-of-mind caption scrap */
+  --tracking-notes-overline: 0.97px; /* notes/birthday overline scrap */
 
   /* ------------------------------------------------------------------ */
   /* Typography ramp — Typography collection, Mobile mode (390)          */
