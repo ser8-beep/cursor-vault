@@ -8,7 +8,9 @@ import { ContactBar } from "./ContactBar";
 import { CaseStudyCarousel } from "./CaseStudyCarousel";
 import { DataStoriesSection } from "./DataStoriesSection";
 import { GhostCursor } from "./GhostCursor";
+import { SculptureStickyParallax } from "./SculptureStickyParallax";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { useDesktopSculptureMotion } from "@/lib/motion/useDesktopSculptureMotion";
 import { useMobileMotion } from "@/lib/motion/useMobileMotion";
 import { ENTRANCE } from "@/lib/motion/homePrototype";
 
@@ -17,14 +19,18 @@ const HEADER_ENTER_SCROLL_PX = 48;
 
 /**
  * Orchestrates mobile scroll-linked home motion from Figma prototype frames
- * 13:32063 (footer-enter) through 13:32102 (notes-enter). Desktop stays static.
+ * 13:32063 (footer-enter) through 13:32102 (notes-enter).
+ * Desktop sculpture sticky parallax is laptop+; other mobile scroll motion stays <768px.
  */
 export function HomeScrollExperience() {
   const reducedMotion = usePrefersReducedMotion();
   const mobileMotion = useMobileMotion();
+  const desktopSculptureMotion = useDesktopSculptureMotion();
   const motionEnabled = mobileMotion && !reducedMotion;
+  const sculptureMotionEnabled = desktopSculptureMotion && !reducedMotion;
 
   const scrollTrackRef = useRef<HTMLDivElement>(null);
+  const dataStoriesRef = useRef<HTMLElement>(null);
   const [headerEntered, setHeaderEntered] = useState(!motionEnabled);
   const [entranceActive, setEntranceActive] = useState(!motionEnabled);
   const [sculptureSharp, setSculptureSharp] = useState(!motionEnabled);
@@ -32,6 +38,11 @@ export function HomeScrollExperience() {
 
   const { scrollYProgress } = useScroll({
     target: scrollTrackRef,
+    offset: ["start end", "end start"],
+  });
+
+  const { scrollYProgress: notesSectionProgress } = useScroll({
+    target: dataStoriesRef,
     offset: ["start end", "end start"],
   });
 
@@ -85,6 +96,7 @@ export function HomeScrollExperience() {
         <Hero
           scrollProgress={scrollYProgress}
           motionEnabled={motionEnabled}
+          desktopSculptureMotion={sculptureMotionEnabled}
           entranceSculptureSharp={sculptureSharp}
         />
         <ContactBar motionEnabled={motionEnabled} entranceActive={entranceActive} />
@@ -101,10 +113,19 @@ export function HomeScrollExperience() {
           entranceActive={entranceActive}
         />
         <DataStoriesSection
+          ref={dataStoriesRef}
           scrollProgress={scrollYProgress}
           motionEnabled={motionEnabled}
+          desktopSculptureMotion={sculptureMotionEnabled}
         />
       </div>
+
+      <SculptureStickyParallax
+        scrollProgress={scrollYProgress}
+        notesSectionProgress={notesSectionProgress}
+        entranceSharp={sculptureSharp}
+        motionEnabled={sculptureMotionEnabled}
+      />
     </div>
   );
 }

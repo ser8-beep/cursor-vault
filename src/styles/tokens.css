@@ -147,6 +147,9 @@
   --width-cs-media: 355px;
   --height-notes-stage: 850px; /* notes frame @1440 */
   --width-notes-stage: 1440px;
+  /* Mobile notes stage — Figma bleed ratio (1210/1440), not the old 1.45vw fudge */
+  --height-notes-stage-mobile: calc(100vw * 1210 / 1440);
+  --width-notes-sculpture: 682px; /* Figma 2034:14169 sculpture bleed width @1440 */
   --font-notes: var(--font-geist-mono), "Source Code Pro", ui-monospace, monospace;
 
   /* Z-index (Primitive collection) */

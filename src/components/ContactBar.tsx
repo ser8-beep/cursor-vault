@@ -32,12 +32,12 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
 
   return (
     <motion.div
-      className="relative z-10 flex w-full flex-col gap-gap-md tablet:flex-row tablet:items-end tablet:justify-between"
+      className="relative z-[var(--z-20)] flex w-full shrink-0 flex-col gap-gap-md tablet:flex-row tablet:items-end tablet:justify-between"
       data-node-id="13:367"
       data-name="psuedo-footer-1440"
       {...motionProps}
     >
-      <div className="flex w-full tablet:w-auto laptop:min-w-[var(--width-contact-card)] items-center justify-between gap-gap-lg bg-surface border border-border-default rounded-3 p-[var(--space-12)]">
+      <div className="relative flex w-full min-w-0 tablet:flex-1 laptop:min-w-[var(--width-contact-card)] items-center justify-between gap-gap-lg bg-surface border border-border-default rounded-3 p-[var(--space-12)]">
         <ul className="flex flex-wrap items-center gap-x-gap-lg gap-y-gap-sm">
           {CONTACTS.map((c) => (
             <li key={c.href}>
@@ -57,7 +57,7 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
         </span>
       </div>
 
-      <div className="flex items-center gap-2xs self-end" data-name="location-time">
+      <div className="flex shrink-0 items-center gap-2xs self-end" data-name="location-time">
         <p className="font-display uppercase text-label-s tracking-caption leading-normal text-text-primary text-right">
           LOC: Mumbai, IN
           <br />

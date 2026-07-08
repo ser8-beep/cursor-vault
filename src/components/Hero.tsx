@@ -3,10 +3,16 @@
 import Image from "next/image";
 import { motion, type MotionValue, useMotionTemplate, useTransform } from "motion/react";
 import { ENTRANCE, EASE_STANDARD, mapRange, SCROLL_FOLD } from "@/lib/motion/homePrototype";
+import {
+  SCULPTURE_HERO_REST,
+  sculptureMorphLeft,
+  sculptureMorphTranslateX,
+} from "@/lib/motion/sculptureParallax";
 
 type HeroProps = {
   scrollProgress: MotionValue<number>;
   motionEnabled: boolean;
+  desktopSculptureMotion: boolean;
   entranceSculptureSharp: boolean;
 };
 
@@ -16,7 +22,12 @@ const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur ef
  * splash-organism — Figma 13:509. Motion frames 13:32063, 13:32094, 13:32102.
  * TODO: 13:32059 splash typewriter (.....| / PR / -|) — prototype starts at footer-enter; skipped.
  */
-export function Hero({ scrollProgress, motionEnabled, entranceSculptureSharp }: HeroProps) {
+export function Hero({
+  scrollProgress,
+  motionEnabled,
+  desktopSculptureMotion,
+  entranceSculptureSharp,
+}: HeroProps) {
   const textOpacity = useTransform(scrollProgress, (p) => {
     if (!motionEnabled) return 1;
     if (p < SCROLL_FOLD.textHideStart) return 1;
@@ -40,8 +51,13 @@ export function Hero({ scrollProgress, motionEnabled, entranceSculptureSharp }: 
   const sculptureFilter = useMotionTemplate`blur(${sculptureBlurPx}px)`;
 
   const sculptureLeft = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return "52%";
-    return `${mapRange(p, SCROLL_FOLD.textHideStart, SCROLL_FOLD.sculptureMorphEnd, 52, 68)}%`;
+    if (!motionEnabled) return `${SCULPTURE_HERO_REST.leftPct}%`;
+    return `${sculptureMorphLeft(p)}%`;
+  });
+
+  const sculptureX = useTransform(scrollProgress, (p) => {
+    if (!motionEnabled) return `${SCULPTURE_HERO_REST.translateXPct}%`;
+    return `${sculptureMorphTranslateX(p)}%`;
   });
 
   const sculptureTranslateY = useTransform(scrollProgress, (p) => {
@@ -55,6 +71,7 @@ export function Hero({ scrollProgress, motionEnabled, entranceSculptureSharp }: 
   });
 
   const restingBlur = entranceSculptureSharp ? "blur(0px)" : `blur(${SCULPTURE_BLUR_PX}px)`;
+  const showInlineSculpture = !desktopSculptureMotion;
 
   return (
     <section
@@ -63,41 +80,49 @@ export function Hero({ scrollProgress, motionEnabled, entranceSculptureSharp }: 
       data-name="splash-organism"
       className="relative flex flex-1 w-full min-h-[calc(var(--section-hero)*3)] items-center overflow-visible"
     >
-      <motion.div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-1/2 z-0 laptop:z-20 aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
-        style={
-          motionEnabled
-            ? {
-                filter: sculptureFilter,
-                left: sculptureLeft,
-                translateY: sculptureTranslateY,
-                scale: sculptureScale,
-              }
-            : { filter: restingBlur, left: "52%", translateY: "-46%" }
-        }
-        data-name="sculpture-position-blur"
-        initial={false}
-        animate={
-          motionEnabled
-            ? entranceSculptureSharp
-              ? { filter: "blur(0px)" }
-              : { filter: `blur(${SCULPTURE_BLUR_PX}px)` }
-            : undefined
-        }
-        transition={{ duration: ENTRANCE.sculptureBlur.duration, ease: EASE_STANDARD }}
-      >
-        <Image
-          src="/figma/sculpture.png"
-          alt=""
-          width={832}
-          height={1114}
-          priority
-          sizes="(min-width: 1280px) 662px, 55vw"
-          className="absolute max-w-none w-[180.67%] h-[113.3%] left-[-70.44%] top-[-13.25%] object-cover"
-          data-name="marble-designing-systems"
-        />
-      </motion.div>
+      {showInlineSculpture ? (
+        <motion.div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 z-0 laptop:z-20 aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
+          style={
+            motionEnabled
+              ? {
+                  filter: sculptureFilter,
+                  left: sculptureLeft,
+                  x: sculptureX,
+                  translateY: sculptureTranslateY,
+                  scale: sculptureScale,
+                }
+              : {
+                  filter: restingBlur,
+                  left: `${SCULPTURE_HERO_REST.leftPct}%`,
+                  x: `${SCULPTURE_HERO_REST.translateXPct}%`,
+                  translateY: `${SCULPTURE_HERO_REST.translateYPct}%`,
+                }
+          }
+          data-name="sculpture-position-blur"
+          initial={false}
+          animate={
+            motionEnabled
+              ? entranceSculptureSharp
+                ? { filter: "blur(0px)" }
+                : { filter: `blur(${SCULPTURE_BLUR_PX}px)` }
+              : undefined
+          }
+          transition={{ duration: ENTRANCE.sculptureBlur.duration, ease: EASE_STANDARD }}
+        >
+          <Image
+            src="/figma/sculpture.png"
+            alt=""
+            width={832}
+            height={1114}
+            priority
+            sizes="(min-width: 1280px) 662px, 55vw"
+            className="absolute max-w-none w-[180.67%] h-[113.3%] left-[-70.44%] top-[-13.25%] object-cover"
+            data-name="marble-designing-systems"
+          />
+        </motion.div>
+      ) : null}
 
       <motion.div
         className="relative z-10 laptop:z-0 flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:flex-row laptop:items-center laptop:justify-between"
