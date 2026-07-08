@@ -1,3 +1,5 @@
+export { FigmaImage } from "./FigmaImage";
+export { FigmaPicture } from "./FigmaPicture";
 export { SplashTypewriter } from "./SplashTypewriter";
 export { SiteHeader } from "./SiteHeader";
 export { Hero } from "./Hero";

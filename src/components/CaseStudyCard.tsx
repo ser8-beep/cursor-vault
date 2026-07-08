@@ -1,10 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
+import type { AssetKey } from "@/lib/assets";
+import { FigmaImage } from "./FigmaImage";
 
 export interface CaseStudy {
   title: string;
   tags: string[];
-  image: string;
+  asset: AssetKey;
   href: string;
 }
 
@@ -28,11 +29,10 @@ export function CaseStudyCard({ study }: { study: CaseStudy }) {
         aria-hidden="true"
         className="pointer-events-none relative z-0 shrink-0 -mr-[var(--width-cs-media)] h-[calc(var(--height-cs-card)*1.75)] w-[var(--width-cs-media)] overflow-hidden"
       >
-        <Image
-          src={study.image}
+        <FigmaImage
+          asset={study.asset}
           alt=""
           fill
-          sizes="355px"
           className="object-cover object-bottom"
         />
       </span>

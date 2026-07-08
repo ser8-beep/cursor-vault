@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, type MotionValue, useMotionTemplate, useTransform } from "motion/react";
 import { ENTRANCE, EASE_STANDARD, mapRange, SCROLL_FOLD } from "@/lib/motion/homePrototype";
 import type { SplashPhase } from "@/lib/motion/splashPhase";
@@ -9,6 +8,7 @@ import {
   sculptureMorphLeft,
   sculptureMorphTranslateX,
 } from "@/lib/motion/sculptureParallax";
+import { FigmaPicture } from "./FigmaPicture";
 import { SplashTypewriter } from "./SplashTypewriter";
 
 type HeroProps = {
@@ -129,14 +129,12 @@ export function Hero({
           }
           transition={{ duration: ENTRANCE.sculptureBlur.duration, ease: EASE_STANDARD }}
         >
-          <Image
-            src="/figma/sculpture.png"
-            alt=""
-            width={832}
-            height={1114}
+          <FigmaPicture
+            asset="sculpture"
+            fill
             priority
-            sizes="(min-width: 1280px) 662px, 55vw"
-            className="absolute max-w-none w-[180.67%] h-[113.3%] left-[-70.44%] top-[-13.25%] object-cover"
+            className="absolute inset-0 size-full"
+            imgClassName="absolute max-w-none w-[180.67%] h-[113.3%] left-[-70.44%] top-[-13.25%] object-cover"
             data-name="marble-designing-systems"
           />
         </motion.div>

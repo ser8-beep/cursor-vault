@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ENTRANCE, EASE_STANDARD } from "@/lib/motion/homePrototype";
+import { FigmaImage } from "./FigmaImage";
 
 const NAV_ITEMS = [
   { label: "CASE STUDIES_PRO", count: "04", href: "#case-studies" },
@@ -122,11 +123,10 @@ export function SiteHeader({ motionEnabled, entranceActive, brandOnly = false }:
               }}
               data-name="nav-gif"
             >
-              <Image
-                src="/figma/nav-media-poster.png"
+              <FigmaImage
+                asset="navMediaPoster"
                 alt=""
                 fill
-                sizes="200px"
                 className="object-cover opacity-60"
               />
             </motion.div>
@@ -165,11 +165,10 @@ export function SiteHeader({ motionEnabled, entranceActive, brandOnly = false }:
       >
         <ResumeText variant="desktop" />
         <span className="hidden laptop:block relative self-stretch w-[var(--width-resume-media)] overflow-hidden rounded-3 mix-blend-luminosity">
-          <Image
-            src="/figma/work-ex-photo.png"
+          <FigmaImage
+            asset="workExPhoto"
             alt=""
             fill
-            sizes="135px"
             className="object-cover object-top"
           />
         </span>

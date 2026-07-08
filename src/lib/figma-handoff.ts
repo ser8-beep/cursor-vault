@@ -1,3 +1,5 @@
+import { ASSET_PATHS } from "./assets";
+
 export const FIGMA_FILE = {
   key: "IQl6MQ8tghphWHPfZpwiNE",
   name: "Shivani UI/UX Portfolio",
@@ -82,22 +84,10 @@ export const COMPONENT_HANDOFFS: ComponentHandoff[] = [
 
 export const TOKEN_SOURCE = "src/styles/tokens.css";
 
-export const ASSET_MANIFEST = [
-  "/figma/sculpture.png",
-  "/figma/nav-media-poster.png",
-  "/figma/work-ex-photo.png",
+/** SVG icons are referenced directly in components, not in the responsive pipeline. */
+export const SVG_ASSETS = [
   "/figma/work-ex-icon.svg",
   "/figma/location-icon.svg",
-  "/figma/cs-smart-home.png",
-  "/figma/cs-insurance.png",
-  "/figma/cs-maternity.png",
-  "/figma/cs-erp.png",
-  "/figma/notes/botanical.png",
-  "/figma/notes/discourse-tape.png",
-  "/figma/notes/paperclip.png",
-  "/figma/notes/peace-paper.png",
-  "/figma/notes/polaroid-base.png",
-  "/figma/notes/polaroid-photo.png",
-  "/figma/notes/portrait-frame.png",
-  "/figma/notes/sculpture-figure.png",
 ] as const;
+
+export const ASSET_MANIFEST = [...ASSET_PATHS, ...SVG_ASSETS] as const;

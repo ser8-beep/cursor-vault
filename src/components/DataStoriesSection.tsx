@@ -1,12 +1,10 @@
 "use client";
 
 import { forwardRef, type ReactNode } from "react";
-import Image from "next/image";
 import { motion, type MotionValue, useTransform } from "motion/react";
 import { mapRange, SCROLL_FOLD } from "@/lib/motion/homePrototype";
+import { FigmaImage } from "./FigmaImage";
 import { PaperLift } from "./PaperLift";
-
-const NOTES = "/figma/notes";
 
 /**
  * Figma notes frame 2034:15700 @ 1440×850 (1210px bleed height for sculpture).
@@ -73,7 +71,7 @@ function DiscoursePaper({
     <PaperLift className={`relative size-full ${rotate}`}>
       <span className={`absolute inset-x-0 top-[6.57%] bottom-[6.3%] ${paperBg} shadow-[-13px_0_12px_-6px_rgba(0,0,0,0.25)]`} />
       <span className="relative block aspect-[1015/346] w-[65.5%] mx-auto -mt-[8%]">
-        <Image src={`${NOTES}/discourse-tape.png`} alt="" fill sizes="120px" className="object-contain" />
+        <FigmaImage asset="notesDiscourseTape" alt="" fill className="object-contain" />
       </span>
       <p className="mt-[8%] text-center font-notes text-label-m font-extralight uppercase tracking-notes-label text-text-link">
         Discourse
@@ -122,11 +120,10 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
             end={SCROLL_FOLD.notesStart + 0.14}
             motionEnabled={motionEnabled}
           >
-            <Image
-              src={`${NOTES}/botanical.png`}
+            <FigmaImage
+              asset="notesBotanical"
               alt=""
               fill
-              sizes="(min-width: 1440px) 179px, 17vw"
               className="object-contain"
             />
           </CollageItem>
@@ -151,19 +148,17 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
             motionEnabled={motionEnabled}
           >
             <PaperLift className="relative size-full">
-              <Image
-                src={`${NOTES}/polaroid-base.png`}
+              <FigmaImage
+                asset="notesPolaroidBase"
                 alt=""
                 fill
-                sizes="(min-width: 1440px) 351px, 34vw"
                 className="object-contain"
               />
               <div className="absolute left-[3.1%] top-[6.8%] w-[92.2%] aspect-square">
-                <Image
-                  src={`${NOTES}/polaroid-photo.png`}
+                <FigmaImage
+                  asset="notesPolaroidPhoto"
                   alt=""
                   fill
-                  sizes="(min-width: 1440px) 324px, 31vw"
                   className="object-contain"
                 />
               </div>
@@ -185,16 +180,15 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
           >
             <div className="relative size-full overflow-hidden">
               <div className="relative mx-auto h-full w-[85%] aspect-[1414/2000]">
-                <Image
-                  src={`${NOTES}/peace-paper.png`}
+                <FigmaImage
+                  asset="notesPeacePaper"
                   alt=""
                   fill
-                  sizes="(min-width: 1440px) 460px, 44vw"
                   className="object-contain object-left-top"
                 />
               </div>
               <div className="absolute left-[4.73%] top-[10%] w-[18.08%] aspect-[240/758] -scale-y-100 rotate-180">
-                <Image src={`${NOTES}/paperclip.png`} alt="" fill sizes="80px" className="object-contain" />
+                <FigmaImage asset="notesPaperclip" alt="" fill className="object-contain" />
               </div>
               <p className="absolute left-[22.76%] right-[44.85%] top-[13.67%] text-right font-notes text-body-s font-extralight uppercase tracking-notes-body text-text-link whitespace-nowrap">
                 Peace of mind
@@ -214,11 +208,10 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
               end={SCROLL_FOLD.notesStart + 0.2}
               motionEnabled={motionEnabled}
             >
-              <Image
-                src={`${NOTES}/sculpture-figure.png`}
+              <FigmaImage
+                asset="notesSculptureFigure"
                 alt=""
                 fill
-                sizes="(min-width: 1440px) 682px, 52vw"
                 className="object-contain object-top"
                 data-node-id="2034:14169"
               />
@@ -248,11 +241,10 @@ export const DataStoriesSection = forwardRef<HTMLElement, DataStoriesSectionProp
             end={SCROLL_FOLD.notesEnd}
             motionEnabled={motionEnabled}
           >
-            <Image
-              src={`${NOTES}/portrait-frame.png`}
+            <FigmaImage
+              asset="notesPortraitFrame"
               alt=""
               fill
-              sizes="(min-width: 1440px) 203px, 20vw"
               className="object-contain"
             />
           </CollageItem>

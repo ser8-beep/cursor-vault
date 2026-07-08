@@ -14,7 +14,7 @@ export default {
       study={{
         title: "${title}",
         tags: ["${tag1}", "${tag2}"],
-        image: "/figma/cs-smart-home.png",
+        asset: "csSmartHome",
         href: "/case-studies/smart-home",
       }}
     />

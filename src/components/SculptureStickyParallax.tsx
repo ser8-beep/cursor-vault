@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import {
   motion,
   type MotionValue,
@@ -20,6 +19,8 @@ import {
   sculptureMorphTranslateY,
 } from "@/lib/motion/sculptureParallax";
 import { mapRange, SCROLL_FOLD } from "@/lib/motion/homePrototype";
+import { FigmaImage } from "./FigmaImage";
+import { FigmaPicture } from "./FigmaPicture";
 
 const HERO_ASPECT = 366 / 782;
 
@@ -135,22 +136,20 @@ export function SculptureStickyParallax({
       data-node-id="2034:14169"
     >
       <motion.div className="absolute inset-0" style={{ opacity: heroImageOpacity }}>
-        <Image
-          src="/figma/sculpture.png"
-          alt=""
+        <FigmaPicture
+          asset="sculpture"
           fill
           priority
-          sizes="(min-width: 1280px) 662px, 55vw"
-          className="absolute max-w-none w-[180.67%] h-[113.3%] left-[-70.44%] top-[-13.25%] object-cover"
+          className="absolute inset-0 size-full"
+          imgClassName="absolute max-w-none w-[180.67%] h-[113.3%] left-[-70.44%] top-[-13.25%] object-cover"
           data-name="marble-designing-systems"
         />
       </motion.div>
       <motion.div className="absolute inset-0" style={{ opacity: notesImageOpacity }}>
-        <Image
-          src="/figma/notes/sculpture-figure.png"
+        <FigmaImage
+          asset="notesSculptureFigure"
           alt=""
           fill
-          sizes="(min-width: 1280px) 682px, 47vw"
           className="object-contain object-top"
           data-name="29"
         />
