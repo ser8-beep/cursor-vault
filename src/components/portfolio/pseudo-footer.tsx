@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ASSETS, CONTACT } from "./constants";
+import { ASSETS, CONTACT, SVG_ASSETS } from "./constants";
 
 export function PseudoFooter({ visible }: { visible: boolean }) {
   return (
@@ -45,10 +45,9 @@ export function PseudoFooter({ visible }: { visible: boolean }) {
         </div>
         <div className="relative size-8">
           <Image
-            src={ASSETS.locationIcon}
+            src={SVG_ASSETS.locationIcon}
             alt=""
             fill
-            unoptimized
             className="object-contain"
           />
         </div>

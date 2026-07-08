@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "tokens:generate": "node design-system/tokens/scripts/generate.mjs"
+    "tokens:generate": "node design-system/tokens/scripts/generate.mjs",
+    "assets:generate": "node scripts/generate-responsive-assets.mjs --all"
   },
   "dependencies": {
     "framer-motion": "^12.42.2",
@@ -22,6 +23,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "sharp": "^0.34.3",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

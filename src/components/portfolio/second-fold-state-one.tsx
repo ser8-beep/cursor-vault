@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { ASSETS, CONTACT } from "./constants";
+import { ASSETS, CONTACT, SVG_ASSETS } from "./constants";
+import { FigmaImage } from "./figma-image";
 
 function NotesOverlay() {
   return (
@@ -12,21 +13,21 @@ function NotesOverlay() {
           DISCOURSE
         </div>
         <div className="absolute left-[41.28px] top-[0.46px] h-20 w-40">
-          <Image src={ASSETS.noteDiscourseTape} alt="" fill unoptimized className="object-cover" />
+          <FigmaImage asset={ASSETS.noteDiscourseTape} alt="" fill className="object-cover" />
         </div>
       </div>
 
       <div className="absolute left-[684.77px] top-[96px] h-[1114px] w-[682.43px]">
-        <Image src={ASSETS.noteLargeTear} alt="" fill unoptimized className="object-cover" />
+        <FigmaImage asset={ASSETS.noteLargeTear} alt="" fill className="object-cover" />
       </div>
       <div className="absolute left-[6px] top-[110px] h-32 w-44">
-        <Image src={ASSETS.noteBotanical} alt="" fill unoptimized className="object-cover" />
+        <FigmaImage asset={ASSETS.noteBotanical} alt="" fill className="object-cover" />
       </div>
       <div className="absolute left-[346.77px] top-[357px] h-[491.81px] w-80">
-        <Image src={ASSETS.notePolaroidBase} alt="" fill unoptimized className="object-cover" />
+        <FigmaImage asset={ASSETS.notePolaroidBase} alt="" fill className="object-cover" />
       </div>
       <div className="absolute left-[357.71px] top-[380.89px] size-80">
-        <Image src={ASSETS.notePolaroidPhoto} alt="" fill unoptimized className="object-cover" />
+        <FigmaImage asset={ASSETS.notePolaroidPhoto} alt="" fill className="object-cover" />
       </div>
       <div className="absolute left-[346.83px] top-[742.65px] h-12 w-80 text-right font-mono text-base font-extralight lowercase tracking-wider text-blue-700">
         Aging like a fine meme.
@@ -39,10 +40,10 @@ function NotesOverlay() {
           press the frame you
         </div>
         <div className="absolute inset-0">
-          <Image src={ASSETS.notePeacePaper} alt="" fill unoptimized className="object-cover" />
+          <FigmaImage asset={ASSETS.notePeacePaper} alt="" fill className="object-cover" />
         </div>
         <div className="absolute left-[104.94px] top-[296.4px] h-64 w-20 rotate-180">
-          <Image src={ASSETS.notePaperclip} alt="" fill unoptimized className="object-cover" />
+          <FigmaImage asset={ASSETS.notePaperclip} alt="" fill className="object-cover" />
         </div>
         <div className="absolute left-[104.7px] top-[46.07px] text-right font-mono text-base font-extralight uppercase tracking-wider text-blue-700">
           Peace of mind
@@ -54,10 +55,10 @@ function NotesOverlay() {
           press the frame you
         </div>
         <div className="absolute inset-0">
-          <Image src={ASSETS.notePeacePaper} alt="" fill unoptimized className="object-cover" />
+          <FigmaImage asset={ASSETS.notePeacePaper} alt="" fill className="object-cover" />
         </div>
         <div className="absolute left-[104.94px] top-[296.4px] h-64 w-20 rotate-180">
-          <Image src={ASSETS.notePaperclip} alt="" fill unoptimized className="object-cover" />
+          <FigmaImage asset={ASSETS.notePaperclip} alt="" fill className="object-cover" />
         </div>
         <div className="absolute left-[104.7px] top-[46.07px] text-right font-mono text-base font-extralight uppercase tracking-wider text-blue-700">
           Peace of mind
@@ -75,7 +76,7 @@ function NotesOverlay() {
       </div>
 
       <div className="absolute left-[898.99px] top-[709px] h-36 w-52 border-[2.61px] border-zinc-50 shadow-[0px_3.49px_13.09px_0px_rgba(0,0,0,0.15)]">
-        <Image src={ASSETS.notePortrait} alt="" fill unoptimized className="object-cover" />
+        <FigmaImage asset={ASSETS.notePortrait} alt="" fill className="object-cover" />
       </div>
 
       <div className="absolute left-[1269.47px] top-[828.52px] h-72 w-60 rotate-[-171.73deg]">
@@ -84,7 +85,7 @@ function NotesOverlay() {
           DISCOURSE
         </div>
         <div className="absolute left-[71.83px] top-[0.46px] h-20 w-40">
-          <Image src={ASSETS.noteDiscourseTape} alt="" fill unoptimized className="object-cover" />
+          <FigmaImage asset={ASSETS.noteDiscourseTape} alt="" fill className="object-cover" />
         </div>
       </div>
     </div>
@@ -105,7 +106,7 @@ export function SecondFoldStateOne() {
                 </div>
               </div>
               <div className="relative w-52 self-stretch overflow-hidden rounded-[1px] mix-blend-luminosity">
-                <Image src={ASSETS.workExGif} alt="" fill unoptimized className="object-cover opacity-20" />
+                <FigmaImage asset={ASSETS.workExGif} alt="" fill className="object-cover opacity-20" />
               </div>
             </div>
 
@@ -128,7 +129,7 @@ export function SecondFoldStateOne() {
           <div className="flex w-80 min-w-80 items-center justify-between p-[5px] outline outline-1 outline-zinc-400">
             <div className="flex items-center justify-start gap-2 self-stretch pb-1.5 pt-2">
               <div className="relative size-8 overflow-hidden">
-                <Image src={ASSETS.workExIcon} alt="" fill unoptimized className="object-contain" />
+                <Image src={SVG_ASSETS.workExIcon} alt="" fill className="object-contain" />
               </div>
               <div className="inline-flex flex-col items-start justify-center gap-0.5">
                 <div className="font-mono text-[8px] font-semibold tracking-tight text-zinc-950">PRODUCT EX: 4 YRS+</div>
@@ -136,7 +137,7 @@ export function SecondFoldStateOne() {
               </div>
             </div>
             <div className="relative w-32 self-stretch overflow-hidden rounded-[1px] mix-blend-luminosity">
-              <Image src={ASSETS.workExImage} alt="" fill unoptimized className="object-cover" />
+              <FigmaImage asset={ASSETS.workExImage} alt="" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -144,7 +145,7 @@ export function SecondFoldStateOne() {
         <div className="flex min-h-[642px] flex-1 w-full flex-col items-start justify-between pb-96">
           <div className="inline-flex h-[782px] items-start justify-end gap-2.5 overflow-hidden pl-[530px] pt-28">
             <div className="relative h-[1049px] w-[417px] blur-xl">
-              <Image src={ASSETS.statueGlobe} alt="" fill unoptimized className="object-contain object-top" />
+              <FigmaImage asset={ASSETS.statueGlobe} alt="" fill className="object-contain object-top" />
             </div>
           </div>
           <div className="inline-flex w-[1400px] items-center justify-between">
@@ -184,7 +185,7 @@ export function SecondFoldStateOne() {
               {CONTACT.timezone}
             </div>
             <div className="relative size-8 overflow-hidden">
-              <Image src={ASSETS.locationIcon} alt="" fill unoptimized className="object-contain" />
+              <Image src={SVG_ASSETS.locationIcon} alt="" fill className="object-contain" />
             </div>
           </div>
         </div>
@@ -192,7 +193,21 @@ export function SecondFoldStateOne() {
 
       <div className="absolute left-[30px] top-[654px] flex flex-col items-end justify-start gap-2">
         <div className="origin-top-left rotate-[-144.30deg]">
-          <Image src={ASSETS.cursor} alt="" width={14} height={14} unoptimized className="object-contain" />
+          <svg
+            viewBox="0 0 14 15"
+            width={14}
+            height={14}
+            className="object-contain"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M1 1L1 12.5L5.2 9.1L7.5 13.5L9.5 12.5L7.2 8.1L12.5 7.5L1 1Z"
+              fill="#09090b"
+              stroke="#fafafa"
+              strokeWidth="1.2"
+            />
+          </svg>
         </div>
         <div className="flex flex-col items-end justify-start gap-2.5 pr-8">
           <div className="inline-flex max-w-72 items-center justify-end gap-2.5 rounded-tl-3xl rounded-bl-3xl rounded-br-3xl bg-blue-700 px-4 py-3 shadow-[0px_4px_24px_0px_rgba(0,51,218,0.30)] outline outline-[3px] outline-blue-700 backdrop-blur-[2px]">

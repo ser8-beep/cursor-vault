@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ASSETS, CONTACT } from "./constants";
+import { ASSETS, CONTACT, SVG_ASSETS } from "./constants";
+import { FigmaImage } from "./figma-image";
+import { FigmaPicture } from "./figma-picture";
 
 export function FirstFoldStatic() {
   return (
@@ -19,7 +21,7 @@ export function FirstFoldStatic() {
                 </div>
               </div>
               <div className="relative h-full w-[154px] self-stretch overflow-hidden rounded-[1px] opacity-0 mix-blend-luminosity min-[1280px]:w-[180px] min-[1366px]:w-[194px] min-[1440px]:w-52">
-                <Image src={ASSETS.workExGif} alt="" fill unoptimized className="object-cover opacity-20" />
+                <FigmaImage asset={ASSETS.workExGif} alt="" fill className="object-cover opacity-20" />
               </div>
             </div>
           </div>
@@ -27,7 +29,7 @@ export function FirstFoldStatic() {
           <div className="flex w-[250px] min-w-[250px] items-center justify-between p-[5px] opacity-0 outline outline-1 outline-zinc-400 min-[1280px]:w-[284px] min-[1280px]:min-w-[284px] min-[1366px]:w-[302px] min-[1366px]:min-w-[302px] min-[1440px]:w-80 min-[1440px]:min-w-80">
             <div className="flex items-center justify-start gap-[6px] self-stretch pb-1.5 pt-2 min-[1366px]:gap-[7px] min-[1440px]:gap-2">
               <div className="relative size-6 overflow-hidden min-[1280px]:size-7 min-[1440px]:size-8">
-                <Image src={ASSETS.workExIcon} alt="" fill unoptimized className="object-contain" />
+                <Image src={SVG_ASSETS.workExIcon} alt="" fill className="object-contain" />
               </div>
               <div className="inline-flex flex-col items-start justify-center gap-0.5">
                 <div className="font-mono text-[7px] font-semibold tracking-tight text-zinc-950 min-[1366px]:text-[7.5px] min-[1440px]:text-[8px]">
@@ -39,7 +41,7 @@ export function FirstFoldStatic() {
               </div>
             </div>
             <div className="relative w-[102px] self-stretch overflow-hidden rounded-[1px] mix-blend-luminosity min-[1280px]:w-[116px] min-[1366px]:w-[124px] min-[1440px]:w-32">
-              <Image src={ASSETS.workExImage} alt="" fill unoptimized className="object-cover" />
+              <FigmaImage asset={ASSETS.workExImage} alt="" fill className="object-cover" />
             </div>
           </div>
         </div>
@@ -47,7 +49,12 @@ export function FirstFoldStatic() {
         <div className="flex min-h-0 w-full flex-1 flex-col items-start justify-between pb-[226px] min-[1280px]:pb-[258px] min-[1366px]:pb-[290px] min-[1440px]:pb-80">
           <div className="inline-flex h-[470px] w-[510px] items-center justify-start pl-[235px] min-[1280px]:h-[560px] min-[1280px]:w-[585px] min-[1280px]:pl-[265px] min-[1366px]:h-[640px] min-[1366px]:w-[640px] min-[1366px]:pl-[298px] min-[1440px]:h-[680px] min-[1440px]:w-[686px] min-[1440px]:pl-80">
             <div className="relative h-[470px] w-[220px] min-w-[220px] min-[1280px]:h-[560px] min-[1280px]:w-[260px] min-[1280px]:min-w-[260px] min-[1366px]:h-[640px] min-[1366px]:w-[300px] min-[1366px]:min-w-[300px] min-[1440px]:h-[680px] min-[1440px]:w-[340px] min-[1440px]:min-w-[300px]">
-              <Image src={ASSETS.statue} alt="" fill unoptimized className="object-contain object-bottom blur-[2px]" />
+              <FigmaPicture
+                asset={ASSETS.statue}
+                fill
+                className="absolute inset-0 size-full"
+                imgClassName="object-contain object-bottom blur-[2px]"
+              />
             </div>
           </div>
 
@@ -95,7 +102,7 @@ export function FirstFoldStatic() {
               {CONTACT.timezone}
             </div>
             <div className="relative size-6 overflow-hidden min-[1280px]:size-7 min-[1440px]:size-8">
-              <Image src={ASSETS.locationIcon} alt="" fill unoptimized className="object-contain" />
+              <Image src={SVG_ASSETS.locationIcon} alt="" fill className="object-contain" />
             </div>
           </div>
         </div>

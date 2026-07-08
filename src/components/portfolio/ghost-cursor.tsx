@@ -1,8 +1,6 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import { ASSETS } from "./constants";
 
 export function GhostCursor({ visible }: { visible: boolean }) {
   const reduceMotion = useReducedMotion();
@@ -29,14 +27,19 @@ export function GhostCursor({ visible }: { visible: boolean }) {
             : { duration: 2.4, repeat: Infinity, ease: "easeInOut" }
         }
       >
-        <Image
-          src={ASSETS.cursor}
-          alt=""
-          width={14}
-          height={15}
-          unoptimized
-          className="-rotate-[144deg] -scale-y-100"
-        />
+        <svg
+          viewBox="0 0 14 15"
+          className="h-[14.788px] w-[13.849px] -rotate-[144deg] -scale-y-100"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M1 1L1 12.5L5.2 9.1L7.5 13.5L9.5 12.5L7.2 8.1L12.5 7.5L1 1Z"
+            fill="#09090b"
+            stroke="#fafafa"
+            strokeWidth="1.2"
+          />
+        </svg>
       </motion.div>
       <div className="pr-8">
         <div className="max-w-[300px] rounded-bl-[24px] rounded-br-[24px] rounded-tl-[24px] border-[3px] border-[#1d4ed8] bg-[#1d4ed8] px-4 py-3 shadow-[0px_4px_12px_rgba(0,51,218,0.3)] backdrop-blur-[2px]">

@@ -13,3 +13,12 @@ Before changing UI, colours, spacing, or Figma parity:
 3. Map Figma components via `design-system/figma/component-map.json`
 4. Figma file key: `VibdutrclLgS5EpFWgbJhH` (Portfolio | AI Handoff)
 5. Regenerate CSS after token changes: `npm run tokens:generate`
+
+## Responsive assets
+
+Local Figma raster assets live in `public/figma/`. Drop new exports into `public/figma/_sources/` then run `npm run assets:generate`.
+
+- Registry: `src/lib/assets.ts` (dimensions, sizes, variant paths)
+- Components: use `FigmaImage` / `FigmaPicture` from `src/components/portfolio/` — not raw URLs or Figma MCP links
+- Semantic aliases: `src/components/portfolio/constants.ts` → `ASSETS` keys map to registry
+- SVG icons: `SVG_ASSETS` in constants (work-ex-icon, location-icon)

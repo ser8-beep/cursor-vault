@@ -1,18 +1,19 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
+import type { AssetKey } from "@/lib/assets";
 import { CAROUSEL_LABEL, PROJECTS } from "./constants";
+import { FigmaImage } from "./figma-image";
 
 function ProjectCard({
   title,
   tags,
-  image,
+  asset,
   index,
 }: {
   title: string;
   tags: readonly string[];
-  image: string;
+  asset: AssetKey;
   index: number;
 }) {
   return (
@@ -30,13 +31,7 @@ function ProjectCard({
       />
 
       <div className="absolute right-0 top-0 h-[315px] w-[355px] overflow-hidden">
-        <Image
-          src={image}
-          alt=""
-          fill
-          unoptimized
-          className="object-cover object-bottom"
-        />
+        <FigmaImage asset={asset} alt="" fill className="object-cover object-bottom" />
       </div>
 
       <div className="relative z-10 flex h-full flex-col justify-end px-7 pb-7">
@@ -80,7 +75,7 @@ export function ProjectCarousel({ visible }: { visible: boolean }) {
             key={project.id}
             title={project.title}
             tags={project.tags}
-            image={project.image}
+            asset={project.asset}
             index={index}
           />
         ))}

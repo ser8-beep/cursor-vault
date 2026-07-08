@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ASSETS, NAV_ITEMS } from "./constants";
+import { ASSETS, NAV_ITEMS, SVG_ASSETS } from "./constants";
+import { FigmaImage } from "./figma-image";
 
 function NavItem({
   label,
@@ -92,10 +93,9 @@ export function Header({ expanded }: { expanded: boolean }) {
         <div className="flex items-center gap-2 pb-[7px] pt-2">
           <div className="relative size-8 shrink-0">
             <Image
-              src={ASSETS.workExIcon}
+              src={SVG_ASSETS.workExIcon}
               alt=""
               fill
-              unoptimized
               className="object-contain"
             />
           </div>
@@ -110,19 +110,17 @@ export function Header({ expanded }: { expanded: boolean }) {
           </div>
         </div>
         <div className="relative h-12 w-[135px] shrink-0 overflow-hidden rounded-[1px] mix-blend-luminosity">
-          <Image
-            src={ASSETS.workExGif}
+          <FigmaImage
+            asset={ASSETS.workExGif}
             alt=""
             fill
-            unoptimized
             className="object-cover opacity-20"
           />
           <div className="absolute inset-0 h-[332px] w-[134px]">
-            <Image
-              src={ASSETS.workExImage}
+            <FigmaImage
+              asset={ASSETS.workExImage}
               alt=""
               fill
-              unoptimized
               className="object-cover"
             />
           </div>

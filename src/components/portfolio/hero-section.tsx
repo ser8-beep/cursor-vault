@@ -1,12 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import {
   AnimatePresence,
   motion,
   useReducedMotion,
 } from "framer-motion";
 import { ASSETS, CYCLING_PHRASES } from "./constants";
+import { FigmaImage } from "./figma-image";
+import { FigmaPicture } from "./figma-picture";
 
 function StatueVisual({
   scrollProgress,
@@ -40,17 +41,24 @@ function StatueVisual({
             exit={reduceMotion ? undefined : { opacity: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <Image
-              src={showGlobe ? ASSETS.statueGlobe : ASSETS.statue}
-              alt=""
-              fill
-              priority
-              unoptimized
-              className="object-contain object-bottom"
-              style={{
-                objectPosition: "bottom center",
-              }}
-            />
+            {showGlobe ? (
+              <FigmaImage
+                asset={ASSETS.statueGlobe}
+                alt=""
+                fill
+                className="object-contain object-bottom"
+                style={{ objectPosition: "bottom center" }}
+              />
+            ) : (
+              <FigmaPicture
+                asset={ASSETS.statue}
+                fill
+                priority
+                className="absolute inset-0 size-full"
+                imgClassName="object-contain object-bottom"
+                style={{ objectPosition: "bottom center" }}
+              />
+            )}
           </motion.div>
         </AnimatePresence>
       </div>
