@@ -166,7 +166,7 @@
   /* Mobile notes stage — Figma bleed ratio (1210/1440), not the old 1.45vw fudge */
   --height-notes-stage-mobile: calc(100vw * 1210 / 1440);
   --width-notes-sculpture: 682px; /* Figma 2034:14169 sculpture bleed width @1440 */
-  --height-scroll-bridge-spacer: 0px; /* removed — content defines act 2 height */
+  --height-scroll-bridge-spacer: 0px; /* mobile — carousel follows handoff; no dead bridge */
   --font-notes: var(--font-geist-mono), "Source Code Pro", ui-monospace, monospace;
 
   /* Z-index (Primitive collection) */
@@ -270,6 +270,7 @@
     --section-large: 96px;
     --section-hero: 120px;
     --padding-canvas: var(--grid-margin);
+    --height-scroll-bridge-spacer: 50svh; /* tablet act-2 bridge for hero text choreography */
     /* cs-card — Figma case-study-card-768 */
     --height-cs-card: 152px;
     --padding-cs-inline: var(--space-12);
@@ -311,6 +312,7 @@
     --section-default: 96px;
     --section-large: 120px;
     --section-hero: 160px;
+    --height-scroll-bridge-spacer: 100svh; /* laptop+ act-2 bridge (sculpture morph + carousel overlap) */
     /* Root frame padding is authored at 20px on the 1440 frame */
     --padding-canvas: 20px;
     --size-hero: 36px;          /* size/4xl */

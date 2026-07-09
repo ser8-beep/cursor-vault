@@ -5,7 +5,7 @@ import {
   useMotionValue,
   useMotionValueEvent,
 } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { clamp01, mapRange } from "@/lib/motion/homePrototype";
 import { HANDOFF_END } from "@/lib/motion/scrollTimeline";
 import { PROGRESS_EPSILON } from "./constants";
@@ -25,11 +25,17 @@ type UseChoreographyProgressOptions = {
  * Post-handoff (act 2): document progress maps linearly from handoffEnd → 1.0
  * so case studies bridge scrolls smoothly without a plateau at handoffEnd.
  */
+export type ChoreographyProgressController = {
+  progress: MotionValue<number>;
+  /** Re-anchor document progress after forward handoff scroll snap settles. */
+  settleHandoffAnchor: () => void;
+};
+
 export function useChoreographyProgress({
   documentProgress,
   internalScroll,
   handoffEnd = HANDOFF_END,
-}: UseChoreographyProgressOptions): MotionValue<number> {
+}: UseChoreographyProgressOptions): ChoreographyProgressController {
   const effectiveProgress = useMotionValue(0);
   const handoffDocumentProgressRef = useRef(0);
   const handoffEndRef = useRef(handoffEnd);
@@ -76,6 +82,7 @@ export function useChoreographyProgress({
 
   useMotionValueEvent(internalScroll.progress, "change", (value) => {
     if (value >= 1 - PROGRESS_EPSILON && internalScroll.phaseRef.current === "completed") {
+      // Pin doc baseline immediately so unlock/scroll snap cannot jump act-2 progress.
       handoffDocumentProgressRef.current = documentProgress.get();
       applyDocumentProgress(documentProgress.get());
       return;
@@ -87,10 +94,18 @@ export function useChoreographyProgress({
   });
 
   useEffect(() => {
+    if (internalScroll.phase === "completed") {
+      handoffDocumentProgressRef.current = documentProgress.get();
+    }
     applyDocumentProgress(documentProgress.get());
   }, [documentProgress, internalScroll.phase]);
 
-  return effectiveProgress;
+  const settleHandoffAnchor = useCallback(() => {
+    handoffDocumentProgressRef.current = documentProgress.get();
+    applyDocumentProgress(documentProgress.get());
+  }, [documentProgress]);
+
+  return { progress: effectiveProgress, settleHandoffAnchor };
 }
 
 /** Read-only helper for mapping without subscribing. */
