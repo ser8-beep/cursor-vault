@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import { HERO, MICRO, PHASE, PRE_MORPH, REVEAL } from "./constants";
+import { HERO, MICRO, MODEL_TARGET_HEIGHT, PHASE, PRE_MORPH, REVEAL } from "./constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -128,7 +128,10 @@ export function ScrollAnimationController({
     const hero = heroRef.current;
     const morphStart = morphStartRef.current;
     const dockTarget = dockTargetRef.current;
+    const notesSection = notesSectionRef.current;
     if (!hero || !morphStart || !dockTarget) return;
+
+    const morphEndEl = notesSection ?? dockTarget;
 
     const s = state.current;
     const ctx = gsap.context(() => {
@@ -156,8 +159,8 @@ export function ScrollAnimationController({
         scrollTrigger: {
           trigger: morphStart,
           start: "top bottom",
-          endTrigger: dockTarget,
-          end: "bottom center",
+          endTrigger: morphEndEl,
+          end: "bottom bottom",
           scrub: true,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
@@ -195,6 +198,7 @@ export function ScrollAnimationController({
       );
 
       // Phase 3 — globe 180 → 360°, scale up, move toward camera (55–100%)
+      // posY dock handled in useFrame (viewport bottom + half-height offset).
       const revealDur = 1 - PHASE.morphEnd;
       tl.to(
         s,
@@ -241,31 +245,25 @@ export function ScrollAnimationController({
     let posX = 0;
 
     const cam = camera as THREE.PerspectiveCamera;
-    const dockEl = dockTargetRef.current;
-    const notesRect = notesSectionRef.current?.getBoundingClientRect();
+    const halfH =
+      ((b ?? a)?.userData.modelHalfHeight as number | undefined) ??
+      MODEL_TARGET_HEIGHT / 2;
 
-    // Phase 3 + dock: track bottom-center of notes stage on screen.
-    if (
-      enabled &&
-      s.morphProgress >= PHASE.morphEnd &&
-      dockEl &&
-      notesRect &&
-      notesRect.bottom > 0 &&
-      notesRect.top < window.innerHeight
-    ) {
-      const rect = dockEl.getBoundingClientRect();
-      const dockScreenX = rect.left + rect.width / 2;
-      const dockScreenY = rect.bottom;
+    // Phase 3: bottom-center dock — model feet on viewport bottom at second-fold end.
+    if (enabled && s.morphProgress >= PHASE.morphEnd) {
       const revealT =
         (s.morphProgress - PHASE.morphEnd) / (1 - PHASE.morphEnd);
-      const dockWorldY = screenYToWorldY(cam, dockScreenY, s.posZ);
-      const dockWorldX = screenXToWorldX(cam, dockScreenX, s.posZ);
-      posY = gsap.utils.interpolate(
-        PRE_MORPH.posY,
-        dockWorldY,
-        Math.min(1, revealT * 1.15),
-      );
-      posX = gsap.utils.interpolate(0, dockWorldX, Math.min(1, revealT * 1.15));
+      const t = Math.min(1, revealT);
+
+      const targetScreenX = window.innerWidth / 2;
+      const targetScreenY = window.innerHeight;
+
+      const dockWorldY = screenYToWorldY(cam, targetScreenY, s.posZ);
+      const dockWorldX = screenXToWorldX(cam, targetScreenX, s.posZ);
+      const bottomAlignedY = dockWorldY + s.scale * halfH;
+
+      posY = gsap.utils.interpolate(PRE_MORPH.posY, bottomAlignedY, t);
+      posX = gsap.utils.interpolate(0, dockWorldX, t);
     }
 
     if (a) {

@@ -70,8 +70,10 @@ export function SculptureModel({
     }
     wrapper.add(clone);
     materialsRef.current = materials;
-    (wrapper.userData as { materials?: THREE.Material[] }).materials =
+    (wrapper.userData as { materials?: THREE.Material[]; modelHalfHeight?: number }).materials =
       materials;
+    (wrapper.userData as { modelHalfHeight?: number }).modelHalfHeight =
+      MODEL_TARGET_HEIGHT / 2;
 
     return () => {
       materials.forEach((m) => m.dispose());

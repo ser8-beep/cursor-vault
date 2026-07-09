@@ -53,14 +53,12 @@ export const PHASE = {
   morphEnd: 0.55,
 } as const;
 
-/**
- * Phase 3 reveal maxima — globe scales up, moves toward camera, docks bottom-center.
- * posY tuned via camera.project() for bottom-anchored dock at viewport bottom.
- */
+/** Phase 3 reveal maxima — globe scales up, moves toward camera, docks bottom-center. */
 export const REVEAL = {
   scale: 1.35,
   posZ: 0.4,
-  posY: -0.05,
+  /** Fallback Y when dock projection is inactive; useFrame overrides at phase 3. */
+  posY: -0.72,
 } as const;
 
 /** Turntable micro-motion (radians). Keep nearly imperceptible. */
