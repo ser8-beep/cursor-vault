@@ -34,7 +34,7 @@ export function CaseStudyCarousel({
       aria-label="Case studies"
       data-node-id="104:19033"
       data-name="carousel-1440"
-      className="flex w-full flex-col gap-2xl pb-[var(--space-48)] scroll-mt-[var(--space-48)] -mt-[var(--space-48)] laptop:-mt-[302px] relative z-[var(--z-40)]"
+      className="flex w-full flex-col gap-2xl pb-[var(--space-48)] scroll-mt-[var(--space-48)] mt-0 tablet:-mt-[var(--space-48)] laptop:-mt-[302px] relative z-[var(--z-40)]"
       initial={motionEnabled ? "hidden" : false}
       whileInView={motionEnabled ? "visible" : undefined}
       viewport={SCROLL_TRIGGER}
