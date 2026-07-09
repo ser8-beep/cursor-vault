@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local design/debug artifacts (screenshots & scripts)
+.shot-*.png
+.figma-refs-*.png
+.preview-*.png
+preview-*.png
+.inspect.mjs
+.measure.mjs
