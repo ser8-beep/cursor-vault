@@ -143,11 +143,8 @@ export function SecondFoldStateOne() {
         </div>
 
         <div className="flex min-h-[642px] flex-1 w-full flex-col items-start justify-between pb-96">
-          <div className="inline-flex h-[782px] items-start justify-end gap-2.5 overflow-hidden pl-[530px] pt-28">
-            <div className="relative h-[1049px] w-[417px] blur-xl">
-              <FigmaImage asset={ASSETS.statueGlobe} alt="" fill className="object-contain object-top" />
-            </div>
-          </div>
+          {/* Sculpture replaced by HeroScene (GLB morph) on home */}
+          <div className="inline-flex h-[782px] items-start justify-end gap-2.5 overflow-hidden pl-[530px] pt-28" aria-hidden />
           <div className="inline-flex w-[1400px] items-center justify-between">
             <div className="flex items-center justify-start">
               <div className="inline-flex h-20 w-[476px] flex-col items-start justify-start gap-3">

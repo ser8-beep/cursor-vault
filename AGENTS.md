@@ -22,3 +22,5 @@ Local Figma raster assets live in `public/figma/`. Drop new exports into `public
 - Components: use `FigmaImage` / `FigmaPicture` from `src/components/portfolio/` — not raw URLs or Figma MCP links
 - Semantic aliases: `src/components/portfolio/constants.ts` → `ASSETS` keys map to registry
 - SVG icons: `SVG_ASSETS` in constants (work-ex-icon, location-icon)
+- Notes molecules: `src/components/portfolio/notes/` — map to Figma `notes-molecule/*` (node 104:18983)
+- Code Connect templates: `src/figma/notes/*.figma.ts` (requires Org/Enterprise for MCP publish)

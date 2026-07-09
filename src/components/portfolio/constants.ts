@@ -42,30 +42,37 @@ export const NAV_ITEMS = [
 
 export const PROJECTS = [
   {
-    id: "smart-home",
-    title: "SMART HOME",
-    tags: ["IOT", "MOBILE"],
-    asset: ASSETS.projectIot,
-  },
-  {
     id: "insurance",
     title: "INSURANCE",
-    tags: ["TRAVEL", "MOBILE"],
+    tags: ["RESPONSIVE", "BFSI"],
     asset: ASSETS.projectInsurance,
+    href: "#work",
   },
   {
     id: "maternity",
     title: "MATERNITY",
-    tags: ["WELLNESS", "MOBILE"],
+    tags: ["MOBILE", "WELLNESS"],
     asset: ASSETS.projectMaternity,
+    href: "#work",
+  },
+  {
+    id: "smart-home",
+    title: "SMART HOME",
+    tags: ["MOBILE", "IOT"],
+    asset: ASSETS.projectIot,
+    href: "#work",
   },
   {
     id: "erp",
     title: "ERP",
-    tags: ["ADMIN", "WEB APP"],
+    tags: ["SAAS", "ADMIN"],
     asset: ASSETS.projectErp,
+    href: "#work",
   },
 ] as const;
+
+/** Figma 99:2367 case-study-card list order (mobile → desktop). */
+export const CASE_STUDIES = PROJECTS;
 
 export const CONTACT = {
   phone: "+91 7977071976",

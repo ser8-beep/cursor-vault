@@ -1,0 +1,56 @@
+/* Case study card — Figma organism-case-study-card @ 360/768/1366/1600/1920 */
+
+:root {
+  --color-card-border: rgba(135, 135, 135, 0.4);
+  --height-cs-card: 120px;
+  --padding-cs-top: var(--space-3);
+  --padding-cs-inline: 9px;
+  --padding-cs-content-top: var(--space-2);
+  --padding-cs-block-end: var(--space-0);
+  --padding-cs-content-end: var(--space-0);
+  --size-cs-title: var(--font-size-title);
+  --size-cs-tag: var(--font-size-label-m);
+  --tracking-cs-tag: 0.6px;
+  --shadow-cs-hover: 8px 11px 22px 0px rgba(0, 0, 0, 0.15);
+  --padding-cs-inline-active: 15px;
+  --padding-cs-content-top-active: var(--space-2);
+  --gap-cs-grid-x: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --height-cs-card: 152px;
+    --padding-cs-inline: var(--space-3);
+    --padding-cs-content-top: var(--space-0);
+    --padding-cs-block-end: 28px;
+    --padding-cs-content-end: 28px;
+    --gap-cs-grid-x: 10px;
+    --padding-cs-inline-active: var(--space-3);
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --height-cs-card: 180px;
+    --size-cs-title: 20px;
+    --size-cs-tag: 12px;
+    --gap-cs-grid-x: var(--space-5);
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --height-cs-card: 220px;
+    --size-cs-tag: 16px;
+    --tracking-cs-tag: 1.28px;
+  }
+}
+
+@media (min-width: 1920px) {
+  :root {
+    --height-cs-card: 240px;
+    --size-cs-title: var(--font-size-heading-m);
+    --size-cs-tag: var(--font-size-body-l);
+    --tracking-cs-tag: 1.44px;
+  }
+}

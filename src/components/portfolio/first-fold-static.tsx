@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { ASSETS, CONTACT, SVG_ASSETS } from "./constants";
 import { FigmaImage } from "./figma-image";
-import { FigmaPicture } from "./figma-picture";
 
 export function FirstFoldStatic() {
   return (
@@ -47,16 +46,11 @@ export function FirstFoldStatic() {
         </div>
 
         <div className="flex min-h-0 w-full flex-1 flex-col items-start justify-between pb-[226px] min-[1280px]:pb-[258px] min-[1366px]:pb-[290px] min-[1440px]:pb-80">
-          <div className="inline-flex h-[470px] w-[510px] items-center justify-start pl-[235px] min-[1280px]:h-[560px] min-[1280px]:w-[585px] min-[1280px]:pl-[265px] min-[1366px]:h-[640px] min-[1366px]:w-[640px] min-[1366px]:pl-[298px] min-[1440px]:h-[680px] min-[1440px]:w-[686px] min-[1440px]:pl-80">
-            <div className="relative h-[470px] w-[220px] min-w-[220px] min-[1280px]:h-[560px] min-[1280px]:w-[260px] min-[1280px]:min-w-[260px] min-[1366px]:h-[640px] min-[1366px]:w-[300px] min-[1366px]:min-w-[300px] min-[1440px]:h-[680px] min-[1440px]:w-[340px] min-[1440px]:min-w-[300px]">
-              <FigmaPicture
-                asset={ASSETS.statue}
-                fill
-                className="absolute inset-0 size-full"
-                imgClassName="object-contain object-bottom blur-[2px]"
-              />
-            </div>
-          </div>
+          {/* Sculpture replaced by HeroScene (GLB morph) on home */}
+          <div
+            className="inline-flex h-[470px] w-[510px] items-center justify-start pl-[235px] min-[1280px]:h-[560px] min-[1280px]:w-[585px] min-[1280px]:pl-[265px] min-[1366px]:h-[640px] min-[1366px]:w-[640px] min-[1366px]:pl-[298px] min-[1440px]:h-[680px] min-[1440px]:w-[686px] min-[1440px]:pl-80"
+            aria-hidden
+          />
 
           <div className="inline-flex w-full items-center justify-between min-[1440px]:-translate-y-8">
             <div className="flex items-center justify-start">

@@ -30,5 +30,10 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "src/components/portfolio/HomeScrollExperience.tsx",
+    "src/components/portfolio/FirstFoldMotionVideo.tsx",
+    "src/lib/internal-scroll"
+  ]
 }

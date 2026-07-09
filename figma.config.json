@@ -1,0 +1,14 @@
+{
+  "codeConnect": {
+    "include": ["src/figma/**/*.figma.ts"],
+    "parser": "react",
+    "paths": {
+      "@/components/portfolio": ["src/components/portfolio"],
+      "@/components/portfolio/notes": ["src/components/portfolio/notes"]
+    },
+    "importPaths": {
+      "src/components/portfolio/*": "@/components/portfolio",
+      "src/components/portfolio/notes/*": "@/components/portfolio/notes"
+    }
+  }
+}

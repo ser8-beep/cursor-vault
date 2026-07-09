@@ -30,8 +30,65 @@
       "figma": "notes",
       "figmaPage": "05 Components",
       "react": "src/components/portfolio/notes-section.tsx",
+      "figmaNodeId": "104:18983",
       "tokens": [],
-      "note": "Illustration collage — not token-bound"
+      "note": "Collage composed from notes-molecule/* components"
+    },
+    {
+      "figma": "notes-molecule/stamp",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-stamp.tsx",
+      "figmaNodeId": "104:18948",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/Polaroid",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-polaroid.tsx",
+      "figmaNodeId": "104:18947",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/texture",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-texture.tsx",
+      "figmaNodeId": "104:18944",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/sticky-white",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-sticky-discourse.tsx",
+      "figmaNodeId": "104:18946",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/sticky-grey",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-sticky-discourse.tsx",
+      "figmaNodeId": "104:18945",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/photo",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-photo.tsx",
+      "figmaNodeId": "104:18950",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/base-paper",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-base-paper.tsx",
+      "figmaNodeId": "104:18949",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/note",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-watermark.tsx",
+      "figmaNodeId": "104:18951",
+      "tokens": []
     },
     {
       "figma": "carousel-1440",
