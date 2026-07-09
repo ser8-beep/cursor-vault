@@ -14,7 +14,11 @@ export {
 export { animateProgress, durationFromWheelDelta, easeOutCubic } from "./inertialProgress";
 export { cancelVideoScrub, scrubVideoToProgress } from "./scrubVideo";
 export { useInternalScroll } from "./useInternalScroll";
-export { useChoreographyProgress, mergeScrollProgress } from "./useChoreographyProgress";
+export {
+  useChoreographyProgress,
+  mergeScrollProgress,
+  type ChoreographyProgressController,
+} from "./useChoreographyProgress";
 export type {
   InternalScrollController,
   InternalScrollExitDirection,
