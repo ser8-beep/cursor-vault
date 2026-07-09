@@ -1,6 +1,7 @@
-// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=13-360
+// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=104-19033
 // source=src/components/CaseStudyCarousel.tsx
 // component=CaseStudyCarousel
+// responsive=mobile/tablet: no PRODUCT_DESIGN label; Insurance→Maternity→Smart Home→ERP order
 import figma from "figma";
 
 export default {

@@ -34,7 +34,7 @@ function ResumeIcon({ size }: { size: "sm" | "lg" }) {
 function ResumeText({ variant }: { variant: "mobile" | "tablet" | "desktop" }) {
   if (variant === "mobile") {
     return (
-      <span className="inline-flex flex-col items-end justify-center gap-xs font-display text-overline tracking-caption uppercase whitespace-nowrap">
+      <span className="inline-flex flex-col items-end justify-center gap-xs font-display text-[length:var(--size-contact-loc)] tracking-caption uppercase whitespace-nowrap">
         <span className="text-text-primary">Work ex: 4 yrs+</span>
         <span className="text-text-link underline [text-underline-position:from-font] group-hover:text-blue-900 transition-colors duration-[var(--duration-base)] ease-standard">
           My resume
@@ -114,7 +114,7 @@ type SiteHeaderProps = {
 };
 
 /**
- * Responsive header default states — Figma 90:1771 (header_default_states_responsive).
+ * Responsive header default states — Figma 104:19033 / 90:1771 (header_default_states_responsive).
  * Motion: header-enter (13:32068).
  */
 export function SiteHeader({
@@ -151,7 +151,7 @@ export function SiteHeader({
 
   return (
     <header
-      data-node-id="90:1771"
+      data-node-id="104:19033"
       data-name="header_default_states_responsive"
       className="flex w-full min-w-0 flex-col gap-gap-sm tablet:flex-row tablet:items-start tablet:gap-md"
     >
@@ -161,13 +161,13 @@ export function SiteHeader({
         className="grid w-full min-w-0 flex-1 bg-surface border border-border-default rounded-3"
         {...shellProps}
       >
-        <div className="flex w-full min-w-0 items-stretch justify-between border-b border-border-default p-xs tablet:p-sm laptop:py-2xs laptop:pl-sm laptop:pr-xs">
+        <div className="flex w-full min-w-0 min-h-[44px] items-stretch justify-between border-b border-border-default p-xs tablet:min-h-0 tablet:p-sm laptop:py-2xs laptop:pl-sm laptop:pr-xs">
           <Link
             href="/"
             className="flex flex-col justify-center gap-xs uppercase py-2xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link laptop:gap-xs desktop:gap-sm"
             aria-label="Shivani K. — home"
           >
-            <span className="font-display font-bold [font-stretch:expanded] text-code leading-tight text-text-primary tablet:text-heading-s laptop:text-body-l desktop:text-body-xl">
+            <span className="font-display font-normal [font-stretch:expanded] text-code leading-tight text-text-primary tablet:text-heading-s laptop:font-bold laptop:text-body-l desktop:text-body-xl">
               Shivani K.
             </span>
             <span className="font-display text-[6px] leading-[var(--space-8)] tracking-micro text-zinc-700 tablet:text-label-m tablet:leading-tight tablet:tracking-normal laptop:text-overline">
@@ -211,7 +211,7 @@ export function SiteHeader({
         </div>
         {!brandOnly ? (
           <motion.ul
-            className="flex w-full min-w-0 flex-nowrap items-center justify-start gap-x-md tablet:gap-x-[var(--space-20)] gap-y-0 px-xs pr-sm py-xs tablet:px-sm tablet:py-[var(--space-12)] laptop:py-sm desktop:py-md uppercase overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex w-full min-w-0 min-h-[var(--space-32)] flex-nowrap items-center justify-start gap-x-md tablet:min-h-0 tablet:gap-x-[var(--space-20)] gap-y-0 px-xs pr-sm py-xs tablet:px-sm tablet:py-[var(--space-12)] laptop:py-sm desktop:py-md uppercase overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             {...navProps}
           >
             {NAV_ITEMS.map((item) => (

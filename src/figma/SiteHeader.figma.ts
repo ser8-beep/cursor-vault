@@ -1,6 +1,7 @@
-// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=90-1771
+// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=104-19033
 // source=src/components/SiteHeader.tsx
 // component=SiteHeader
+// responsive=header-360: 13px regular brand, 8px work-ex, 82px montage, 44px/32px row heights
 import figma from "figma";
 
 export default {

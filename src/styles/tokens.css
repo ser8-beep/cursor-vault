@@ -143,7 +143,7 @@
   --width-resume-card: 313.33px; /* width/313_33 */
   --width-nav-media: 204px;
   --width-resume-media: 135px;
-  --width-resume-media-mobile: 33px; /* header-360 work-ex-gif */
+  --width-resume-media-mobile: 82px; /* header-360 work-ex-gif — Figma 104:18273 */
   --width-resume-card-tablet: 242px; /* header-768 resume card */
   --height-resume-media: 48px; /* montage frame height (135×48) */
   --width-contact-card: 566px;
@@ -225,7 +225,9 @@
   /* Hero display size (size/4xl in the design = 36 @1440; scaled down    */
   /* through the display-m ramp on smaller modes)                         */
   --size-hero: var(--size-display-m);
+  --size-hero-compact: var(--size-heading-m); /* 20px — mobile/tablet hero @ Figma 104:19033 */
   --leading-hero: var(--leading-tight);
+  --leading-hero-compact: 28px; /* Figma text-animation-left-atoms line box */
 
   /* ------------------------------------------------------------------ */
   /* Layout — Layout collection, Mobile mode                              */
@@ -242,9 +244,8 @@
   --section-large: 80px;
   --section-hero: 96px;
 
-  /* Frame padding of home-template root (20px @1440; below 1280 follows   */
-  /* grid/margin per breakpoint)                                           */
-  --padding-canvas: var(--grid-margin);
+  /* Frame padding of home-template root (20px @1440; 8px @360 per Figma)  */
+  --padding-canvas: var(--space-8);
 }
 
 /* ==== Tablet — Layout.breakpoint/canvas-width: 768 ==================== */
@@ -268,6 +269,7 @@
     --section-default: 80px;
     --section-large: 96px;
     --section-hero: 120px;
+    --padding-canvas: var(--grid-margin);
     /* cs-card — Figma case-study-card-768 */
     --height-cs-card: 152px;
     --padding-cs-inline: var(--space-12);

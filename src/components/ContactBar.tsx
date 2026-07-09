@@ -13,7 +13,7 @@ type ContactLink = {
 
 /** Tablet+ order — Figma psuedo-footer-768+ */
 const CONTACTS_TABLET: ContactLink[] = [
-  { label: "+91 7977071976", href: "tel:+917977071976" },
+  { label: "+91 7977371976", href: "tel:+917977371976" },
   { label: "shivanimkher@gmail.com", href: "mailto:shivanimkher@gmail.com" },
   {
     label: "linkedin @shivani kher",
@@ -22,11 +22,10 @@ const CONTACTS_TABLET: ContactLink[] = [
   },
 ];
 
-/** Mobile order + abbreviated labels — Figma psuedo-footer-360 */
+/** Mobile — Figma psuedo-footer-360 (104:18494): full email + phone only */
 const CONTACTS_MOBILE: ContactLink[] = [
-  { label: "gmail.com", href: "mailto:shivanimkher@gmail.com" },
-  { label: "linkedin", href: "https://linkedin.com/in/shivani-kher", external: true },
-  { label: "+91 7977071976", href: "tel:+917977071976" },
+  { label: "shivanimkher@gmail.com", href: "mailto:shivanimkher@gmail.com" },
+  { label: "+91 7977371976", href: "tel:+917977371976" },
 ];
 
 const CONTACT_LINK_CLASS =
@@ -92,7 +91,7 @@ function LocationTime({ iconFirst = false }: { iconFirst?: boolean }) {
   );
 }
 
-/** contact-strip-sticky — Figma 101:1714 (360 / 768 / 1366+). Motion: footer-enter (13:32063). */
+/** contact-strip-sticky — Figma 104:19033 / 101:1714 (360 / 768 / 1366+). */
 export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
   const motionProps = motionEnabled
     ? {
@@ -109,7 +108,7 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
   return (
     <motion.div
       className="relative z-[var(--z-50)] flex w-full shrink-0 flex-col items-end gap-gap-sm tablet:flex-row tablet:items-end tablet:justify-between tablet:pb-[var(--space-20)]"
-      data-node-id="101:1714"
+      data-node-id="104:19033"
       data-name="contact-strip-sticky"
       {...motionProps}
     >
@@ -118,7 +117,7 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
       </div>
 
       <div
-        className="relative flex w-full shrink-0 items-center justify-between overflow-clip bg-surface border border-border-default rounded-3 p-sm tablet:w-auto tablet:justify-start tablet:gap-gap-xl tablet:px-[var(--padding-button-md-x)] tablet:py-[var(--padding-button-md-y)]"
+        className="relative flex h-[var(--space-40)] w-full shrink-0 items-center justify-start overflow-clip bg-surface border border-border-default rounded-3 p-sm tablet:h-auto tablet:w-auto tablet:justify-start tablet:gap-gap-xl tablet:px-[var(--padding-button-md-x)] tablet:py-[var(--padding-button-md-y)]"
         data-name="get-in-touch"
       >
         <div className="tablet:hidden">
@@ -127,20 +126,6 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
         <div className="hidden tablet:block">
           <ContactLinks contacts={CONTACTS_TABLET} />
         </div>
-
-        <Link
-          href="mailto:shivanimkher@gmail.com"
-          className="tablet:hidden shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link"
-          aria-label="Let's connect"
-        >
-          <Image
-            src="/figma/get-in-touch-icon.svg"
-            alt=""
-            width={24}
-            height={24}
-            className="size-lg"
-          />
-        </Link>
 
         <span className="hidden tablet:block font-helvetica uppercase text-overline tracking-overline leading-normal text-text-muted whitespace-nowrap">
           Let&apos;s connect

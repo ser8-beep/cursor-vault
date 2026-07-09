@@ -10,10 +10,10 @@ import {
 } from "@/lib/motion/home-scroll";
 
 const CASE_STUDIES: CaseStudy[] = [
-  { title: "Smart Home", tags: ["IOT", "Mobile"], asset: "csSmartHome", href: "/case-studies/smart-home" },
-  { title: "Insurance", tags: ["Travel", "Mobile"], asset: "csInsurance", href: "/case-studies/insurance" },
-  { title: "Maternity", tags: ["Wellness", "Mobile"], asset: "csMaternity", href: "/case-studies/maternity" },
-  { title: "ERP", tags: ["Admin", "Web app"], asset: "csErp", href: "/case-studies/erp" },
+  { title: "Insurance", tags: ["Responsive", "BFSI"], asset: "csInsurance", href: "/case-studies/insurance" },
+  { title: "Maternity", tags: ["Mobile", "Wellness"], asset: "csMaternity", href: "/case-studies/maternity" },
+  { title: "Smart Home", tags: ["Mobile", "IOT"], asset: "csSmartHome", href: "/case-studies/smart-home" },
+  { title: "ERP", tags: ["SaaS", "Admin"], asset: "csErp", href: "/case-studies/erp" },
 ];
 
 type CaseStudyCarouselProps = {
@@ -23,7 +23,7 @@ type CaseStudyCarouselProps = {
   anchorId?: string | false;
 };
 
-/** carousel-1440 — cs-carousel-enter scroll reveal (13:32074 / 13:32080). */
+/** carousel-1440 — cs-carousel-enter scroll reveal (104:18648 / 13:32074). */
 export function CaseStudyCarousel({
   motionEnabled,
   anchorId = "case-studies",
@@ -32,7 +32,7 @@ export function CaseStudyCarousel({
     <motion.section
       id={anchorId === false ? undefined : anchorId}
       aria-label="Case studies"
-      data-node-id="13:360"
+      data-node-id="104:19033"
       data-name="carousel-1440"
       className="flex w-full flex-col gap-2xl pb-[var(--space-48)] scroll-mt-[var(--space-48)] -mt-[var(--space-48)] laptop:-mt-[302px] relative z-[var(--z-40)]"
       initial={motionEnabled ? "hidden" : false}
@@ -40,7 +40,7 @@ export function CaseStudyCarousel({
       viewport={SCROLL_TRIGGER}
       variants={carouselRevealVariants}
     >
-      <p className="font-display uppercase text-label-s leading-normal tracking-caption text-text-muted whitespace-pre-wrap">
+      <p className="hidden laptop:block font-display uppercase text-label-s leading-normal tracking-caption text-text-muted whitespace-pre-wrap">
         <span className="text-main">PRODUCT_DESIGN</span>
         {" //  01_SYSTEMS_FOR_USERS\n"}
         {"                               02_SYSTEMS FOR_TEAMS"}

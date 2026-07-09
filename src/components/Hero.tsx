@@ -21,14 +21,14 @@ type HeroProps = {
 };
 
 const HERO_TAGLINE = "That make sense";
-const HERO_MARQUEE_REPEAT = 6;
-const HERO_MARQUEE_TEXT = Array(HERO_MARQUEE_REPEAT).fill(HERO_TAGLINE).join(" · ");
+const HERO_SUBTEXT =
+  "PRODUCT_DESIGNER // AI NATIVE LEAN UX SYSTEMS WORKFLOWS";
 
 const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur effect */
 
 /**
- * splash-organism — Figma 13:509 / 54:1126.
- * Splash: typewriter molecule (13:521). Footer-enter: full headline (13:32063).
+ * splash-organism — Figma 104:19033 (mobile/tablet) / 13:509 (laptop+).
+ * Splash: stacked typewriter molecule (104:18518). Footer-enter: 2-line headline + subtext.
  */
 export function Hero({
   scrollProgress,
@@ -98,7 +98,7 @@ export function Hero({
   return (
     <section
       aria-label="Introduction"
-      data-node-id="13:509"
+      data-node-id="104:19033"
       data-name="splash-organism"
       className="relative flex min-h-0 flex-1 w-full items-center overflow-visible"
     >
@@ -149,26 +149,33 @@ export function Hero({
           <SplashTypewriter motionEnabled={motionEnabled} visible />
         ) : (
           <motion.div
-            className="flex w-full flex-col gap-gap-xl tablet:gap-gap-lg laptop:grid laptop:grid-cols-[1fr_auto] laptop:grid-rows-[auto_auto] laptop:justify-between laptop:gap-x-gap-lg laptop:gap-y-[var(--space-12)]"
+            className="flex w-full flex-col gap-gap-sm pt-[var(--space-20)] laptop:grid laptop:grid-cols-[1fr_auto] laptop:grid-rows-[auto_auto] laptop:justify-between laptop:gap-x-gap-lg laptop:gap-y-[var(--space-12)] laptop:pt-0"
             style={{ opacity: motionEnabled ? textOpacity : 1 }}
             {...headlineMotionProps}
           >
-            <div className="relative z-[var(--z-30)] flex flex-col gap-gap-sm laptop:contents">
+            {/* Mobile & tablet — Figma 104:18518 stacked 2-line layout */}
+            <div className="relative z-[var(--z-30)] flex w-full flex-col gap-gap-sm laptop:hidden">
+              <p className="text-right font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-compact tracking-normal text-text-primary whitespace-nowrap">
+                Building <span className="text-text-link">systems</span>
+              </p>
+              <div className="flex flex-col items-start gap-xs">
+                <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-compact tracking-normal text-text-primary whitespace-nowrap">
+                  {HERO_TAGLINE}
+                </p>
+                <p className="font-display text-caption leading-3 tracking-wider text-text-secondary">
+                  {HERO_SUBTEXT}
+                </p>
+              </div>
+            </div>
+
+            {/* Laptop+ — unchanged 2-column grid @ 36px */}
+            <div className="relative z-[var(--z-30)] hidden flex-col gap-gap-sm laptop:contents">
               <h1 className="text-center font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-1 laptop:row-start-1 laptop:text-left laptop:whitespace-nowrap">
                 Building <span className="text-text-link">systems</span>
               </h1>
             </div>
-            <p
-              className="relative z-[var(--z-10)] w-full self-end overflow-hidden text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:w-auto laptop:justify-self-end laptop:self-auto laptop:overflow-visible laptop:whitespace-nowrap"
-              aria-hidden="true"
-            >
-              <span className="hero-marquee inline-flex w-max laptop:hidden">
-                <span className="hero-marquee__segment">{HERO_MARQUEE_TEXT}</span>
-                <span className="hero-marquee__segment" aria-hidden="true">
-                  {HERO_MARQUEE_TEXT}
-                </span>
-              </span>
-              <span className="hidden laptop:inline">{HERO_TAGLINE}</span>
+            <p className="relative z-[var(--z-10)] hidden w-full self-end text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:block laptop:w-auto laptop:justify-self-end laptop:self-auto laptop:whitespace-nowrap">
+              {HERO_TAGLINE}
             </p>
             <span className="sr-only">Building systems that make sense</span>
           </motion.div>
