@@ -55,6 +55,7 @@ VibdutrclLgS5EpFWgbJhH
 ## Known gaps
 
 - Team library publish blocked on Pro plan — use code export instead
-- Code Connect requires Org/Enterprise
+- Code Connect requires Org/Enterprise — local templates live under `src/figma/`; map via `design-system/figma/component-map.json`
+- Case study card local handoff: `design-system/figma/case-study-card.md` (Figma `99:2367`)
 - `nav/background/default` and `footer/background` share same hex (#f4f4f5) — dedup candidate
 - Legacy collections (Spacing, Primitives) overlap new Primitive collection

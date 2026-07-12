@@ -8,10 +8,32 @@
       "tokens": ["--nav-background-default", "--nav-background-splash", "--nav-text"]
     },
     {
-      "figma": "cs-card-1440-v2",
+      "figma": "organism-case-study-card",
       "figmaPage": "05 Components",
-      "react": "src/components/portfolio/project-carousel.tsx",
-      "tokens": ["--card-background-default", "--card-background-hover", "--card-border"]
+      "figmaNodeId": "99:2367",
+      "figmaUrl": "https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=99-2367",
+      "react": "src/components/portfolio/case-study-card.tsx",
+      "codeConnect": "src/figma/CaseStudyCard.figma.ts",
+      "tokensCss": "design-system/tokens/css/case-study-card.css",
+      "tokens": [
+        "--card-background-default",
+        "--card-background-hover",
+        "--color-card-border",
+        "--height-cs-card",
+        "--size-cs-title",
+        "--size-cs-tag",
+        "--shadow-cs-hover"
+      ],
+      "breakpoints": {
+        "360": { "height": "120px", "layout": "1-col stack" },
+        "768": { "height": "152px", "layout": "2-col grid" },
+        "1280": { "height": "180px", "layout": "4-col row" },
+        "1600": { "height": "220px" },
+        "1920": { "height": "240px" }
+      },
+      "variants": ["Insurance", "Maternity", "Smart Home", "ERP"],
+      "states": ["default", "hover"],
+      "note": "Responsive organism — local Code Connect template only (Pro plan cannot publish)"
     },
     {
       "figma": "psuedo-footer-1440",
@@ -93,16 +115,19 @@
     {
       "figma": "carousel-1440",
       "figmaPage": "05 Components",
-      "react": "src/components/portfolio/project-carousel.tsx",
-      "tokens": [],
-      "note": "Layout frame — instances inherit cs-card tokens"
+      "figmaNodeId": "104:19033",
+      "react": "src/components/portfolio/case-study-carousel.tsx",
+      "codeConnect": "src/figma/CaseStudyCarousel.figma.ts",
+      "tokens": ["--gap-cs-grid-x"],
+      "note": "Layout frame — hosts organism-case-study-card instances; order Insurance → Maternity → Smart Home → ERP"
     },
     {
       "figma": "maternity | erp | insurance | iot",
       "figmaPage": "05 Components",
-      "react": "src/components/portfolio/constants.ts → PROJECTS",
+      "react": "src/components/portfolio/constants.ts → CASE_STUDIES",
+      "assets": ["csInsurance", "csMaternity", "csSmartHome", "csErp"],
       "tokens": [],
-      "note": "Case study art — image assets only"
+      "note": "Case study art — local rasters under public/figma/"
     }
   ],
   "pages": {
