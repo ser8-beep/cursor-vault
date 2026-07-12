@@ -49,8 +49,8 @@ export function useChoreographyProgress({
     const phase = internalScroll.phaseRef.current;
     const internal = internalScroll.progress.get();
 
+    /* Single ownership: during internal handoff, only choreographyProgress writes. */
     if (internalScroll.isActiveRef.current || (internal > 0 && internal < 1)) {
-      effectiveProgress.set(mapRange(clamp01(internal), 0, 1, 0, end));
       return;
     }
 
@@ -82,7 +82,7 @@ export function useChoreographyProgress({
 
   useMotionValueEvent(internalScroll.progress, "change", (value) => {
     if (value >= 1 - PROGRESS_EPSILON && internalScroll.phaseRef.current === "completed") {
-      // Pin doc baseline immediately so unlock/scroll snap cannot jump act-2 progress.
+      // Provisional pin at unlock; settleHandoffAnchor is the post-snap owner.
       handoffDocumentProgressRef.current = documentProgress.get();
       applyDocumentProgress(documentProgress.get());
       return;
@@ -94,9 +94,7 @@ export function useChoreographyProgress({
   });
 
   useEffect(() => {
-    if (internalScroll.phase === "completed") {
-      handoffDocumentProgressRef.current = documentProgress.get();
-    }
+    /* Do not reassign handoffDocumentProgressRef here — settle owns post-snap baseline. */
     applyDocumentProgress(documentProgress.get());
   }, [documentProgress, internalScroll.phase]);
 
