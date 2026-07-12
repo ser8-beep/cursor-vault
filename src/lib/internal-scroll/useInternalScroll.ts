@@ -119,9 +119,9 @@ export function useInternalScroll({
       cancelAnimation();
       if (!isActiveRef.current && !isAnimatingRef.current) {
         if (direction === "forward") {
-          setProgress(1);
           setPhase("completed");
           phaseRef.current = "completed";
+          setProgress(1);
           onForwardCompleteRef.current?.();
         } else {
           setProgress(0);
@@ -137,9 +137,10 @@ export function useInternalScroll({
       setIsActive(false);
 
       if (direction === "forward") {
-        setProgress(1);
+        /* Mark completed before progress=1 so choreography can pin once, then settle after snap. */
         setPhase("completed");
         phaseRef.current = "completed";
+        setProgress(1);
         onForwardCompleteRef.current?.();
         return;
       }
@@ -220,7 +221,13 @@ export function useInternalScroll({
     }
 
     const onWheel = (event: WheelEvent) => {
-      if (!enabledRef.current || isAnimatingRef.current) return;
+      if (!enabledRef.current) return;
+
+      /* Single ownership: while internal sequence owns the page, swallow browser scroll. */
+      if (isActiveRef.current || isAnimatingRef.current) {
+        event.preventDefault();
+        return;
+      }
 
       const delta = event.deltaY;
       if (Math.abs(delta) < 1) return;
@@ -241,7 +248,9 @@ export function useInternalScroll({
     };
 
     const onTouchEnd = (event: TouchEvent) => {
-      if (!enabledRef.current || isAnimatingRef.current) return;
+      if (!enabledRef.current) return;
+      /* Ignore mid-sequence touch — ownership stays with the running animation. */
+      if (isActiveRef.current || isAnimatingRef.current) return;
       const touch = event.changedTouches[0];
       if (!touch) return;
 
@@ -255,14 +264,21 @@ export function useInternalScroll({
       runInertialScroll(forward ? "forward" : "backward", delta * 2);
     };
 
+    const onTouchMove = (event: TouchEvent) => {
+      if (!isActiveRef.current && !isAnimatingRef.current) return;
+      if (event.cancelable) event.preventDefault();
+    };
+
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
 
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchmove", onTouchMove);
       cancelAnimation();
       if (isPageScrollLocked()) unlockPageScroll();
     };
