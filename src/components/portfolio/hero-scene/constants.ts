@@ -53,12 +53,29 @@ export const PHASE = {
   morphEnd: 0.55,
 } as const;
 
-/** Phase 3 reveal maxima — globe scales up, moves toward camera, docks bottom-center. */
+/** Phase 3 reveal maxima — globe scales up, moves toward camera, docks at notes stage. */
 export const REVEAL = {
   scale: 1.35,
   posZ: 0.4,
-  /** Fallback Y when dock projection is inactive; useFrame overrides at phase 3. */
-  posY: -0.72,
+} as const;
+
+/**
+ * Dock pose — Figma 2034:14169 @ 1440×850 (notes sculpture bleed).
+ * left 47.55% + width 47.39% → horizontal center ~71.24% of stage.
+ */
+export const DOCK = {
+  /** Horizontal center as % of the notes stage (not viewport center). */
+  centerXPct: 47.55 + 47.39 / 2,
+  /**
+   * Hard clip — hide canvas below this viewport Y (% from top).
+   * Matches green annotation (~52% center, dips to ~40% at peak).
+   */
+  clipTopPct: 52,
+  /** Point on model bbox (from bottom) aligned to clip line — waist / drape fold. */
+  modelClipFromBottomPct: 0.38,
+  screenOffsetX: 0,
+  screenOffsetY: 0,
+  worldOffsetY: 0,
 } as const;
 
 /** Turntable micro-motion (radians). Keep nearly imperceptible. */

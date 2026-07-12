@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
-import { HERO, MICRO, MODEL_TARGET_HEIGHT, PHASE, PRE_MORPH, REVEAL } from "./constants";
+import { DOCK, HERO, MICRO, MODEL_TARGET_HEIGHT, PHASE, PRE_MORPH, REVEAL } from "./constants";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +22,8 @@ type ScrollAnimationControllerProps = {
   dockTargetRef: React.RefObject<HTMLElement | null>;
   /** Notes section — dock follow while in view. */
   notesSectionRef: React.RefObject<HTMLElement | null>;
+  /** Fixed viewport wrapper — clip-path applied when docked. */
+  viewportRef?: React.RefObject<HTMLElement | null>;
   onPhaseChange?: (phase: SculpturePhase) => void;
   enabled?: boolean;
 };
@@ -82,6 +84,16 @@ function screenYToWorldY(
   return camera.position.y + dir.y * dist;
 }
 
+/** Resolve dock screen coordinates — clip line + horizontal anchor. */
+function getDockScreenPoint(dockEl: HTMLElement): { x: number; y: number } {
+  const rect = dockEl.getBoundingClientRect();
+  const clipY = window.innerHeight * (DOCK.clipTopPct / 100) + DOCK.screenOffsetY;
+  return {
+    x: rect.left + rect.width / 2 + DOCK.screenOffsetX,
+    y: clipY,
+  };
+}
+
 /** Map a screen pixel to world-space X at a given model Z depth. */
 function screenXToWorldX(
   camera: THREE.PerspectiveCamera,
@@ -107,6 +119,7 @@ export function ScrollAnimationController({
   morphStartRef,
   dockTargetRef,
   notesSectionRef,
+  viewportRef,
   onPhaseChange,
   enabled = true,
 }: ScrollAnimationControllerProps) {
@@ -227,6 +240,7 @@ export function ScrollAnimationController({
     morphStartRef,
     dockTargetRef,
     notesSectionRef,
+    viewportRef,
     onPhaseChange,
   ]);
 
@@ -249,21 +263,32 @@ export function ScrollAnimationController({
       ((b ?? a)?.userData.modelHalfHeight as number | undefined) ??
       MODEL_TARGET_HEIGHT / 2;
 
-    // Phase 3: bottom-center dock — model feet on viewport bottom at second-fold end.
-    if (enabled && s.morphProgress >= PHASE.morphEnd) {
-      const revealT =
-        (s.morphProgress - PHASE.morphEnd) / (1 - PHASE.morphEnd);
-      const t = Math.min(1, revealT);
+    // Phase 3+: track Figma dock marker on the notes stage (persists while notes is in view).
+    if (enabled && s.morphProgress >= PHASE.morphEnd && dockTargetRef.current) {
+      const notesRect = notesSectionRef.current?.getBoundingClientRect();
+      const notesVisible =
+        notesRect &&
+        notesRect.bottom > 0 &&
+        notesRect.top < window.innerHeight;
 
-      const targetScreenX = window.innerWidth / 2;
-      const targetScreenY = window.innerHeight;
+      if (notesVisible) {
+        const revealT =
+          (s.morphProgress - PHASE.morphEnd) / (1 - PHASE.morphEnd);
+        const t = Math.min(1, revealT);
 
-      const dockWorldY = screenYToWorldY(cam, targetScreenY, s.posZ);
-      const dockWorldX = screenXToWorldX(cam, targetScreenX, s.posZ);
-      const bottomAlignedY = dockWorldY + s.scale * halfH;
+        const { x: targetScreenX, y: targetScreenY } = getDockScreenPoint(
+          dockTargetRef.current,
+        );
 
-      posY = gsap.utils.interpolate(PRE_MORPH.posY, bottomAlignedY, t);
-      posX = gsap.utils.interpolate(0, dockWorldX, t);
+        const dockWorldY =
+          screenYToWorldY(cam, targetScreenY, s.posZ) + DOCK.worldOffsetY;
+        const dockWorldX = screenXToWorldX(cam, targetScreenX, s.posZ);
+        const clipFromBottom = DOCK.modelClipFromBottomPct * MODEL_TARGET_HEIGHT;
+        const clipAlignedY = dockWorldY + s.scale * (halfH - clipFromBottom);
+
+        posY = gsap.utils.interpolate(PRE_MORPH.posY, clipAlignedY, t);
+        posX = gsap.utils.interpolate(0, dockWorldX, t);
+      }
     }
 
     if (a) {
@@ -280,6 +305,18 @@ export function ScrollAnimationController({
       b.position.set(posX, posY, s.posZ);
       b.visible = s.opacityB > 0.001;
       setMaterialsOpacity(b, s.opacityB, !overlapping && s.opacityB >= 0.99);
+    }
+
+    const viewport = viewportRef?.current;
+    if (viewport) {
+      const clipInset = 100 - DOCK.clipTopPct;
+      const shouldClip = enabled && s.morphProgress >= 0.88;
+      viewport.style.clipPath = shouldClip
+        ? `inset(0 0 ${clipInset}% 0)`
+        : "none";
+      viewport.style.webkitClipPath = shouldClip
+        ? `inset(0 0 ${clipInset}% 0)`
+        : "none";
     }
   });
 

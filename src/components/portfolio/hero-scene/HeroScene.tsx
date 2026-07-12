@@ -29,6 +29,7 @@ type HeroSceneInnerProps = {
   morphStartRef: React.RefObject<HTMLElement | null>;
   dockTargetRef: React.RefObject<HTMLElement | null>;
   notesSectionRef: React.RefObject<HTMLElement | null>;
+  viewportRef: React.RefObject<HTMLDivElement | null>;
   onPhaseChange: (phase: SculpturePhase) => void;
   enabled: boolean;
 };
@@ -38,6 +39,7 @@ function HeroSceneInner({
   morphStartRef,
   dockTargetRef,
   notesSectionRef,
+  viewportRef,
   onPhaseChange,
   enabled,
 }: HeroSceneInnerProps) {
@@ -64,6 +66,7 @@ function HeroSceneInner({
         morphStartRef={morphStartRef}
         dockTargetRef={dockTargetRef}
         notesSectionRef={notesSectionRef}
+        viewportRef={viewportRef}
         onPhaseChange={onPhaseChange}
         enabled={enabled}
       />
@@ -107,6 +110,7 @@ export function HeroScene({
   className,
 }: HeroSceneProps) {
   const [phase, setPhase] = useState<SculpturePhase>("geometry");
+  const viewportRef = useRef<HTMLDivElement>(null);
   const handlePhaseChange = useCallback((next: SculpturePhase) => {
     setPhase(next);
   }, []);
@@ -125,6 +129,7 @@ export function HeroScene({
       style={{ zIndex }}
     >
       <div
+        ref={viewportRef}
         className="pointer-events-none fixed inset-0 h-[100svh] w-full"
         data-name="sculpture-viewport"
       >
@@ -158,6 +163,7 @@ export function HeroScene({
               morphStartRef={morphStartRef}
               dockTargetRef={dockTargetRef}
               notesSectionRef={notesSectionRef}
+              viewportRef={viewportRef}
               onPhaseChange={handlePhaseChange}
               enabled={enabled}
             />
