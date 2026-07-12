@@ -84,13 +84,11 @@ function screenYToWorldY(
   return camera.position.y + dir.y * dist;
 }
 
-/** Resolve dock screen coordinates — clip line + horizontal anchor. */
-function getDockScreenPoint(dockEl: HTMLElement): { x: number; y: number } {
-  const rect = dockEl.getBoundingClientRect();
-  const clipY = window.innerHeight * (DOCK.clipTopPct / 100) + DOCK.screenOffsetY;
+/** Viewport-bottom dock — centered X, base on the bottom edge. */
+function getViewportBottomDock(): { x: number; y: number } {
   return {
-    x: rect.left + rect.width / 2 + DOCK.screenOffsetX,
-    y: clipY,
+    x: window.innerWidth / 2 + DOCK.screenOffsetX,
+    y: window.innerHeight + DOCK.screenOffsetY,
   };
 }
 
@@ -263,32 +261,21 @@ export function ScrollAnimationController({
       ((b ?? a)?.userData.modelHalfHeight as number | undefined) ??
       MODEL_TARGET_HEIGHT / 2;
 
-    // Phase 3+: track Figma dock marker on the notes stage (persists while notes is in view).
-    if (enabled && s.morphProgress >= PHASE.morphEnd && dockTargetRef.current) {
-      const notesRect = notesSectionRef.current?.getBoundingClientRect();
-      const notesVisible =
-        notesRect &&
-        notesRect.bottom > 0 &&
-        notesRect.top < window.innerHeight;
+    // Phase 3+: dock sculpture base to the viewport bottom (all breakpoints).
+    if (enabled && s.morphProgress >= PHASE.morphEnd) {
+      const revealT =
+        (s.morphProgress - PHASE.morphEnd) / (1 - PHASE.morphEnd);
+      const t = Math.min(1, revealT);
 
-      if (notesVisible) {
-        const revealT =
-          (s.morphProgress - PHASE.morphEnd) / (1 - PHASE.morphEnd);
-        const t = Math.min(1, revealT);
+      const { x: targetScreenX, y: targetScreenY } = getViewportBottomDock();
+      const dockWorldY =
+        screenYToWorldY(cam, targetScreenY, s.posZ) + DOCK.worldOffsetY;
+      const dockWorldX = screenXToWorldX(cam, targetScreenX, s.posZ);
+      // Pivot is bbox center — lift by half-height so the base sits on the bottom edge.
+      const bottomAlignedY = dockWorldY + s.scale * halfH;
 
-        const { x: targetScreenX, y: targetScreenY } = getDockScreenPoint(
-          dockTargetRef.current,
-        );
-
-        const dockWorldY =
-          screenYToWorldY(cam, targetScreenY, s.posZ) + DOCK.worldOffsetY;
-        const dockWorldX = screenXToWorldX(cam, targetScreenX, s.posZ);
-        const clipFromBottom = DOCK.modelClipFromBottomPct * MODEL_TARGET_HEIGHT;
-        const clipAlignedY = dockWorldY + s.scale * (halfH - clipFromBottom);
-
-        posY = gsap.utils.interpolate(PRE_MORPH.posY, clipAlignedY, t);
-        posX = gsap.utils.interpolate(0, dockWorldX, t);
-      }
+      posY = gsap.utils.interpolate(PRE_MORPH.posY, bottomAlignedY, t);
+      posX = gsap.utils.interpolate(0, dockWorldX, t);
     }
 
     if (a) {
@@ -307,16 +294,11 @@ export function ScrollAnimationController({
       setMaterialsOpacity(b, s.opacityB, !overlapping && s.opacityB >= 0.99);
     }
 
+    // Clear any leftover mid-viewport clip from earlier dock iterations.
     const viewport = viewportRef?.current;
     if (viewport) {
-      const clipInset = 100 - DOCK.clipTopPct;
-      const shouldClip = enabled && s.morphProgress >= 0.88;
-      viewport.style.clipPath = shouldClip
-        ? `inset(0 0 ${clipInset}% 0)`
-        : "none";
-      viewport.style.webkitClipPath = shouldClip
-        ? `inset(0 0 ${clipInset}% 0)`
-        : "none";
+      viewport.style.clipPath = "none";
+      viewport.style.webkitClipPath = "none";
     }
   });
 

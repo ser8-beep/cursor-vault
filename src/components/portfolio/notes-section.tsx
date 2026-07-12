@@ -11,7 +11,7 @@ import {
   NotesTexture,
   NotesWatermark,
 } from "./notes";
-import { Z_INDEX, DOCK } from "./hero-scene/constants";
+import { Z_INDEX } from "./hero-scene/constants";
 
 type NotesSectionProps = {
   dockTargetRef?: React.RefObject<HTMLDivElement | null>;
@@ -61,13 +61,12 @@ export const NotesSection = forwardRef<HTMLElement, NotesSectionProps>(
             <NotesStickyDiscourse variant="grey" />
           </div>
 
-          {/* Globe dock anchor — horizontal lock; vertical clip via DOCK.clipTopPct */}
+          {/* Dock sentinel — ScrollTrigger end marker; world dock uses viewport bottom. */}
           <div
             ref={dockTargetRef}
             aria-hidden="true"
             data-name="sculpture-dock-target"
-            className="pointer-events-none absolute bottom-0 left-0 h-px w-px"
-            style={{ left: `${DOCK.centerXPct}%`, transform: "translateX(-50%)" }}
+            className="pointer-events-none absolute bottom-0 left-1/2 h-px w-px -translate-x-1/2"
           />
         </motion.div>
       </section>
