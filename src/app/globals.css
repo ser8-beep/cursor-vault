@@ -133,6 +133,7 @@
   --leading-8: var(--leading-8);
   --leading-hero: var(--leading-hero);
   --leading-hero-compact: var(--leading-hero-compact);
+  --leading-hero-dynamic: var(--leading-hero-dynamic);
 
   /* Motion */
   --ease-standard: var(--easing-standard);

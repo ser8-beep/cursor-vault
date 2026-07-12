@@ -225,9 +225,13 @@
   /* Hero display size (size/4xl in the design = 36 @1440; scaled down    */
   /* through the display-m ramp on smaller modes)                         */
   --size-hero: var(--size-display-m);
-  --size-hero-compact: var(--size-heading-m); /* 20px — mobile/tablet hero @ Figma 104:19033 */
+  --size-hero-compact: 20px; /* Figma 104:18253 text-animation @ 360 — pinned through tablet */
   --leading-hero: var(--leading-tight);
   --leading-hero-compact: 28px; /* Figma text-animation-left-atoms line box */
+  --leading-hero-dynamic: var(--leading-8); /* Figma text-animation-right-atoms — 48px line box */
+  --height-hero-dynamic: 35px; /* Figma dynamic row clip height @ 104:18253 */
+  --width-sculpture-hero-mobile: 272.621px; /* Figma 104:18253 marble-designing-systems */
+  --height-sculpture-hero-mobile: 582px;
 
   /* ------------------------------------------------------------------ */
   /* Layout — Layout collection, Mobile mode                              */
@@ -270,6 +274,7 @@
     --section-large: 96px;
     --section-hero: 120px;
     --padding-canvas: var(--grid-margin);
+    --size-hero-compact: 20px; /* stay @ 20px — Figma 104:18253 optical truth, not heading-m ramp */
     --height-scroll-bridge-spacer: 50svh; /* tablet act-2 bridge for hero text choreography */
     /* cs-card — Figma case-study-card-768 */
     --height-cs-card: 152px;
