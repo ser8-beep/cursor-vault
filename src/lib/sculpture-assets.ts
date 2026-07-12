@@ -1,12 +1,14 @@
 /**
  * Sculpture GLB URLs for hero → data-stories scroll morph.
  *
- * Canonical source files: src/lib/internal-scroll/3d-assets/
- *   - geometry.glb (Model A — hero / geometry tools)
- *   - globe.glb    (Model B — globe reveal)
+ * Canonical source files: src/lib/internal-scroll/3d-assets-update/
+ *   - geometry-patina.glb (Model A — hero / geometry tools)
+ *   - globe-patina.glb    (Model B — globe reveal)
  *
- * Served at runtime from public/internal-scroll/3d-assets/ (static copies).
+ * Served at runtime from public/internal-scroll/3d-assets-update/ (symlink).
  * Do NOT ES-import .glb — Turbopack has no loader for src imports.
  */
-export const SCULPTURE_MODEL_A_URL = "/internal-scroll/3d-assets/geometry.glb";
-export const SCULPTURE_MODEL_B_URL = "/internal-scroll/3d-assets/globe.glb";
+export const SCULPTURE_MODEL_A_URL =
+  "/internal-scroll/3d-assets-update/geometry-patina.glb";
+export const SCULPTURE_MODEL_B_URL =
+  "/internal-scroll/3d-assets-update/globe-patina.glb";
