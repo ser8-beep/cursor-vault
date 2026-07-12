@@ -1,0 +1,139 @@
+{
+  "description": "Figma component → React implementation mapping for cursor-vault",
+  "components": [
+    {
+      "figma": "header-1440",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/header.tsx",
+      "tokens": ["--nav-background-default", "--nav-background-splash", "--nav-text"]
+    },
+    {
+      "figma": "organism-case-study-card",
+      "figmaPage": "05 Components",
+      "figmaNodeId": "99:2367",
+      "figmaUrl": "https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=99-2367",
+      "react": "src/components/portfolio/case-study-card.tsx",
+      "codeConnect": "src/figma/CaseStudyCard.figma.ts",
+      "tokensCss": "design-system/tokens/css/case-study-card.css",
+      "tokens": [
+        "--card-background-default",
+        "--card-background-hover",
+        "--color-card-border",
+        "--height-cs-card",
+        "--size-cs-title",
+        "--size-cs-tag",
+        "--shadow-cs-hover"
+      ],
+      "breakpoints": {
+        "360": { "height": "120px", "layout": "1-col stack" },
+        "768": { "height": "152px", "layout": "2-col grid" },
+        "1280": { "height": "180px", "layout": "4-col row" },
+        "1600": { "height": "220px" },
+        "1920": { "height": "240px" }
+      },
+      "variants": ["Insurance", "Maternity", "Smart Home", "ERP"],
+      "states": ["default", "hover"],
+      "note": "Responsive organism — local Code Connect template only (Pro plan cannot publish)"
+    },
+    {
+      "figma": "psuedo-footer-1440",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/pseudo-footer.tsx",
+      "tokens": ["--footer-background", "--footer-text"]
+    },
+    {
+      "figma": "ghost-cursor",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/ghost-cursor.tsx",
+      "tokens": [],
+      "note": "Illustration — not token-bound"
+    },
+    {
+      "figma": "notes",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes-section.tsx",
+      "figmaNodeId": "104:18983",
+      "tokens": [],
+      "note": "Collage composed from notes-molecule/* components"
+    },
+    {
+      "figma": "notes-molecule/stamp",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-stamp.tsx",
+      "figmaNodeId": "104:18948",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/Polaroid",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-polaroid.tsx",
+      "figmaNodeId": "104:18947",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/texture",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-texture.tsx",
+      "figmaNodeId": "104:18944",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/sticky-white",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-sticky-discourse.tsx",
+      "figmaNodeId": "104:18946",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/sticky-grey",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-sticky-discourse.tsx",
+      "figmaNodeId": "104:18945",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/photo",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-photo.tsx",
+      "figmaNodeId": "104:18950",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/base-paper",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-base-paper.tsx",
+      "figmaNodeId": "104:18949",
+      "tokens": []
+    },
+    {
+      "figma": "notes-molecule/note",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/notes/notes-watermark.tsx",
+      "figmaNodeId": "104:18951",
+      "tokens": []
+    },
+    {
+      "figma": "carousel-1440",
+      "figmaPage": "05 Components",
+      "figmaNodeId": "104:19033",
+      "react": "src/components/portfolio/case-study-carousel.tsx",
+      "codeConnect": "src/figma/CaseStudyCarousel.figma.ts",
+      "tokens": ["--gap-cs-grid-x"],
+      "note": "Layout frame — hosts organism-case-study-card instances; order Insurance → Maternity → Smart Home → ERP"
+    },
+    {
+      "figma": "maternity | erp | insurance | iot",
+      "figmaPage": "05 Components",
+      "react": "src/components/portfolio/constants.ts → CASE_STUDIES",
+      "assets": ["csInsurance", "csMaternity", "csSmartHome", "csErp"],
+      "tokens": [],
+      "note": "Case study art — local rasters under public/figma/"
+    }
+  ],
+  "pages": {
+    "home": {
+      "figma": "08 Desktop (final screens)",
+      "react": "src/components/portfolio/home-page.tsx"
+    }
+  }
+}
