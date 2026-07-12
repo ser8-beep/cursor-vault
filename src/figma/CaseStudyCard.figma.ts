@@ -12,8 +12,8 @@ export default {
   example: figma.code`
     <CaseStudyCard
       study={{
-        title: "${title}",
-        tags: ["${tag1}", "${tag2}"],
+        title: "${title.toUpperCase()}",
+        tags: ["${tag1.toUpperCase()}", "${tag2.toUpperCase()}"],
         asset: "csSmartHome",
         href: "/case-studies/smart-home",
       }}

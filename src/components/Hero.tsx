@@ -22,13 +22,13 @@ type HeroProps = {
 
 const HERO_TAGLINE = "That make sense";
 const HERO_SUBTEXT =
-  "PRODUCT_DESIGNER // AI NATIVE LEAN UX SYSTEMS WORKFLOWS";
+  "PRODUCT_DESIGNER //AI NATIVE_LEAN UX_SYSTEMS_WORKFLOWS";
 
 const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur effect */
 
 /**
- * splash-organism — Figma 104:19033 (mobile/tablet) / 13:509 (laptop+).
- * Splash: stacked typewriter molecule (104:18518). Footer-enter: 2-line headline + subtext.
+ * splash-organism — Figma 104:18253 (mobile/tablet optical) / 13:509 (laptop+).
+ * Splash: stacked typewriter molecule (104:18253). Footer-enter: 2-line headline + subtext (104:18518).
  */
 export function Hero({
   scrollProgress,
@@ -71,8 +71,8 @@ export function Hero({
   });
 
   const sculptureTranslateY = useTransform(scrollProgress, (p) => {
-    if (!motionEnabled || p < SCROLL_FOLD.sculptureMorphStart) return "-46%";
-    return `${mapRange(p, SCROLL_FOLD.sculptureMorphStart, SCROLL_FOLD.sculptureMorphEnd, -46, -38)}%`;
+    if (!motionEnabled || p < SCROLL_FOLD.sculptureMorphStart) return "0%";
+    return `${mapRange(p, SCROLL_FOLD.sculptureMorphStart, SCROLL_FOLD.sculptureMorphEnd, 0, -8)}%`;
   });
 
   const sculptureScale = useTransform(scrollProgress, (p) => {
@@ -98,14 +98,14 @@ export function Hero({
   return (
     <section
       aria-label="Introduction"
-      data-node-id="104:19033"
+      data-node-id="104:18253"
       data-name="splash-organism"
-      className="relative flex min-h-0 flex-1 w-full items-center overflow-visible"
+      className="relative flex min-h-0 flex-1 w-full items-start overflow-visible"
     >
       {showInlineSculpture ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/2 z-[var(--z-20)] aspect-[366/782] overflow-hidden h-[calc(100svh-var(--section-hero)*2.2)] laptop:h-[calc(100svh-var(--section-hero)*1.15)] max-h-[calc(var(--space-160)*4.9)]"
+          className="pointer-events-none absolute bottom-0 left-1/2 z-[var(--z-20)] aspect-[366/782] overflow-hidden h-[var(--height-sculpture-hero-mobile)] w-[var(--width-sculpture-hero-mobile)] max-w-[76%]"
           style={
             motionEnabled
               ? {
@@ -119,7 +119,7 @@ export function Hero({
                   filter: restingBlur,
                   left: `${SCULPTURE_HERO_REST.leftPct}%`,
                   x: `${SCULPTURE_HERO_REST.translateXPct}%`,
-                  translateY: `${SCULPTURE_HERO_REST.translateYPct}%`,
+                  translateY: "0%",
                 }
           }
           data-name="sculpture-position-blur"
@@ -153,12 +153,17 @@ export function Hero({
             style={{ opacity: motionEnabled ? textOpacity : 1 }}
             {...headlineMotionProps}
           >
-            {/* Mobile & tablet — Figma 104:18518 stacked 2-line layout */}
+            {/* Mobile & tablet — Figma 104:18253 / 104:18518 stacked 2-line layout */}
             <div className="relative z-[var(--z-30)] flex w-full flex-col gap-gap-sm laptop:hidden">
-              <p className="text-right font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-compact tracking-normal text-text-primary whitespace-nowrap">
-                Building <span className="text-text-link">systems</span>
-              </p>
-              <div className="flex flex-col items-start gap-xs">
+              <div
+                className="flex min-h-[var(--height-hero-dynamic)] w-full items-start justify-end"
+                data-name="text-animation-right-atoms"
+              >
+                <p className="text-right font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link whitespace-nowrap">
+                  Building systems
+                </p>
+              </div>
+              <div className="flex flex-col items-start gap-xs" data-name="text-animation-left-atoms">
                 <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-compact tracking-normal text-text-primary whitespace-nowrap">
                   {HERO_TAGLINE}
                 </p>

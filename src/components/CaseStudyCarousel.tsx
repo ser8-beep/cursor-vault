@@ -10,10 +10,10 @@ import {
 } from "@/lib/motion/home-scroll";
 
 const CASE_STUDIES: CaseStudy[] = [
-  { title: "Insurance", tags: ["Responsive", "BFSI"], asset: "csInsurance", href: "/case-studies/insurance" },
-  { title: "Maternity", tags: ["Mobile", "Wellness"], asset: "csMaternity", href: "/case-studies/maternity" },
-  { title: "Smart Home", tags: ["Mobile", "IOT"], asset: "csSmartHome", href: "/case-studies/smart-home" },
-  { title: "ERP", tags: ["SaaS", "Admin"], asset: "csErp", href: "/case-studies/erp" },
+  { title: "INSURANCE", tags: ["RESPONSIVE", "BFSI"], asset: "csInsurance", href: "/case-studies/insurance" },
+  { title: "MATERNITY", tags: ["MOBILE", "WELLNESS"], asset: "csMaternity", href: "/case-studies/maternity" },
+  { title: "SMART HOME", tags: ["MOBILE", "IOT"], asset: "csSmartHome", href: "/case-studies/smart-home" },
+  { title: "ERP", tags: ["SAAS", "ADMIN"], asset: "csErp", href: "/case-studies/erp" },
 ];
 
 type CaseStudyCarouselProps = {
