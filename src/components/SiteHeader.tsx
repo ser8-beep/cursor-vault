@@ -9,8 +9,8 @@ import { MontageEmbed, NavMontage } from "./NavMontage";
 
 const NAV_ITEMS = [
   { label: "CASE_STUDIES", count: "04", href: "#case-studies" },
-  { label: "DATA_STORIES", count: "03", href: "#data-stories" },
-  { label: "ABOUT_ME", count: "3+ yrs", href: "#about" },
+  { label: "DATA_STORIES", count: "04", href: "#data-stories" },
+  { label: "ABOUT_ME", count: "", href: "#about" },
 ];
 
 function ResumeIcon({ size }: { size: "sm" | "lg" }) {
@@ -114,7 +114,7 @@ type SiteHeaderProps = {
 };
 
 /**
- * Responsive header default states — Figma 104:19033 / 90:1771 (header_default_states_responsive).
+ * Responsive header — Figma header-360 in 104:18273 (89:1216); tablet/desktop via 90:1771 / 13:450.
  * Motion: header-enter (13:32068).
  */
 export function SiteHeader({
@@ -151,8 +151,8 @@ export function SiteHeader({
 
   return (
     <header
-      data-node-id="104:19033"
-      data-name="header_default_states_responsive"
+      data-node-id="104:18273"
+      data-name="header-360"
       className="flex w-full min-w-0 flex-col gap-gap-sm tablet:flex-row tablet:items-start tablet:gap-md"
     >
       <motion.nav
@@ -221,9 +221,11 @@ export function SiteHeader({
                   className="inline-flex shrink-0 items-center gap-2xs py-2xs font-display text-overline tracking-caption text-text-primary whitespace-nowrap transition-colors duration-[var(--duration-base)] ease-standard hover:text-text-link focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-link tablet:text-button tablet:py-sm laptop:text-label-s desktop:text-label-l"
                 >
                   {item.label}
-                  <span className="font-helvetica text-text-muted" aria-hidden="true">
-                    {item.count}
-                  </span>
+                  {item.count ? (
+                    <span className="font-helvetica text-text-muted" aria-hidden="true">
+                      {item.count}
+                    </span>
+                  ) : null}
                 </Link>
               </li>
             ))}
