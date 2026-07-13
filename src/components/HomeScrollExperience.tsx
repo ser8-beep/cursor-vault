@@ -124,7 +124,7 @@ export function HomeScrollExperience() {
       className="canvas-pattern flex min-h-screen flex-col gap-gap-md p-canvas overflow-x-clip"
     >
       <div
-        className="relative flex h-[100svh] shrink-0 flex-col justify-between gap-gap-lg"
+        className="relative flex h-[100svh] shrink-0 flex-col justify-between gap-gap-sm laptop:gap-gap-lg"
         data-name="first-fold"
       >
         <SiteHeader

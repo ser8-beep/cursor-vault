@@ -232,6 +232,8 @@
   --height-hero-dynamic: 35px; /* Figma dynamic row clip height @ 104:18253 */
   --width-sculpture-hero-mobile: 272.621px; /* Figma 104:18253 marble-designing-systems */
   --height-sculpture-hero-mobile: 582px;
+  --height-splash-organism: 593px; /* Figma 104:18255 splash-organism stack */
+  --blur-sculpture-mobile: 1.488px; /* Figma marble-designing-systems @ 360 */
 
   /* ------------------------------------------------------------------ */
   /* Layout — Layout collection, Mobile mode                              */

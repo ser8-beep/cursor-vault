@@ -20,15 +20,18 @@ type HeroProps = {
   showHeadline: boolean;
 };
 
-const HERO_TAGLINE = "That make sense";
+/** Figma 104:18253 splash / 104:18518 footer-enter copy */
+const HERO_FOOTER_DYNAMIC = "Building systems";
+const HERO_FOOTER_ANCHOR = "That make sense";
 const HERO_SUBTEXT =
   "PRODUCT_DESIGNER //AI NATIVE_LEAN UX_SYSTEMS_WORKFLOWS";
 
-const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur effect */
+const SCULPTURE_BLUR_DESKTOP_PX = 27; /* --blur-sculpture */
+const SCULPTURE_BLUR_MOBILE_PX = 1.488; /* --blur-sculpture-mobile @ 104:18253 */
 
 /**
  * splash-organism — Figma 104:18253 (mobile/tablet optical) / 13:509 (laptop+).
- * Splash: stacked typewriter molecule (104:18253). Footer-enter: 2-line headline + subtext (104:18518).
+ * Mobile/tablet: 593px isolate stack — text molecule @ pt-20 top, sculpture bottom-anchored.
  */
 export function Hero({
   scrollProgress,
@@ -52,10 +55,10 @@ export function Hero({
   });
 
   const sculptureBlurPx = useTransform(() => {
-    if (!entranceSculptureSharp) return SCULPTURE_BLUR_PX;
+    if (!entranceSculptureSharp) return SCULPTURE_BLUR_DESKTOP_PX;
     const p = scrollProgress.get();
     if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return 0;
-    return SCULPTURE_BLUR_PX;
+    return SCULPTURE_BLUR_DESKTOP_PX;
   });
 
   const sculptureFilter = useMotionTemplate`blur(${sculptureBlurPx}px)`;
@@ -80,7 +83,9 @@ export function Hero({
     return mapRange(p, SCROLL_FOLD.sculptureMorphStart, SCROLL_FOLD.sculptureMorphEnd, 1, 1.14);
   });
 
-  const restingBlur = entranceSculptureSharp ? "blur(0px)" : `blur(${SCULPTURE_BLUR_PX}px)`;
+  const mobileRestingBlur = entranceSculptureSharp
+    ? `blur(${SCULPTURE_BLUR_MOBILE_PX}px)`
+    : `blur(${SCULPTURE_BLUR_DESKTOP_PX}px)`;
   const showInlineSculpture = !desktopSculptureMotion;
   const showTypewriter = splashPhase === "splash";
 
@@ -100,12 +105,12 @@ export function Hero({
       aria-label="Introduction"
       data-node-id="104:18253"
       data-name="splash-organism"
-      className="relative flex min-h-0 flex-1 w-full items-start overflow-visible"
+      className="relative isolate flex min-h-[var(--height-splash-organism)] flex-1 w-full overflow-visible laptop:min-h-0 laptop:block"
     >
       {showInlineSculpture ? (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-0 left-1/2 z-[var(--z-20)] aspect-[366/782] overflow-hidden h-[var(--height-sculpture-hero-mobile)] w-[var(--width-sculpture-hero-mobile)] max-w-[76%]"
+          className="pointer-events-none absolute bottom-0 left-1/2 z-[var(--z-20)] h-[var(--height-sculpture-hero-mobile)] w-[var(--width-sculpture-hero-mobile)] max-w-[76%] -translate-x-1/2 overflow-hidden"
           style={
             motionEnabled
               ? {
@@ -115,20 +120,15 @@ export function Hero({
                   translateY: sculptureTranslateY,
                   scale: sculptureScale,
                 }
-              : {
-                  filter: restingBlur,
-                  left: `${SCULPTURE_HERO_REST.leftPct}%`,
-                  x: `${SCULPTURE_HERO_REST.translateXPct}%`,
-                  translateY: "0%",
-                }
+              : { filter: mobileRestingBlur }
           }
           data-name="sculpture-position-blur"
           initial={false}
           animate={
             motionEnabled
               ? entranceSculptureSharp
-                ? { filter: "blur(0px)" }
-                : { filter: `blur(${SCULPTURE_BLUR_PX}px)` }
+                ? { filter: `blur(${SCULPTURE_BLUR_MOBILE_PX}px)` }
+                : { filter: `blur(${SCULPTURE_BLUR_DESKTOP_PX}px)` }
               : undefined
           }
           transition={{ duration: ENTRANCE.sculptureBlur.duration, ease: EASE_STANDARD }}
@@ -144,43 +144,56 @@ export function Hero({
         </motion.div>
       ) : null}
 
-      <div className="relative w-full" data-name="text-animation-molecule">
+      <div
+        className="relative z-[var(--z-30)] flex min-h-[var(--height-splash-organism)] w-full flex-col items-start gap-gap-sm pt-[var(--space-20)] laptop:min-h-0 laptop:pt-0"
+        data-name="text-animation-molecule"
+      >
         {showTypewriter ? (
           <SplashTypewriter motionEnabled={motionEnabled} visible />
         ) : (
           <motion.div
-            className="flex w-full flex-col gap-gap-sm pt-[var(--space-20)] laptop:grid laptop:grid-cols-[1fr_auto] laptop:grid-rows-[auto_auto] laptop:justify-between laptop:gap-x-gap-lg laptop:gap-y-[var(--space-12)] laptop:pt-0"
+            className="flex w-full flex-col gap-gap-sm laptop:grid laptop:grid-cols-[1fr_auto] laptop:grid-rows-[auto_auto] laptop:justify-between laptop:gap-x-gap-lg laptop:gap-y-[var(--space-12)]"
             style={{ opacity: motionEnabled ? textOpacity : 1 }}
             {...headlineMotionProps}
           >
             {/* Mobile & tablet — Figma 104:18253 / 104:18518 stacked 2-line layout */}
-            <div className="relative z-[var(--z-30)] flex w-full flex-col gap-gap-sm laptop:hidden">
+            <div className="relative flex w-full flex-col gap-gap-sm laptop:hidden">
               <div
-                className="flex min-h-[var(--height-hero-dynamic)] w-full items-start justify-start"
-                data-name="text-animation-right-atoms"
+                className="flex h-[var(--height-hero-dynamic)] w-full items-start"
+                data-name="dynamic"
               >
-                <p className="text-left font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link whitespace-nowrap">
-                  Building systems
-                </p>
+                <div
+                  className="flex min-h-[var(--height-hero-dynamic)] flex-1 items-start"
+                  data-name="text-animation-right-atoms"
+                >
+                  <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link whitespace-nowrap">
+                    {HERO_FOOTER_DYNAMIC}
+                  </p>
+                </div>
               </div>
-              <div className="flex flex-col items-start gap-xs" data-name="text-animation-left-atoms">
-                <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-compact tracking-normal text-text-primary whitespace-nowrap">
-                  {HERO_TAGLINE}
-                </p>
-                <p className="font-display text-caption leading-3 tracking-wider text-text-secondary">
-                  {HERO_SUBTEXT}
-                </p>
+              <div className="flex w-full items-center" data-name="anchor">
+                <div
+                  className="flex flex-1 flex-col items-start gap-xs"
+                  data-name="text-animation-left-atoms"
+                >
+                  <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-compact tracking-normal text-text-primary whitespace-nowrap">
+                    {HERO_FOOTER_ANCHOR}
+                  </p>
+                  <p className="font-display text-caption leading-3 tracking-wider text-text-secondary">
+                    {HERO_SUBTEXT}
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Laptop+ — unchanged 2-column grid @ 36px */}
-            <div className="relative z-[var(--z-30)] hidden flex-col gap-gap-sm laptop:contents">
+            <div className="relative hidden flex-col gap-gap-sm laptop:contents">
               <h1 className="text-center font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-1 laptop:row-start-1 laptop:text-left laptop:whitespace-nowrap">
                 Building <span className="text-text-link">systems</span>
               </h1>
             </div>
-            <p className="relative z-[var(--z-10)] hidden w-full self-end text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:block laptop:w-auto laptop:justify-self-end laptop:self-auto laptop:whitespace-nowrap">
-              {HERO_TAGLINE}
+            <p className="relative hidden w-full self-end text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:block laptop:w-auto laptop:justify-self-end laptop:self-auto laptop:whitespace-nowrap">
+              {HERO_FOOTER_ANCHOR}
             </p>
             <span className="sr-only">Building systems that make sense</span>
           </motion.div>

@@ -3,6 +3,8 @@
 import { motion } from "motion/react";
 import { EASE_STANDARD } from "@/lib/motion/homePrototype";
 
+const HERO_SPLASH_DYNAMIC = "AI Native, Lean UX";
+const HERO_SPLASH_ANCHOR = "Lead UI/UX - L1";
 const HERO_SUBTEXT =
   "PRODUCT_DESIGNER //AI NATIVE_LEAN UX_SYSTEMS_WORKFLOWS";
 
@@ -12,8 +14,8 @@ type SplashTypewriterProps = {
 };
 
 /**
- * text-animation-molecule @ splash — Figma 104:18253 / 104:18257 (optical truth).
- * Stacked vertical molecule: blue dynamic line, black anchor + subtext (left stack).
+ * text-animation-molecule inner content @ splash — Figma 104:18257.
+ * Parent Hero provides pt-20 + 593px stack; this renders dynamic + anchor rows only.
  */
 export function SplashTypewriter({ motionEnabled, visible }: SplashTypewriterProps) {
   const motionProps = motionEnabled
@@ -26,19 +28,19 @@ export function SplashTypewriter({ motionEnabled, visible }: SplashTypewriterPro
 
   return (
     <motion.div
-      className="flex w-full flex-col gap-gap-sm pt-[var(--space-20)]"
+      className="flex w-full flex-col gap-gap-sm"
       data-node-id="104:18257"
-      data-name="text-animation-molecule"
+      data-name="text-animation-molecule-inner"
       aria-hidden={!visible}
       {...motionProps}
     >
-      <div className="flex w-full items-start" data-name="dynamic">
+      <div className="flex w-full items-center" data-name="dynamic">
         <div
-          className="flex min-h-[var(--height-hero-dynamic)] flex-1 items-start justify-start"
+          className="flex h-[var(--height-hero-dynamic)] flex-1 items-start"
           data-name="text-animation-right-atoms"
         >
-          <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link text-left whitespace-nowrap">
-            AI Native, Lean UX
+          <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link whitespace-nowrap">
+            {HERO_SPLASH_DYNAMIC}
           </p>
         </div>
       </div>
@@ -49,7 +51,7 @@ export function SplashTypewriter({ motionEnabled, visible }: SplashTypewriterPro
           data-name="text-animation-left-atoms"
         >
           <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-compact tracking-normal text-text-primary whitespace-nowrap">
-            Lead UI/UX - L1
+            {HERO_SPLASH_ANCHOR}
           </p>
           <p className="font-display text-caption leading-3 tracking-wider text-text-secondary">
             {HERO_SUBTEXT}
