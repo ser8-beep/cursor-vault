@@ -33,8 +33,6 @@ type SculptureStickyParallaxProps = {
   notesSectionProgress: MotionValue<number>;
   entranceSharp: boolean;
   motionEnabled: boolean;
-  /** Hide only while motion video scrubs (act 1), not act 2 bridge. */
-  suppressDuringHandoff?: boolean;
 };
 
 /**
@@ -46,7 +44,6 @@ export function SculptureStickyParallax({
   notesSectionProgress,
   entranceSharp,
   motionEnabled,
-  suppressDuringHandoff = false,
 }: SculptureStickyParallaxProps) {
   const smoothedSectionProgress = useSmoothedMotionValue(notesSectionProgress, 0.12);
 
@@ -188,7 +185,7 @@ export function SculptureStickyParallax({
     },
   );
 
-  if (!motionEnabled || suppressDuringHandoff) return null;
+  if (!motionEnabled) return null;
 
   return (
     <motion.div

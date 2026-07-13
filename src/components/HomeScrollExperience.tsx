@@ -9,23 +9,19 @@ import { CaseStudyCarousel } from "./CaseStudyCarousel";
 import { DataStoriesSection } from "./DataStoriesSection";
 import { SiteFooter } from "./SiteFooter";
 import { SculptureStickyParallax } from "./SculptureStickyParallax";
-import { FirstFoldMotionVideo } from "./FirstFoldMotionVideo";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { useDesktopSculptureMotion } from "@/lib/motion/useDesktopSculptureMotion";
 import { useMobileMotion } from "@/lib/motion/useMobileMotion";
 import { ENTRANCE } from "@/lib/motion/homePrototype";
+import { useLazyScrollProgress } from "@/lib/motion/useLazyScrollProgress";
 import { SPLASH_PHASE_MS, type SplashPhase } from "@/lib/motion/splashPhase";
-import {
-  useChoreographyProgress,
-  useInternalScroll,
-} from "@/lib/internal-scroll";
 
 /** Scroll distance for header-enter on mobile (13:32068). */
 const HEADER_ENTER_SCROLL_PX = 48;
 
 /**
- * Orchestrates splash → footer-enter → header-enter, first-fold internal scroll
- * handoff (motion video), then scroll-linked second fold (Figma 13:32063 → 13:32102).
+ * Orchestrates splash → header-enter, lazy document scroll through hero +
+ * second fold (Figma 13:32063 → 13:32102), then data stories.
  */
 export function HomeScrollExperience() {
   const reducedMotion = usePrefersReducedMotion();
@@ -33,12 +29,9 @@ export function HomeScrollExperience() {
   const desktopSculptureMotion = useDesktopSculptureMotion();
   const motionEnabled = mobileMotion && !reducedMotion;
   const sculptureMotionEnabled = desktopSculptureMotion && !reducedMotion;
-  /** Act 2+ scroll choreography — all viewports except reduced motion. */
   const scrollChoreographyEnabled = !reducedMotion;
-  const internalScrollEnabled = scrollChoreographyEnabled;
 
-  const firstFoldRef = useRef<HTMLDivElement>(null);
-  const scrollTrackRef = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
   const dataStoriesRef = useRef<HTMLElement>(null);
   const [splashPhase, setSplashPhase] = useState<SplashPhase>(
     motionEnabled ? "splash" : "header",
@@ -46,43 +39,15 @@ export function HomeScrollExperience() {
   const [entranceActive, setEntranceActive] = useState(!motionEnabled);
   const [sculptureSharp, setSculptureSharp] = useState(!motionEnabled);
 
-  const { scrollYProgress } = useScroll({
-    target: scrollTrackRef,
-    offset: ["start end", "end start"],
+  const scrollProgress = useLazyScrollProgress({
+    target: pageRef,
+    smooth: scrollChoreographyEnabled ? 0.12 : 1,
   });
 
   const { scrollYProgress: notesSectionProgress } = useScroll({
     target: dataStoriesRef,
     offset: ["start end", "end start"],
   });
-
-  const settleHandoffAnchorRef = useRef<(() => void) | null>(null);
-
-  const internalScroll = useInternalScroll({
-    handoffRef: firstFoldRef,
-    enabled: internalScrollEnabled,
-    onForwardComplete: () => {
-      const handoff = firstFoldRef.current;
-      if (!handoff) return;
-      const targetY = handoff.offsetTop + handoff.offsetHeight;
-      const settle = () => settleHandoffAnchorRef.current?.();
-      requestAnimationFrame(() => {
-        window.scrollTo({ top: targetY, behavior: "auto" });
-        requestAnimationFrame(settle);
-        window.addEventListener("scroll", settle, { once: true, passive: true });
-      });
-    },
-    onBackwardComplete: () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    },
-  });
-
-  const choreography = useChoreographyProgress({
-    documentProgress: scrollYProgress,
-    internalScroll,
-  });
-
-  settleHandoffAnchorRef.current = choreography.settleHandoffAnchor;
 
   /* splash → footer → header phase timers (54:1126 → 13:32068) */
   useEffect(() => {
@@ -152,14 +117,13 @@ export function HomeScrollExperience() {
   const showFullHeader = splashPhase === "header";
   const showContact = splashPhase !== "splash";
   const showHeadline = splashPhase !== "splash";
-  /** Hide sticky sculpture only while motion video scrubs (act 1). */
-  const suppressSculptureParallax = internalScroll.isActive;
 
   return (
-    <div className="canvas-pattern flex min-h-screen flex-col gap-gap-md p-canvas overflow-x-clip">
-      {/* First fold — exactly one viewport; handoff sentinel for internal scroll */}
+    <div
+      ref={pageRef}
+      className="canvas-pattern flex min-h-screen flex-col gap-gap-md p-canvas overflow-x-clip"
+    >
       <div
-        ref={firstFoldRef}
         className="relative flex h-[100svh] shrink-0 flex-col justify-between gap-gap-lg"
         data-name="first-fold"
       >
@@ -170,7 +134,7 @@ export function HomeScrollExperience() {
           reducedMotion={reducedMotion}
         />
         <Hero
-          scrollProgress={choreography.progress}
+          scrollProgress={scrollProgress}
           motionEnabled={scrollChoreographyEnabled}
           desktopSculptureMotion={sculptureMotionEnabled}
           entranceSculptureSharp={sculptureSharp}
@@ -184,14 +148,7 @@ export function HomeScrollExperience() {
         )}
       </div>
 
-      <FirstFoldMotionVideo
-        progress={internalScroll.progress}
-        isActive={internalScroll.isActive}
-        enabled={internalScrollEnabled}
-      />
-
-      {/* Act 2+ — natural document scroll (case studies → data stories → footer) */}
-      <div ref={scrollTrackRef} className="flex flex-col gap-gap-md">
+      <div className="flex flex-col gap-gap-md">
         <div
           aria-hidden="true"
           className="pointer-events-none shrink-0 h-[var(--height-scroll-bridge-spacer)]"
@@ -211,11 +168,10 @@ export function HomeScrollExperience() {
       </div>
 
       <SculptureStickyParallax
-        scrollProgress={choreography.progress}
+        scrollProgress={scrollProgress}
         notesSectionProgress={notesSectionProgress}
         entranceSharp={sculptureSharp}
         motionEnabled={sculptureMotionEnabled}
-        suppressDuringHandoff={suppressSculptureParallax}
       />
     </div>
   );

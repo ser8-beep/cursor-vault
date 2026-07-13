@@ -1,15 +1,15 @@
 /**
- * Three-act home scroll timeline — maps internal scroll, document bridge,
- * and section-local Data Stories progress onto one global 0→1 choreography axis.
+ * Home scroll timeline — document scroll and section-local Data Stories
+ * progress on one global 0→1 choreography axis.
  *
- * Act 1: internal scroll handoff (0 → handoffEnd)
- * Act 2: document scroll bridge — case studies + sculpture morph (handoffEnd → bridgeEnd)
+ * Act 1: hero text + sculpture morph (0 → handoffEnd)
+ * Act 2: case studies bridge (handoffEnd → bridgeEnd)
  * Act 3: Data Stories section-local progress (notesSectionProgress 0→1)
  */
 
 import { SCROLL_FOLD } from "./homePrototype";
 
-/** Internal scroll completes — end of text-image-change / motion video. */
+/** Hero morph completes — end of text-image-change. */
 export const HANDOFF_END = SCROLL_FOLD.sculptureMorphEnd;
 
 /** Sculpture fully in notes collage pose. */
@@ -20,6 +20,3 @@ export const FOLD_END = SCROLL_FOLD.notesEnd;
 
 /** Section progress at which sticky sculpture + notes parallax engage. */
 export const NOTES_STICKY_ENTER = 0.05;
-
-/** Re-export for internal-scroll module (keeps single source of truth). */
-export const DEFAULT_CHOREOGRAPHY_HANDOFF_END = HANDOFF_END;
