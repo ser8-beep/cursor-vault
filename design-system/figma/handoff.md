@@ -52,7 +52,9 @@ VibdutrclLgS5EpFWgbJhH
 | Laptop+ | 1280px+ uses 1440 desktop tokens | 12 | **80px** (`--grid-margin` / `--padding-canvas`) | 24px |
 | Desktop | 1440px | 12 | 80px | 24px |
 
-Leaf mobile/tablet frames (AI Handoff): `104:18253` hero, `104:18273` header-enter, `104:18494` contact, `104:18648` case studies. See `src/lib/figma-handoff.ts`.
+Leaf mobile/tablet frames (AI Handoff): settled hero optical `104:18648` / splash-organism `104:18650` (DESIGNING SYSTEMS); phase splash `104:18253`; header-enter `104:18273`; contact `104:18494`. See `src/lib/figma-handoff.ts`.
+
+**Code Connect:** cloud publish needs Org/Enterprise. Local templates under `src/figma/*.figma.ts` stay the source of truth for agents.
 
 ## Known gaps
 

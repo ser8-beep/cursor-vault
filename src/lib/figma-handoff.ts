@@ -35,7 +35,25 @@ export interface ComponentHandoff {
 export const COMPONENT_HANDOFFS: ComponentHandoff[] = [
   /* —— Mobile / tablet leaf frames (AI Handoff) —— */
   {
-    figmaName: "home-template-splash (hero 360)",
+    figmaName: "home-template-splash (carousel-enter optical hero)",
+    figmaNodeId: "104:18648",
+    codePath: "src/components/Hero.tsx",
+    codeConnectPath: "src/figma/Hero.figma.ts",
+    status: "implemented",
+    localhostPath: "/",
+    mode: "mobile",
+  },
+  {
+    figmaName: "splash-organism (settled DESIGNING SYSTEMS)",
+    figmaNodeId: "104:18650",
+    codePath: "src/components/Hero.tsx",
+    codeConnectPath: "src/figma/Hero.figma.ts",
+    status: "implemented",
+    localhostPath: "/",
+    mode: "mobile",
+  },
+  {
+    figmaName: "home-template-splash (phase: splash)",
     figmaNodeId: "104:18253",
     codePath: "src/components/Hero.tsx",
     codeConnectPath: "src/figma/Hero.figma.ts",
@@ -52,7 +70,7 @@ export const COMPONENT_HANDOFFS: ComponentHandoff[] = [
     mode: "mobile",
   },
   {
-    figmaName: "home-template-splash (footer-enter hero)",
+    figmaName: "home-template-splash (phase: footer-enter)",
     figmaNodeId: "104:18518",
     codePath: "src/components/Hero.tsx",
     codeConnectPath: "src/figma/Hero.figma.ts",
@@ -79,7 +97,7 @@ export const COMPONENT_HANDOFFS: ComponentHandoff[] = [
     mode: "mobile",
   },
   {
-    figmaName: "home-template case studies list",
+    figmaName: "home-template case studies list (template-section in 104:18648)",
     figmaNodeId: "104:18648",
     codePath: "src/components/CaseStudyCarousel.tsx",
     codeConnectPath: "src/figma/CaseStudyCarousel.figma.ts",

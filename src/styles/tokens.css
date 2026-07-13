@@ -230,10 +230,14 @@
   --leading-hero-compact: 28px; /* Figma text-animation-left-atoms line box */
   --leading-hero-dynamic: var(--leading-8); /* Figma text-animation-right-atoms — 48px line box */
   --height-hero-dynamic: 35px; /* Figma dynamic row clip height @ 104:18253 */
-  --width-sculpture-hero-mobile: 272.621px; /* Figma 104:18253 marble-designing-systems */
-  --height-sculpture-hero-mobile: 582px;
-  --height-splash-organism: 593px; /* Figma 104:18255 splash-organism stack */
-  --blur-sculpture-mobile: 1.488px; /* Figma marble-designing-systems @ 360 */
+  /* Settled mobile hero sculpture — Figma 104:18650 (carousel-enter / 104:18648) */
+  --width-sculpture-hero-mobile: 332.994px;
+  --height-sculpture-hero-mobile: 710.886px;
+  --width-sculpture-hero-mobile-frame: 320.021px; /* sculpture-position-blur frame */
+  --height-sculpture-hero-mobile-frame: 706px;
+  --height-splash-organism: 838px; /* Figma 104:18650 splash-organism */
+  --overlap-splash-sculpture: 59px; /* Figma 104:18650 itemSpacing -59 */
+  --blur-sculpture-mobile: 0px; /* 104:18648 marble has no blur */
 
   /* ------------------------------------------------------------------ */
   /* Layout — Layout collection, Mobile mode                              */

@@ -14,8 +14,8 @@ type SplashTypewriterProps = {
 };
 
 /**
- * text-animation-molecule inner content @ splash — Figma 104:18257.
- * Parent Hero provides pt-20 + 593px stack; this renders dynamic + anchor rows only.
+ * text-animation-molecule @ splash — Figma 104:18257 (phase splash inside 104:18253).
+ * Settled headline lives in Hero.tsx against 104:18650 / 104:18648.
  */
 export function SplashTypewriter({ motionEnabled, visible }: SplashTypewriterProps) {
   const motionProps = motionEnabled
