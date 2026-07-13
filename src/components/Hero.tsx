@@ -156,10 +156,10 @@ export function Hero({
             {/* Mobile & tablet — Figma 104:18253 / 104:18518 stacked 2-line layout */}
             <div className="relative z-[var(--z-30)] flex w-full flex-col gap-gap-sm laptop:hidden">
               <div
-                className="flex min-h-[var(--height-hero-dynamic)] w-full items-start justify-end"
+                className="flex min-h-[var(--height-hero-dynamic)] w-full items-start justify-start"
                 data-name="text-animation-right-atoms"
               >
-                <p className="text-right font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link whitespace-nowrap">
+                <p className="text-left font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link whitespace-nowrap">
                   Building systems
                 </p>
               </div>

@@ -1,7 +1,7 @@
-// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=104-19033
+// url=https://www.figma.com/design/VibdutrclLgS5EpFWgbJhH/Portfolio-%7C-AI-Handoff?node-id=104-18494
 // source=src/components/ContactBar.tsx
 // component=ContactBar
-// responsive=mobile: full email+phone, 40px strip, no icon; tablet+: linkedin + let's connect
+// responsive=psuedo-footer-360: full email+phone, 40px strip, icon-first location; tablet+: linkedin + let's connect
 import figma from "figma";
 
 export default {

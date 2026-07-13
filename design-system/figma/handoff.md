@@ -43,14 +43,16 @@ Then migrate existing `:root` vars in globals.css to use design-system tokens wh
 VibdutrclLgS5EpFWgbJhH
 ```
 
-## Breakpoints (from Layout collection, Desktop mode)
+## Breakpoints (from Layout collection + live `src/styles/tokens.css`)
 
-| Breakpoint | Canvas | Columns | Margin | Gutter |
-|------------|--------|---------|--------|--------|
-| Mobile | 390px | 4 | 16px | 16px |
-| Tablet | 768px | 8 | 32px | 16px |
-| Laptop | 1280px | 12 | 32px | 24px |
+| Breakpoint | Canvas | Columns | Margin / canvas pad | Gutter |
+|------------|--------|---------|---------------------|--------|
+| Mobile | 390 typography / 360 art frames | 4 | 8px canvas pad (`--padding-canvas`) | 16px |
+| Tablet | 768px | 8 | 32px (`--grid-margin`) | 16px |
+| Laptop+ | 1280px+ uses 1440 desktop tokens | 12 | **80px** (`--grid-margin` / `--padding-canvas`) | 24px |
 | Desktop | 1440px | 12 | 80px | 24px |
+
+Leaf mobile/tablet frames (AI Handoff): `104:18253` hero, `104:18273` header-enter, `104:18494` contact, `104:18648` case studies. See `src/lib/figma-handoff.ts`.
 
 ## Known gaps
 

@@ -12,8 +12,8 @@ type SplashTypewriterProps = {
 };
 
 /**
- * text-animation-molecule @ splash — Figma 104:18253 (optical truth).
- * Stacked vertical molecule: blue dynamic line top-right, black anchor + subtext left.
+ * text-animation-molecule @ splash — Figma 104:18253 / 104:18257 (optical truth).
+ * Stacked vertical molecule: blue dynamic line, black anchor + subtext (left stack).
  */
 export function SplashTypewriter({ motionEnabled, visible }: SplashTypewriterProps) {
   const motionProps = motionEnabled
@@ -34,10 +34,10 @@ export function SplashTypewriter({ motionEnabled, visible }: SplashTypewriterPro
     >
       <div className="flex w-full items-start" data-name="dynamic">
         <div
-          className="flex min-h-[var(--height-hero-dynamic)] flex-1 items-start justify-end"
+          className="flex min-h-[var(--height-hero-dynamic)] flex-1 items-start justify-start"
           data-name="text-animation-right-atoms"
         >
-          <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link text-right whitespace-nowrap">
+          <p className="font-display [font-stretch:expanded] uppercase text-hero-compact leading-hero-dynamic tracking-normal text-text-link text-left whitespace-nowrap">
             AI Native, Lean UX
           </p>
         </div>

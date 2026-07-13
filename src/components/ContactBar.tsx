@@ -13,7 +13,7 @@ type ContactLink = {
 
 /** Tablet+ order — Figma psuedo-footer-768+ */
 const CONTACTS_TABLET: ContactLink[] = [
-  { label: "+91 7977371976", href: "tel:+917977371976" },
+  { label: "+91 7977071976", href: "tel:+917977071976" },
   { label: "shivanimkher@gmail.com", href: "mailto:shivanimkher@gmail.com" },
   {
     label: "linkedin @shivani kher",
@@ -25,7 +25,7 @@ const CONTACTS_TABLET: ContactLink[] = [
 /** Mobile — Figma psuedo-footer-360 (104:18494): full email + phone only */
 const CONTACTS_MOBILE: ContactLink[] = [
   { label: "shivanimkher@gmail.com", href: "mailto:shivanimkher@gmail.com" },
-  { label: "+91 7977371976", href: "tel:+917977371976" },
+  { label: "+91 7977071976", href: "tel:+917977071976" },
 ];
 
 const CONTACT_LINK_CLASS =
@@ -57,7 +57,11 @@ function ContactLinks({ contacts }: { contacts: ContactLink[] }) {
 
 function LocationTime({ iconFirst = false }: { iconFirst?: boolean }) {
   const text = (
-    <p className="font-display uppercase text-contact-loc tracking-caption leading-normal text-text-primary text-right">
+    <p
+      className={`font-display uppercase text-contact-loc tracking-caption leading-normal text-text-primary ${
+        iconFirst ? "text-left" : "text-right"
+      }`}
+    >
       LOC: MUMBAI, IN
       <br />
       UTC+5:30
@@ -91,7 +95,7 @@ function LocationTime({ iconFirst = false }: { iconFirst?: boolean }) {
   );
 }
 
-/** contact-strip-sticky — Figma 104:19033 / 101:1714 (360 / 768 / 1366+). */
+/** contact-strip-sticky — Figma psuedo-footer-360 104:18494; tablet+/desktop via 101:1714 / 13:367. */
 export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
   const motionProps = motionEnabled
     ? {
@@ -107,12 +111,12 @@ export function ContactBar({ motionEnabled, entranceActive }: ContactBarProps) {
 
   return (
     <motion.div
-      className="relative z-[var(--z-50)] flex w-full shrink-0 flex-col items-end gap-gap-sm tablet:flex-row tablet:items-end tablet:justify-between tablet:pb-[var(--space-20)]"
-      data-node-id="104:19033"
-      data-name="contact-strip-sticky"
+      className="relative z-[var(--z-50)] flex w-full shrink-0 flex-col items-stretch gap-gap-sm tablet:flex-row tablet:items-end tablet:justify-between tablet:pb-[var(--space-20)]"
+      data-node-id="104:18494"
+      data-name="psuedo-footer-360"
       {...motionProps}
     >
-      <div className="tablet:hidden">
+      <div className="flex w-full justify-start tablet:hidden">
         <LocationTime iconFirst />
       </div>
 
