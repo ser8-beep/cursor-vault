@@ -3,7 +3,7 @@ import {
   SCULPTURE_MODEL_B_URL,
 } from "@/lib/sculpture-assets";
 
-/** Hero / data-stories sculpture GLBs — canonical: src/lib/internal-scroll/3d-assets/ */
+/** Hero / data-stories sculpture GLBs — canonical: src/lib/internal-scroll/3d-assets-update/ */
 export const MODEL_A_URL = SCULPTURE_MODEL_A_URL;
 export const MODEL_B_URL = SCULPTURE_MODEL_B_URL;
 

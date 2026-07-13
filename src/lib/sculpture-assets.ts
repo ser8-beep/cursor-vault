@@ -7,8 +7,10 @@
  *
  * Served at runtime from public/internal-scroll/3d-assets-update/ (symlink).
  * Do NOT ES-import .glb — Turbopack has no loader for src imports.
+ *
+ * `?v=` busts browser / useGLTF cache when binaries are replaced in place.
  */
 export const SCULPTURE_MODEL_A_URL =
-  "/internal-scroll/3d-assets-update/geometry-patina.glb";
+  "/internal-scroll/3d-assets-update/geometry-patina.glb?v=1783886557";
 export const SCULPTURE_MODEL_B_URL =
-  "/internal-scroll/3d-assets-update/globe-patina.glb";
+  "/internal-scroll/3d-assets-update/globe-patina.glb?v=1783883659";
