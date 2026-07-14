@@ -20,16 +20,16 @@ type HeroProps = {
   showHeadline: boolean;
 };
 
+const HERO_TAGLINE = "That make sense";
 /** Settled mobile/tablet copy — Figma 104:18650 inside 104:18648 */
 const HERO_SUBTEXT =
   "PRODUCT_DESIGNER //AI NATIVE_LEAN UX_SYSTEMS_WORKFLOWS";
 
-const SCULPTURE_BLUR_DESKTOP_PX = 27; /* --blur-sculpture */
+const SCULPTURE_BLUR_PX = 27; /* --blur-sculpture token; Figma sculpture-blur effect */
 
 /**
- * splash-organism — optical truth: Figma 104:18650 (home-template 104:18648).
- * Mobile/tablet: vertical stack, text then sculpture with −59px overlap;
- * settled headline = DESIGNING + SYSTEMS (blue). Laptop+ unchanged 2-col @ 36px.
+ * splash-organism — mobile/tablet optical: Figma 104:18650 (104:18648).
+ * Laptop+ layout frozen against main / Figma 13:509 — do not restructure below.
  */
 export function Hero({
   scrollProgress,
@@ -53,10 +53,10 @@ export function Hero({
   });
 
   const sculptureBlurPx = useTransform(() => {
-    if (!entranceSculptureSharp) return SCULPTURE_BLUR_DESKTOP_PX;
+    if (!entranceSculptureSharp) return SCULPTURE_BLUR_PX;
     const p = scrollProgress.get();
     if (!motionEnabled || p < SCROLL_FOLD.textHideStart) return 0;
-    return SCULPTURE_BLUR_DESKTOP_PX;
+    return SCULPTURE_BLUR_PX;
   });
 
   const sculptureFilter = useMotionTemplate`blur(${sculptureBlurPx}px)`;
@@ -98,9 +98,9 @@ export function Hero({
   const mobileSculpture = showInlineSculpture ? (
     <motion.div
       aria-hidden="true"
-      className="pointer-events-none relative z-[var(--z-20)] flex h-[var(--height-sculpture-hero-mobile-frame)] w-[var(--width-sculpture-hero-mobile-frame)] shrink-0 items-center justify-center overflow-visible laptop:absolute laptop:bottom-0 laptop:left-1/2 laptop:h-[var(--height-sculpture-hero-mobile)] laptop:w-[var(--width-sculpture-hero-mobile)] laptop:max-w-[76%] laptop:-translate-x-1/2 laptop:overflow-hidden"
+      className="pointer-events-none relative z-[var(--z-20)] flex h-[var(--height-sculpture-hero-mobile-frame)] w-[var(--width-sculpture-hero-mobile-frame)] shrink-0 items-center justify-center overflow-visible"
       style={
-        motionEnabled && desktopSculptureMotion
+        motionEnabled
           ? {
               filter: sculptureFilter,
               left: sculptureLeft,
@@ -134,7 +134,7 @@ export function Hero({
       aria-label="Introduction"
       data-node-id="104:18650"
       data-name="splash-organism"
-      className="relative isolate flex min-h-0 w-full flex-1 flex-col items-center overflow-visible laptop:block laptop:min-h-0"
+      className="relative flex min-h-0 flex-1 w-full items-start overflow-visible"
     >
       {/* Mobile/tablet — Figma 104:18650: text stack then sculpture, −59px overlap */}
       <div
@@ -186,7 +186,7 @@ export function Hero({
         {mobileSculpture}
       </div>
 
-      {/* Laptop+ — unchanged 2-column grid @ 36px; desktop sculpture via sticky layer */}
+      {/* Laptop+ — restored from main (Figma 13:509); sculpture via SculptureStickyParallax */}
       <div className="relative hidden w-full laptop:block" data-name="text-animation-molecule">
         {showTypewriter ? (
           <SplashTypewriter motionEnabled={motionEnabled} visible />
@@ -196,11 +196,13 @@ export function Hero({
             style={{ opacity: motionEnabled ? textOpacity : 1 }}
             {...headlineMotionProps}
           >
-            <h1 className="col-start-1 row-start-1 text-left font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary whitespace-nowrap">
-              Building <span className="text-text-link">systems</span>
-            </h1>
-            <p className="col-start-2 row-start-1 justify-self-end text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary whitespace-nowrap">
-              That make sense
+            <div className="relative z-[var(--z-30)] flex flex-col gap-gap-sm laptop:contents">
+              <h1 className="text-center font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-1 laptop:row-start-1 laptop:text-left laptop:whitespace-nowrap">
+                Building <span className="text-text-link">systems</span>
+              </h1>
+            </div>
+            <p className="relative z-[var(--z-10)] hidden w-full self-end text-right font-display [font-stretch:expanded] uppercase text-hero leading-hero tracking-normal text-text-primary laptop:col-start-2 laptop:row-start-1 laptop:block laptop:w-auto laptop:justify-self-end laptop:self-auto laptop:whitespace-nowrap">
+              {HERO_TAGLINE}
             </p>
             <span className="sr-only">Building systems that make sense</span>
           </motion.div>
